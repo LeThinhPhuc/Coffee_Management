@@ -1,4 +1,4 @@
-const TemplateData = [
+const TemplateDataMenu = [
     {
         category: "Cafe",
         items: [
@@ -83,4 +83,4 @@ const TemplateData = [
     },
 ];
 
-export default TemplateData;
+export default TemplateDataMenu;
