@@ -132,7 +132,11 @@ const MenuModel = (props) => {
                                     {props.item.price ? "Giá tiền" : "Số lượng"}
                                 </label>
                                 <input
-                                    placeholder="Giá tiền (VNĐ)"
+                                    placeholder={
+                                        props.item.price
+                                            ? "Giá tiền"
+                                            : "Số lượng"
+                                    }
                                     type="text"
                                     name="price"
                                     id="price"

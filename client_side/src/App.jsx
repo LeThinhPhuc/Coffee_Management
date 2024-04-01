@@ -10,7 +10,7 @@ import Manage from "./components/manage/Manage";
 import Loading from "./components/manage/Loading";
 
 function App() {
-    // return <Loading></Loading>;
+    // return <ManageMenu></ManageMenu>;
     return <ManageIngredient></ManageIngredient>;
 }
 
