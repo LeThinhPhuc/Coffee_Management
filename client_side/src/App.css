@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+=======
+@media (max-width:768px){
+    .textbase{
+        font-size: 9px;
+    }
+    .textright{
+        font-size: 25px;
+
+    }
+   
+}
+@media(min-width:992px){
+    .textlg{
+        font-size: 30px;
+        
+    }
+}
+>>>>>>> 47ba880 (order)
