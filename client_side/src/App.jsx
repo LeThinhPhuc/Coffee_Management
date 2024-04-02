@@ -11,12 +11,11 @@ import Loading from "./components/manage/Loading";
 import { AppProvider } from "./context/MenuContext";
 import OrderPage from "./components/OrderPage/OrderPage";
 function App() {
-    return (
-        <AppProvider>
-        <OrderPage></OrderPage>
-        </AppProvider>
-    )
+  return (
+    <AppProvider>
+      <OrderPage></OrderPage>
+    </AppProvider>
+  );
 }
-
 
 export default App;
