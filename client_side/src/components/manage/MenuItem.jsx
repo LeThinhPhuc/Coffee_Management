@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
     faPen,
     faTrash,
