@@ -13,10 +13,9 @@ import OrderPage from "./components/OrderPage/OrderPage";
 function App() {
     return (
         <AppProvider>
-        <OrderPage></OrderPage>
+            <OrderPage></OrderPage>
         </AppProvider>
-    )
+    );
 }
-
 
 export default App;

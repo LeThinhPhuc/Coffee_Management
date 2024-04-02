@@ -1,17 +1,13 @@
-@media (max-width:768px){
-    .textbase{
+@media (max-width: 768px) {
+    .textbase {
         font-size: 9px;
     }
-    .textright{
+    .textright {
         font-size: 25px;
-
     }
-   
 }
-@media(min-width:992px){
-    .textlg{
+@media (min-width: 992px) {
+    .textlg {
         font-size: 30px;
-        
     }
 }
-
