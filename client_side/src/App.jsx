@@ -8,10 +8,15 @@ import ManageMenu from "./components/manage/manageMenu/ManageMenu";
 import ManageIngredient from "./components/manage/manageIngredient/ManageIngredient";
 import Manage from "./components/manage/Manage";
 import Loading from "./components/manage/Loading";
-
+import { AppProvider } from "./context/MenuContext";
+import OrderPage from "./components/OrderPage/OrderPage";
 function App() {
-    // return <ManageMenu></ManageMenu>;
-    return <ManageIngredient></ManageIngredient>;
+    return (
+        <AppProvider>
+        <OrderPage></OrderPage>
+        </AppProvider>
+    )
 }
+
 
 export default App;
