@@ -6,9 +6,6 @@ export default {
             gridTemplateColumns: {
                 "auto-fit-100": "repeat(auto-fit,minmax(100px,180px))",
             },
-            colors: {
-                text: "#854442",
-            },
         },
     },
     plugins: [],
