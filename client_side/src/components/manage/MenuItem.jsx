@@ -9,14 +9,20 @@ import {
     faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 
+//! Card
 const MenuItem = (props) => {
+    //! Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState(props.item);
 
+    //! Theo như templateData thì nếu không có "desc" thì sẽ là card của nguyên liệu
     if (!propsItem.desc) {
         const desc = propsItem.entryDate + " - " + propsItem.expiryDate;
 
         setPropsItem({
+            //! ... là destructuring object, bung hết các field của object
             ...props.item,
+
+            //! field chưa có -> thêm, có -> update
             desc: desc,
             info: propsItem.quantity,
         });
