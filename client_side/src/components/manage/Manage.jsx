@@ -3,9 +3,11 @@ import MenuItem from "./MenuItem";
 import MenuModel from "./MenuModel";
 
 const Manage = (props) => {
+    //! state để quản lí toggle  button "Chỉnh sửa", ẩn/hiện modal
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
+    //! State với các field để hiển thị trong modal, type để check là Menu hay Ingredient
     const [item, setItem] = useState({
         title: null,
         image: null,
@@ -15,22 +17,27 @@ const Manage = (props) => {
         type: props.type,
     });
 
+    //! button "Chỉnh sửa"
     const handleClickEdit = () => {
         setIsEditing((isEditing) => !isEditing);
     };
 
+    //! ẩn/hiện modal
     const handleShowModel = () => {
         setShowModal(true);
     };
 
+    //! ẩn/hiện modal
     const handleCloseModel = () => {
         setShowModal(false);
     };
 
+    //! icon trash trong MenuItem
     const handleDeleteItem = (index, category) => {
         console.log(`Deleted item at [${index}] of [${category}]`);
     };
 
+    //! Icon (+) trong MenuItem, chỉ có trong Ingredient
     const handleAddIngredient = (index, name, category) => {
         console.log(
             `Added 10 items to [${name}] at [${index}] of [${category}]`

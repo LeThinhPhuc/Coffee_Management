@@ -4,20 +4,25 @@ import "./styles.css";
 import Loading from "./Loading";
 
 const MenuModel = (props) => {
+    //! lấy các field trong item truyền từ Manage, để riêng vậy để handle event "onChange" -> thay đổi input:text
     const [name, setName] = useState(props.item.name || "");
     const [info, setInfo] = useState(props.item.info || "");
     const [desc, setDesc] = useState(props.item.desc || "");
     const [image, setImage] = useState(props.item.image || null);
     const [entryDate, setEntryDate] = useState(props.item.entryDate || "");
     const [expiryDate, setExpiryDate] = useState(props.item.expiryDate || "");
+
+    //! check để chỉnh sửa bên ingredient không đc sửa 3 field
     const [isAdd, setisAdd] = useState(
         props.item.title.includes("Thêm đối tượng")
     );
+
+    //! Load image api
     const [isLoading, setIsLoading] = useState(false);
 
     console.log(props.item);
 
-    ///!Upload image
+    //! Upload image dùng thư viên bên ngoài
     const handleUploadImage = async (event) => {
         setIsLoading((isLoading) => true);
 
@@ -45,6 +50,7 @@ const MenuModel = (props) => {
         setIsLoading((isLoading) => false);
     };
 
+    //! Khi bấm xác nhận -> lấy các field trong input thêm vào object, chưa có -> thêm, có -> update
     const handleSubmit = () => {
         const result = {
             ...props.item,
@@ -52,6 +58,9 @@ const MenuModel = (props) => {
             image: image,
             info: info,
             desc: desc,
+
+            //! nếu != "" thì sẽ trả về {field},
+            //! field đó sẽ destructuring và thêm vào object result, không thì thôi
             ...(entryDate != "" && { entryDate }),
             ...(expiryDate != "" && { expiryDate }),
         };
@@ -114,6 +123,7 @@ const MenuModel = (props) => {
                                     value={name}
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                      focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
+                                    //! Mỗi lần thay đổi input:text, re-render để cập nhật
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
@@ -148,6 +158,7 @@ const MenuModel = (props) => {
                             </div>
 
                             {props.type == "menu" && (
+                                //! Ô cuối của Menu, sẽ là "Mô tả"
                                 <div>
                                     <label
                                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -172,6 +183,7 @@ const MenuModel = (props) => {
 
                             {/* //! Hiện nhập entryDate và expiryDate của nguyên liệu */}
                             {props.type != "menu" && (
+                                //! 2 ô cuối của ingredient, sẽ là 2 input điền ngày
                                 <div
                                     className={
                                         !isAdd ? `pointer-events-none` : ""

@@ -1,6 +1,7 @@
 import React from "react";
 
 const Loading = () => {
+    //! Hiệu ứng loading khi tải hình ảnh
     return (
         <div
             className="fixed top-[50%] right-[50%] z-50 text-[#854442] inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"

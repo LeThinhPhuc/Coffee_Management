@@ -10,8 +10,8 @@ import Manage from "./components/manage/Manage";
 import Loading from "./components/manage/Loading";
 
 function App() {
-    // return <ManageMenu></ManageMenu>;
-    return <ManageIngredient></ManageIngredient>;
+    return <ManageMenu></ManageMenu>;
+    // return <ManageIngredient></ManageIngredient>;
 }
 
 export default App;
