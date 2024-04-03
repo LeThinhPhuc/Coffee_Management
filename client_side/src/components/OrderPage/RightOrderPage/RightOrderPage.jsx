@@ -3,6 +3,7 @@ import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
 import '../../../App.css'
 import { MenuContext } from "../../../context/MenuContext";
+import CardVoucher from "./CardVoucher/CardVoucher";
 const RightOrderPage = () => {
     const { selectedDrink, addSelectedDrink } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
@@ -10,6 +11,22 @@ const RightOrderPage = () => {
     const handleModal = () => {
         setCheckModal(!checkModal);
     }
+
+
+    let arrVoucher=[
+        {
+            id:1,
+            image:"",
+            discount:20,
+            title:"Quoc khanh VN"
+        },
+        {
+            id:2,
+            image:"",
+            discount:30,
+            title:"Sinh nhat Thinh Phuc"
+        }
+    ]
 
     return (
         <div>
@@ -90,7 +107,7 @@ const RightOrderPage = () => {
                                     Popular
                                 </p>
                                 <ul class="flex flex-col gap-1 mt-3 -ml-2">
-                                    <button role="menuitem"
+                                    {/* <button role="menuitem"
                                         class="mb-4 flex w-full cursor-pointer select-none items-center justify-center gap-3 rounded-md px-3 !py-4 pt-[9px] pb-2 text-start leading-tight shadow-md outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                         <img src="https://docs.material-tailwind.com/icons/metamask.svg" alt="metamast" class="w-6 h-6" />
                                         <h6
@@ -106,37 +123,25 @@ const RightOrderPage = () => {
                                             class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal uppercase text-blue-gray-900">
                                             Connect with Coinbase
                                         </h6>
-                                    </button>
+                                    </button> */}
+                                    {
+                                        arrVoucher.map((item)=>{
+                                            return <CardVoucher key={item.id} val={item}></CardVoucher>
+                                        })
+                                    }
+                                    {/* <CardVoucher></CardVoucher>
+                                    <CardVoucher></CardVoucher> */}
+
+
+
+
+
+                                    
                                 </ul>
                             </div>
-                            <div>
-                                <p
-                                    class="block py-4 font-sans text-base antialiased font-semibold leading-relaxed uppercase text-blue-gray-900 opacity-70">
-                                    Other
-                                </p>
-                                <ul class="mt-4 -ml-2.5 flex flex-col gap-1">
-                                    <button role="menuitem"
-                                        class="mb-4 flex w-full cursor-pointer select-none items-center justify-center gap-3 rounded-md px-3 !py-4 pt-[9px] pb-2 text-start leading-tight shadow-md outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                                        <img src="https://docs.material-tailwind.com/icons/trust-wallet.svg" alt="metamast"
-                                            class="border rounded-md h-7 w-7 border-blue-gray-50" />
-                                        <h6
-                                            class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal uppsecase text-blue-gray-900">
-                                            Connect with Trust Wallet
-                                        </h6>
-                                    </button>
-                                </ul>
-                            </div>
+                           
                         </div>
-                        <div class="flex flex-wrap items-center justify-between gap-2 p-4 shrink-0 text-blue-gray-500">
-                            <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                                New to Ethereum wallets?
-                            </p>
-                            <button
-                                class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                type="button">
-                                Learn More
-                            </button>
-                        </div>
+                       
                     </div>
                 </div>
 
