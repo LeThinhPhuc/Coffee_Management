@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5qJdbHCmSXx7b0pODcRAEKgLkrNmq39bQn9vT0vOIK0ZZbM/i4mNpse4kChUVRZLpgQq1dTxY87l8Q/qzjko/Q==",
+  "dgSpecHash": "zH+ThfG4a9tdSc5/F1gxO3XwBjT1BiLSiSEVWJ7W64CnRofD1orZ/1TsaEWGVRdGUxn0/7TcOdFW0pNnUg2LnA==",
   "success": true,
-  "projectFilePath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
+  "projectFilePath": "/Users/user/Documents/AspNetWebApi/CoffeeManagementBackend/Coffee_Management/server_side/CoffeeShopApi.csproj",
   "expectedPackageFiles": [
     "/Users/user/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/user/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.28/microsoft.aspnetcore.cryptography.internal.6.0.28.nupkg.sha512",

@@ -2852,11 +2852,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
+      "projectUniqueName": "/Users/user/Documents/AspNetWebApi/CoffeeManagementBackend/Coffee_Management/server_side/CoffeeShopApi.csproj",
       "projectName": "CoffeeShopApi",
-      "projectPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
+      "projectPath": "/Users/user/Documents/AspNetWebApi/CoffeeManagementBackend/Coffee_Management/server_side/CoffeeShopApi.csproj",
       "packagesPath": "/Users/user/.nuget/packages/",
-      "outputPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/obj/",
+      "outputPath": "/Users/user/Documents/AspNetWebApi/CoffeeManagementBackend/Coffee_Management/server_side/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/user/.nuget/NuGet/NuGet.Config"
