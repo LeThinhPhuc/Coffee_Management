@@ -10,10 +10,13 @@ import Manage from "./components/manage/Manage";
 import Loading from "./components/manage/Loading";
 import { AppProvider } from "./context/MenuContext";
 import OrderPage from "./components/OrderPage/OrderPage";
+import LoginSignup from "./components/Login_Signup/LoginSignup";
+
 function App() {
     return (
         <AppProvider>
-            <OrderPage></OrderPage>
+            {/* <OrderPage></OrderPage> */}
+            <LoginSignup/>
         </AppProvider>
     );
 }
