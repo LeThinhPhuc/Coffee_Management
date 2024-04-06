@@ -1,3 +1,4 @@
+
 namespace CoffeeShopApi.Models.DomainModels
 {
     using Microsoft.AspNetCore.Identity;
