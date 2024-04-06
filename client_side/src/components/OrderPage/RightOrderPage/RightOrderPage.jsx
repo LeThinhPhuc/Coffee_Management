@@ -1,18 +1,47 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
 import '../../../App.css'
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 const RightOrderPage = () => {
-    const { selectedDrink, addSelectedDrink } = useContext(MenuContext)
+    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
+    const [changeCnt, setChangeCnt]=useState(0)
 
     const handleModal = () => {
         setCheckModal(!checkModal);
     }
 
+    const handleChose=(tmp)=>{
+        setCheckModal(tmp)
+    }
 
+    useEffect(()=>{
+        total();
+        discount()
+    },[changeCnt])
+    const total=()=>{
+        let sum=0;
+        
+        if(selectedDrink){
+            for(let i=0;i<selectedDrink.length;i++){
+                sum+=(selectedDrink[i].price*selectedDrink[i].soluong)
+            }
+        }
+        return sum;
+    }
+
+    const discount=()=>{
+        let to = total();
+        if(voucherValue){
+            return to*voucherValue.discount/100;
+
+        }else{
+            return 0;
+        }
+
+    }
     let arrVoucher=[
         {
             id:1,
@@ -35,13 +64,22 @@ const RightOrderPage = () => {
 
             {
                 selectedDrink.map((item) => {
-                    return <OrderItem items={item}></OrderItem>
+                    return <OrderItem changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
+            {/* {
+                checkModalVoucher?"":<CardVoucher   val={voucherValue}/>
+            } */}
             <div className="flex justify-center items-center">
                 <div onClick={handleModal} className="flex justify-center items-center margin-[0 auto] cursor-pointer p-5 border-2 mx-2 text-[vw] max-w-[300px] min-w-[100px] textbase rounded-md ">% Apply Discount Voucher</div>
 
             </div>
+            {
+                voucherValue?<CardVoucher   val={voucherValue}/>:""
+            }
+            
+
+
 
             <div className="flex items-center justify-center">
                 <div className="w-[25vw]">
@@ -52,8 +90,8 @@ const RightOrderPage = () => {
                             <div>Discount</div>
                         </div>
                         <div className="flex flex-col items-end">
-                            <div>1000$</div>
-                            <div>0$</div>
+                            <div>{total()}$</div>
+                            <div>{discount()}$</div>
                         </div>
 
                     </div>
@@ -63,7 +101,7 @@ const RightOrderPage = () => {
                             <div>Total payment</div>
                         </div>
                         <div className="flex flex-col items-end">
-                            <div>1000$</div>
+                            <div>{total()-discount()}$</div>
                         </div>
 
                     </div>
@@ -107,30 +145,11 @@ const RightOrderPage = () => {
                                     Popular
                                 </p>
                                 <ul class="flex flex-col gap-1 mt-3 -ml-2">
-                                    {/* <button role="menuitem"
-                                        class="mb-4 flex w-full cursor-pointer select-none items-center justify-center gap-3 rounded-md px-3 !py-4 pt-[9px] pb-2 text-start leading-tight shadow-md outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                                        <img src="https://docs.material-tailwind.com/icons/metamask.svg" alt="metamast" class="w-6 h-6" />
-                                        <h6
-                                            class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal uppercase text-blue-gray-900">
-                                            Connect with MetaMask
-                                        </h6>
-                                    </button>
-                                    <button role="menuitem"
-                                        class="mb-1 flex w-full cursor-pointer select-none items-center justify-center gap-3 rounded-md px-3 !py-4 pt-[9px] pb-2 text-start leading-tight shadow-md outline-none transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                                        <img src="https://docs.material-tailwind.com/icons/coinbase.svg" alt="metamast"
-                                            class="w-6 h-6 rounded-md" />
-                                        <h6
-                                            class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal uppercase text-blue-gray-900">
-                                            Connect with Coinbase
-                                        </h6>
-                                    </button> */}
                                     {
                                         arrVoucher.map((item)=>{
-                                            return <CardVoucher key={item.id} val={item}></CardVoucher>
+                                            return <CardVoucher checkModal={checkModal} handleChose={handleChose}  key={item.id} val={item}></CardVoucher>
                                         })
                                     }
-                                    {/* <CardVoucher></CardVoucher>
-                                    <CardVoucher></CardVoucher> */}
 
 
 

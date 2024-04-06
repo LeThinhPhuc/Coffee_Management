@@ -6,6 +6,8 @@ export const MenuContext = createContext();
 // Component cung cấp Context
 export const AppProvider = ({ children }) => {
     const [selectedDrink, setSelectedDrink] = useState([]);
+    const [checkModalVoucher,setModalVoucher]=useState(false)
+    const [voucherValue,setVoucherValue]=useState()
 
     const addSelectedDrink = (newSelected) => {
         setSelectedDrink([...selectedDrink, newSelected]);
@@ -15,13 +17,18 @@ export const AppProvider = ({ children }) => {
         const updatedSelectedDrink = selectedDrink.filter((item) => item.id !== deleteSelected.id);
             setSelectedDrink(updatedSelectedDrink);
     }
-
+   
     return (
         <MenuContext.Provider
             value={{
                 selectedDrink: selectedDrink, // Chỉnh sửa thành selectedDrink
+                setSelectedDrink:setSelectedDrink,
                 addSelectedDrink: addSelectedDrink, // Thêm hàm addSelectedDrink vào context
-                deleteOutSelected:deleteOutSelected
+                deleteOutSelected:deleteOutSelected,
+                checkModalVoucher:checkModalVoucher,
+                setModalVoucher:setModalVoucher,
+                voucherValue:voucherValue,
+                setVoucherValue:setVoucherValue
             }}
         >
             {children}
