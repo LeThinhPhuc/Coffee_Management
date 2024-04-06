@@ -3,7 +3,8 @@ using Microsoft.OpenApi.Models; // for Swagger
 using Microsoft.AspNetCore.Identity;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
-using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
+using Microsoft.EntityFrameworkCore;
+using CoffeeShopApi.DataAccess;    // for .UseSqlServer()
 
 
 // $ dotnet add package Microsoft.OpenApi --version 1.6.14
@@ -18,6 +19,9 @@ using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<IOrderService,OrderService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
 
 #region Controllers:
 builder.Services.AddControllers();
@@ -74,7 +78,8 @@ builder.Services.AddSwaggerGen(c =>
 
 
 #region DbContext & Identity Auth:
-var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
+//var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
+var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
 
