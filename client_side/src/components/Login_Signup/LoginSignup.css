@@ -1,11 +1,12 @@
 .container{
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
+    margin-top: 200px; 
+    margin:auto;
     width: 600px;
     background:#dfccaf;
     padding-bottom: 30px;
+   
 }
 .header{
     display:flex ;
@@ -21,7 +22,7 @@
     font-weight: 700;
 }
 .underline{
-   width: 61px; 
+   width: 140px; 
    height: 6px;
    background-color: rgb(124 45 18);
    border-radius: 9px;
@@ -51,11 +52,11 @@
     border: none;
     outline: none;
     color:#797979;
-    font-size: 19ox;
+    font-size: 19px;
 }
 
 .forgot_password{
-    padding-left: 33%;
+    padding-left: 35.333%;
     margin-top: 27px;
     color:#797979;
     font-size: 18px;
@@ -66,20 +67,20 @@
     cursor: pointer;
 }
 
-.text_dont_acccout{
+.text_havenot_acccout{
     margin-top: 27px;
     color:#797979;
     font-size: 18px;
     display:flex;
     justify-content: center;
 }
-.text_dont_acccout span{
+.text_havenot_acccout span{
     color: brown;
     cursor: pointer;
 }
 
 .change_signup{
-    padding-left:33%;
+    padding-left:35.333%;
     margin-top: 25px;
     color:#797979;
     font-size: 18px;
@@ -95,7 +96,7 @@
     align-items: center;
     width: 220px;
     height: 59px;
-    margin: 10px 120px;
+    margin: 10px 116px;
     color: #fff;
     background-color:#854442;
     border-radius: 50px;
@@ -103,14 +104,13 @@
     font-weight: 700;
     cursor: pointer;    
 }
-
 .btn_signup{
     display:flex;
     justify-content: center;
     align-items: center;
     width: 220px;
     height: 59px;
-    margin: 10px 120px;
+    margin: 10px 116px;
     color: #fff;
     background-color:#854442;
     border-radius: 50px;
