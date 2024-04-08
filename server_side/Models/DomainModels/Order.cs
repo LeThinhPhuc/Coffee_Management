@@ -19,5 +19,6 @@ namespace CoffeeShopApi.Models.DomainModels
 
         [JsonIgnore]
         public List<OrderItem>? OrderItems { get; set; }
+        
     }
 }
