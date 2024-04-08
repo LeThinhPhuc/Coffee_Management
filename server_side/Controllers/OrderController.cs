@@ -1,55 +1,28 @@
-﻿using AutoMapper;
-using CoffeeShopApi.DataAccess;
-using CoffeeShopApi.DTO;
-using CoffeeShopApi.Models.DomainModels;
+﻿using CoffeeShopApi.DataAccess;
+using CoffeeShopApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Collections;
 
 namespace CoffeeShopApi.Controllers
 {
-    [ApiController]
-    [Route("api/Orders")]
-    public class OrderController : ControllerBase
+    public class OrderController : BaseApiController
     {
-        private IOrderService orderRepo;
-        public OrderController(IOrderService orderRepo) 
+        private  IOrderRepository repo;
+        public OrderController(IOrderRepository repo)
         {
-            this.orderRepo = orderRepo; 
+            this.repo = repo;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderItemDTO>>> GetAllOrders()
         {
-            var orders = await orderRepo.GetOrdersAsync();
-            if (orders.Count() == 0)
+            var orders = await repo.GetAllOrdersAsync();
+            if(orders.Count() == 0)
             {
-                return NotFound("Không tìm thấy order");
+                return NotFound();
             }
+
             return Ok(orders);
-        }
-
-
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<Order>> GetOrderById(string id)
-        {
-            var order = await orderRepo.GetOrdersByIdAsync(id);
-            if (order == null)
-            {
-                return NotFound("Không tìm thấy order");
-            }
-            return Ok(order);
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersByUserId(string userId)
-        {
-            var order = await orderRepo.GetOrdersByUserIdAsync(userId);
-            if(order == null)
-            {
-                return NotFound("Không tìm thấy order");
-            }
-            return Ok(order);
         }
     }
 }
