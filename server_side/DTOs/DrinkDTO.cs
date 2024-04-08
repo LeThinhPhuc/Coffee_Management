@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using CoffeeShopApi.Models.Abstract;
+﻿using CoffeeShopApi.Models.Abstract;
 using CoffeeShopApi.Models.DomainModels;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CoffeeShopApi.DTOs
 {
@@ -13,8 +14,8 @@ namespace CoffeeShopApi.DTOs
         public string? Name { get; set; } = "Untitled Drink";
 
         public double Price { get; set; }
-
-        public DrinkTypeDTO? DrinkType { get; set; }
-
+        [Required]
+        public string DrinkTypeId { get; set; }
+       
     }
 }

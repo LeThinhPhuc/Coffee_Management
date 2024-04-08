@@ -1,9 +1,8 @@
-﻿using CoffeeShopApi.Models.Abstract;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace CoffeeShopApi.DTO
+namespace CoffeeShopApi.DTOs
 {
     public class ApplicationUserDTO : IdentityUser
     {

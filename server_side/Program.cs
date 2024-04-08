@@ -19,10 +19,7 @@ using CoffeeShopApi.DataAccess;    // for .UseSqlServer()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddScoped<IOrderService,OrderService>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
-
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 #region Controllers:
 builder.Services.AddControllers();
 #endregion
