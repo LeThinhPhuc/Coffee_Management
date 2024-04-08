@@ -69,7 +69,7 @@ const LoginSignup = () => {
         {action==="Login"?<div></div>: <div className="change_signup">Register already? <span onClick={()=>{setAction("Login")}}>Login</span><button className="btn_signup">SignUp</button>
 </div>}
 
-        {action==="Sign Up"?<div></div>: <div className="text_dont_acccout">Dont have an accouut? <span  onClick={()=>{setAction("Sign Up")}}>SignUp</span></div>}
+        {action==="Sign Up"?<div></div>: <div className="text_havenot_acccout">Dont have an accouut? <span  onClick={()=>{setAction("Sign Up")}}>SignUp</span></div>}
         
         </div>
     );

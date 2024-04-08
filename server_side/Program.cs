@@ -78,8 +78,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 #region DbContext & Identity Auth:
-//var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
-var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
+var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
 builder.Services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
 
