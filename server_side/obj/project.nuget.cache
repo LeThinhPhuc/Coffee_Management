@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "JwyjifY+B3jObwEeCPiqsneBn2hJE6Q35lG9z/i7TKN6Ah+r95uNfoUV6SreyGdE5O/9vcrhL7Op+gdW82pydw==",
+  "dgSpecHash": "4+PCnnDDKsvD13bBcgC7Gep5asjqBDYJgRNGsKc9ud80CqV4zOXSqBafg+h2CDLYw8k5KVRcuFjc86IgBa/0WA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+  "projectFilePath": "C:\\Users\\tuand\\Desktop\\New folder\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tuand\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\tuand\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\tuand\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.28\\microsoft.aspnetcore.cryptography.internal.6.0.28.nupkg.sha512",
     "C:\\Users\\tuand\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.28\\microsoft.aspnetcore.cryptography.keyderivation.6.0.28.nupkg.sha512",
