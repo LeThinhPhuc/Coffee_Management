@@ -3,7 +3,8 @@ using Microsoft.OpenApi.Models; // for Swagger
 using Microsoft.AspNetCore.Identity;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
-using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
+using Microsoft.EntityFrameworkCore;
+using CoffeeShopApi.DataAccess;    // for .UseSqlServer()
 
 
 // $ dotnet add package Microsoft.OpenApi --version 1.6.14
@@ -17,6 +18,8 @@ using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
 // $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 6.0.27
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 
 #region Controllers:
