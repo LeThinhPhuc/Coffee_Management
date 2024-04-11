@@ -26,6 +26,8 @@ using CoffeeShopApi.Repositories.Implements;    // for .UseSqlServer()
 // $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 6.0.28
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Add services to the container.
 #region Services injection
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
