@@ -62,39 +62,7 @@ namespace CoffeeShopApi.Controllers
             return Ok(authResult);
         }
 
-        /*
-        [HttpPost]
-        [Route("refresh")]
-        public async Task<ActionResult<AuthResult>> Refresh(RefreshTokenRequest model)
-        {
-            if (model is null)
-                return BadRequest("Invalid client request");
-
-            string accessToken = model.AccessToken;
-            string refreshToken = model.RefreshToken;
-
-            try
-            {
-                // call tokenservice
-                var authResult = await _authService.Refresh(model);
-
-
-                if (!authResult.Succeeded)
-                {
-                    return BadRequest(authResult);
-                }
-
-                return Ok(authResult);
-            }
-            // We can simply catch a general "Exception" class instead of specific "SecurityTokenException"
-            catch (Exception ex)   // detailed but have to import "Microsoft.IdentityModel.Tokens"
-            {
-                //return Unauthorized(ex.Message);
-                return Unauthorized("Failed to request new accessToken");
-            }
-        }
-        */
-
+        
         [Authorize]
         [HttpPost("changepassword")]
         public async Task<Object> ChangePasswordAsync([FromBody] ChangePasswordModel model)
