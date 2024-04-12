@@ -100,7 +100,8 @@ Could not create constraint or index. See previous errors.
             var password = "admin";
             var passwordHasher = new PasswordHasher<ApplicationUser>();
             var hashedPassword = passwordHasher.HashPassword(null, password);
-            var adminUser = new ApplicationUser { Id = adminUserId, UserName = "admin", FullName = "Admin", PasswordHash = hashedPassword };
+            // without NormalizedUserName field, Identity's UserManager won't be abble to find that user
+            var adminUser = new ApplicationUser { Id = adminUserId, UserName = "admin", NormalizedUserName = "ADMIN", FullName = "Admin", PasswordHash = hashedPassword };
 
             modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
 
