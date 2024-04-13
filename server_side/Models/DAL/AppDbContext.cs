@@ -1,11 +1,9 @@
 namespace CoffeeShopApi.Models.DAL
 {
-    using System.Runtime.Intrinsics.X86;
-    using CoffeeShopApi.Models.DomainModels;
+    using Models.DomainModels;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.VisualBasic;
 
     public class AppDbContext : IdentityDbContext
     {
@@ -104,6 +102,22 @@ Could not create constraint or index. See previous errors.
             var adminUser = new ApplicationUser { Id = adminUserId, UserName = "admin", NormalizedUserName = "ADMIN", FullName = "Admin", PasswordHash = hashedPassword };
 
             modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
+
+            // Seed the "Admin" role
+            var adminRoleId = Guid.NewGuid().ToString();
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            });
+
+            // Assign the "Admin" role to the admin user
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                UserId = adminUserId,
+                RoleId = adminRoleId
+            });
 
             // Seed Shops
             var shopId1 = Guid.NewGuid().ToString();

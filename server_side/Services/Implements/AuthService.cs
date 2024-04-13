@@ -48,16 +48,59 @@ namespace CoffeeShopApi.Services.Implements
 
         public async Task<List<object>> GetAllUsersAsync()
         {
+            // large overhead due to loop
+            /*
             var usersWithShops = await _context.Users
-                .Include(u => u.Shops) // Include the shops associated with each user
-                .ToListAsync();
+            .Include(u => u.Shops) // Include the shops associated with each user
+            .ToListAsync();
 
-            var result = usersWithShops.Select(user => new
+            var result = new List<object>();
+
+            foreach (var user in usersWithShops)
+            {
+                // Get user roles
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                // Map user and roles to anonymous object
+                var userObject = new
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    Roles = userRoles, // Assign roles to the Roles property
+                    Shops = user.Shops.Select(shop => new
+                    {
+                        ShopId = shop.Id,
+                        ShopName = shop.Name,
+                        ShopAddress = shop.Address,
+                        ShopRevenue = shop.Revenue
+                    }).ToList()
+                };
+
+                result.Add(userObject);
+            }
+
+            return result;
+            */
+
+
+            // direct LinQ
+            var result = await _context.Users
+            .Include(u => u.Shops) // Include the shops associated with each user
+            .Select(user => new
             {
                 UserId = user.Id,
                 UserName = user.UserName,
                 FullName = user.FullName,
                 Email = user.Email,
+                Roles = _context.UserRoles
+                            .Where(ur => ur.UserId == user.Id)
+                            .Join(_context.Roles,
+                                ur => ur.RoleId,
+                                role => role.Id,
+                                (ur, role) => role.Name)
+                            .ToList(),
                 Shops = user.Shops.Select(shop => new
                 {
                     ShopId = shop.Id,
@@ -65,16 +108,17 @@ namespace CoffeeShopApi.Services.Implements
                     ShopAddress = shop.Address,
                     ShopRevenue = shop.Revenue
                 }).ToList()
-            }).ToList<object>(); // Explicitly cast the result to a list of objects
+            })
+            .ToListAsync();
 
-            return result;
+            // Explicitly cast the result to a list of objects
+            return result.ToList<object>();
         }
-
 
 
         // only username, not email & phoneNumber
         // can only login by username
-        public async Task<AuthResult> LoginEFAsync(LoginModel model, string? userAgentString)
+        public async Task<AuthResult> LoginEFAsync(LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.UserNameOrEmailOrPhoneNumber);
 
@@ -111,7 +155,7 @@ namespace CoffeeShopApi.Services.Implements
                 return new AuthResult
                 {
                     Errors = errors.ToArray()
-                    //Errors = new[] { "Incorrect email or password!" }
+                    //Errors = new[] { "Incorrect username or password!" }
                 };
             }
 
@@ -168,66 +212,82 @@ namespace CoffeeShopApi.Services.Implements
 
         }
 
-        /*
-        public async Task<AuthResult> Refresh(RefreshTokenRequest model)
+        // Took around 68ms to show success register result
+        public async Task<AuthResult> RegisterAsync(RegisterModel model)
         {
-            // call tokenservice to extract principal
-            var principal = await _authTokenService.GetPrincipalFromExpiredTokenAsync(model.AccessToken);
-            var claims = principal.Claims; //this is mapped to the Name claim by default
-            var username = principal.Identity.Name; //this is mapped to the Name claim by default
+            // NOTE: must seperate RegisterModel, LoginModel, UserViewModel
+            // cuz [JsonIgnore] will make the system skip damn the password -> password =""  !!!!!
 
-            var user = _context.Users.SingleOrDefault(u => u.UserName == username);
+            List<object> errors = new List<object>(14);
 
-            // user's RefreshToken in database must equals to request RequestToken
-            if (user == null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            string roleToSet = "Member";  // initial default role
+
+            // direct assign (use tinymapper if you want)
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName
+                // DateJoined is automatically initialized in ApplicationUser class
+            };
+
+            try
+            {
+                // create role if not exist:
+                bool isRoleExist = await _roleManager.RoleExistsAsync(roleToSet); // take in roleName(string)
+                if (!isRoleExist)
+                {
+                    var newRole = new IdentityRole(roleToSet);
+                    IdentityResult rsNewRole = await _roleManager.CreateAsync(newRole);
+                    if (!rsNewRole.Succeeded)
+                    {
+                        errors.AddRange(rsNewRole.Errors);
+                    }
+                }
+
+                // Try to create the user
+                IdentityResult rsRegister = await _userManager.CreateAsync(applicationUser, model.Password);
+
+                if (rsRegister.Succeeded)
+                {
+                    // assign role to user:
+                    await _userManager.AddToRoleAsync(applicationUser, roleToSet);
+
+                    #region (Background Job Scheduling) Mail Send
+                    // BackgroundJob.Enqueue(() => SendConfirmationEmail(applicationUser));
+                    #endregion
+
+                    //_logger.LogInformation($"\nNew user registered (UserName: {applicationUser.UserName})\n");
+                }
+                else
+                {
+                    #region old foreach way:
+                    //foreach (var err in rsRegister.Errors)
+                    //{
+                    //    errors.Add(err);
+                    //}
+                    #endregion
+                    // use the AddRange method to add all the errors at once instead of looping through them one by one. This can be more efficient since it reduces the number of method calls and memory allocations
+                    errors.AddRange(rsRegister.Errors);
+                }
+
+
+
+                // if rsRegister failed, still return Ok with the errors
                 return new AuthResult
                 {
-                    Succeeded = false,
-                    AccessToken = null,
-                    RefreshToken = null,
-                    user = null,
-                    Expiration = null,
-                    ValidFor = null
-                };
-
-            // Reaching down here means refreshToken is match & still valid
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-
-            // call services to get new tokens
-            var newAccessToken = await _authTokenService.GenerateAccessTokenAsync(user, roles, false);
-            var newRefreshToken = await _authTokenService.GenerateRefreshTokenAsync();
-
-            var accesstokenExpiration = DateTime.UtcNow.AddHours(1);
-            var accesstokenValidTo = newAccessToken.ValidTo;
-            var accessTokenExpiresIn = accesstokenExpiration - DateTime.UtcNow;
-
-            // re-assign user's RefreshToken in db
-            user.RefreshToken = newRefreshToken;
-            _context.SaveChanges();
-
-            ApplicationUserViewModel uservm = new ApplicationUserViewModel
+                    Succeeded = rsRegister.Succeeded,
+                    Errors = errors.ToArray()
+                }; // always status 200 though errors occured , good!! and secure
+            }
+            catch (Exception ex)
             {
-                UserName = user.UserName,
-                FullName = user.FullName,
-                Email = user.Email,
-                //Roles = string.Join(", ", roles.ToList())
-                Roles = roles.ToList()
-            };
-
-
-            return new AuthResult
-            {
-                Succeeded = true,
-                AccessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-                RefreshToken = newRefreshToken,
-                user = uservm,
-                Expiration = accesstokenValidTo,
-                ValidFor = $"{(int)accessTokenExpiresIn.TotalHours} hours, {(int)accessTokenExpiresIn.TotalMinutes % 60} minutes"
-            };
+                // only for status 500, internal server err
+                //throw ex; // cause a mess
+                errors.Add(ex.Message);
+                return new AuthResult { Errors = errors.ToArray() };
+            }
         }
-        */
 
         public async Task<IdentityResult> ChangePasswordAsyncEF(string userId, string oldPassword, string newPassword)
         {
@@ -276,14 +336,5 @@ namespace CoffeeShopApi.Services.Implements
             return IdentityResult.Success;
         }
 
-        public Task<AuthResult> LoginAsync(LoginModel model, string? userAgent)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IdentityResult> ChangePasswordAsync(string userId, string oldPassword, string newPassword)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

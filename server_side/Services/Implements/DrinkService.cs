@@ -110,9 +110,11 @@ namespace CoffeeShopApi.Services.Implements
                 throw new NotFoundException("Drink not found");
             }
 
+            // Actung ! must update enough required fields
             drink.Name = model.Name;
             drink.Price = model.Price;
             drink.DrinkTypeId = model.DrinkTypeId;
+            drink.ImagePath = model.ImagePath;
 
             await _dbContext.SaveChangesAsync();
 

@@ -33,6 +33,7 @@ builder.Services.AddScoped<IAuthTokenService, AuthTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDrinkTypeService, DrinkTypeService>();
+builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
 #endregion
 

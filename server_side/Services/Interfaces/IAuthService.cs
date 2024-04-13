@@ -6,7 +6,9 @@ namespace CoffeeShopApi.Services.Interfaces
     public interface IAuthService
     {
         //Task<AuthResult> RegisterEFAsync(RegisterModel model, RemoteIpAddress? ip, string? userAgent);
-        Task<List<object>> GetAllUsersAsync();        Task<AuthResult> LoginEFAsync(LoginModel model, string? userAgentString);
+        Task<List<object>> GetAllUsersAsync();
+        Task<AuthResult> LoginEFAsync(LoginModel model);
+        Task<AuthResult> RegisterAsync(RegisterModel model);
         // Task<AuthResult> Refresh(RefreshTokenRequest model);
         Task<Microsoft.AspNetCore.Identity.IdentityResult> ChangePasswordAsyncEF(string userId, string oldPassword, string newPassword);
         Task<Microsoft.AspNetCore.Identity.IdentityResult> ChangeUserInfoAsyncEF(string userId, string fullName, string email);
