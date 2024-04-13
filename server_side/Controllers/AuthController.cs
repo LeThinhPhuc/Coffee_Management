@@ -20,24 +20,24 @@ namespace CoffeeShopApi.Controllers
             _authTokenService = authTokenService;
         }
 
-        //[HttpPost("register")]
-        //public async Task<ActionResult<AuthResult>> RegisterAsync([FromBody] RegisterModel model)
-        //{
-        //    // get necessary values to pass to services (ControllerBase's monopoly):
-        //    string? userAgentString = Request.Headers.UserAgent;
+        [HttpPost("register")]
+        public async Task<ActionResult<AuthResult>> RegisterAsync([FromBody] RegisterModel model)
+        {
+            // get necessary values to pass to services (ControllerBase's monopoly):
 
 
-        //    // calling scoped services:
-        //    var ipAddressObject = await _ipService.GetRemoteIpAddress();
-        //    var authResult = await _authService.RegisterAsync(model, ipAddressObject, userAgentString);
-        //    if (!authResult.Succeeded)
-        //    {
-        //        return BadRequest(authResult);
-        //    }
+            // calling scoped services:
+            // var ipAddressObject = await _ipService.GetRemoteIpAddress();
+            var authResult = await _authService.RegisterAsync(model);
+            if (!authResult.Succeeded)
+            {
+                return BadRequest(authResult);
+            }
 
-        //    return Ok(authResult);
-        //}
+            return Ok(authResult);
+        }
 
+        [Authorize]
         [HttpGet("all-users")]
         public async Task<ActionResult> getAllUsers()
         {
@@ -53,7 +53,7 @@ namespace CoffeeShopApi.Controllers
 
             // calling scoped services:
             //var ipAddressObject = await _ipService.GetRemoteIpAddress();
-            var authResult = await _authService.LoginEFAsync(model, userAgentString);
+            var authResult = await _authService.LoginEFAsync(model);
             if (!authResult.Succeeded)
             {
                 return BadRequest(authResult);
@@ -62,7 +62,7 @@ namespace CoffeeShopApi.Controllers
             return Ok(authResult);
         }
 
-        
+
         [Authorize]
         [HttpPost("changepassword")]
         public async Task<Object> ChangePasswordAsync([FromBody] ChangePasswordModel model)
@@ -101,6 +101,7 @@ namespace CoffeeShopApi.Controllers
                 return BadRequest();
             }
         }
+
         [Authorize]
         [HttpPost("changeuserinfo")]
         public async Task<IActionResult> ChangeUserInfoAsync([FromBody] ChangeUserInfoModel model)
@@ -141,12 +142,12 @@ namespace CoffeeShopApi.Controllers
         }
 
 
-        
+
     }
 
     public class ChangeUserInfoModel
     {
-        public string FullName {get; set;}
-        public string Email {get; set;}
+        public string FullName { get; set; }
+        public string Email { get; set; }
     }
 }

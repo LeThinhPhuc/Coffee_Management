@@ -41,20 +41,19 @@ namespace CoffeeShopApi.Controllers
                 return Unauthorized("Please login to create order, staff."); 
             }
 
-            return Ok(new {succeeded = true, message = "created order" });
+            try
+            {
+                // Create the order
+                var result = await _orderService.CreateOrder(createOrderModel, userId);
 
-            // try
-            // {
-            //     // Create the order
-            //     var result = await _orderService.CreateOrder(createOrderModel, userId);
-
-            //     return Ok(result);
-            // }
-            // catch (Exception ex)
-            // {
-            //     // await _unitOfWork.RollbackAsync();  // cancel the transaction
-            //     return Ok(new { succeeded = false, message = ex.Message });
-            // }
+                // return Ok(result);
+                return Ok(new { succeeded = true, order = result, message = "Order/Bill created!" });
+            }
+            catch (Exception ex)
+            {
+                // await _unitOfWork.RollbackAsync();  // cancel the transaction
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
             #region example input:
             //{
             //    "drinks": [
