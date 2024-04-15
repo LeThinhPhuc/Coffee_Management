@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
+    "C:\\Users\\qd041\\OneDrive\\Desktop\\Login\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
+    "C:\\Users\\qd041\\OneDrive\\Desktop\\Login\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "projectUniqueName": "C:\\Users\\qd041\\OneDrive\\Desktop\\Login\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
         "projectName": "CoffeeShopApi",
-        "projectPath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
-        "packagesPath": "C:\\Users\\tuand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\obj\\",
+        "projectPath": "C:\\Users\\qd041\\OneDrive\\Desktop\\Login\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "packagesPath": "C:\\Users\\qd041\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\qd041\\OneDrive\\Desktop\\Login\\Coffee_Management\\server_side\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tuand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\qd041\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -38,6 +38,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -108,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
