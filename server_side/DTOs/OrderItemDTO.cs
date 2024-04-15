@@ -8,7 +8,13 @@ namespace CoffeeShopApi.DTOs
 {
     public class OrderItemDTO 
     {
-        
+
+        [Required]
+        public string OrderId { get; set; }
+
+        //[Required]
+        //public string DrinkId { get; set; }
+
         [Required]
         public int? Quantity { get; set; }
 

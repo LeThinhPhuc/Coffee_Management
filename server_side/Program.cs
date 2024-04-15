@@ -4,13 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
-using CoffeeShopApi.Services.Interfaces;
-using CoffeeShopApi.Services.Implements;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using CoffeeShopApi.Repositories.Interfaces;
-using CoffeeShopApi.Repositories.Implements;    // for .UseSqlServer()
+using CoffeeShopApi.DataAccess;    // for .UseSqlServer()
 
 
 // $ dotnet add package Newtonsoft.Json --version 13.0.3

@@ -8,6 +8,7 @@ namespace CoffeeShopApi.DTOs
 {
     public class DrinkDTO 
     {
+        public string DrinkId { get; set; } 
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         [MaxLength(100)]
