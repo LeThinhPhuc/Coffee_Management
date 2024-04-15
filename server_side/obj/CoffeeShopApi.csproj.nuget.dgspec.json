@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HK2 Nam3\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
+    "C:\\Users\\tuand\\Desktop\\New folder (2)\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
   },
   "projects": {
-    "D:\\HK2 Nam3\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
+    "C:\\Users\\tuand\\Desktop\\New folder (2)\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HK2 Nam3\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "projectUniqueName": "C:\\Users\\tuand\\Desktop\\New folder (2)\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
         "projectName": "CoffeeShopApi",
-        "projectPath": "D:\\HK2 Nam3\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
-        "packagesPath": "C:\\Users\\phucl\\.nuget\\packages\\",
-        "outputPath": "D:\\HK2 Nam3\\Agile-Scrum\\Coffee_Management\\server_side\\obj\\",
+        "projectPath": "C:\\Users\\tuand\\Desktop\\New folder (2)\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "packagesPath": "C:\\Users\\tuand\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tuand\\Desktop\\New folder (2)\\Coffee_Management\\server_side\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\phucl\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\tuand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -98,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.420\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
