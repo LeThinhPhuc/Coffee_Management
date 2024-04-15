@@ -2,9 +2,9 @@
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.PostModels;
 
-namespace CoffeeShopApi.DataAccess
+namespace CoffeeShopApi.Repositories.Interfaces
 {
-    public interface IOrderRepository 
+    public interface IOrderRepository
     {
         Task<IEnumerable<OrderDTO>> GetAllOrdersAsync();
         Task<OrderDTO> GetOrderByIdAsync(string id);

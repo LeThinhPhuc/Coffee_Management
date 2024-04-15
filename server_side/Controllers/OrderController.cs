@@ -1,6 +1,7 @@
-﻿using CoffeeShopApi.DataAccess;
-using CoffeeShopApi.DTOs;
+﻿using CoffeeShopApi.DTOs;
 using CoffeeShopApi.PostModels;
+using CoffeeShopApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Formats.Asn1;
@@ -68,6 +69,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
+
         [HttpPost("[action]")]
         public async Task<ActionResult> AddOrder([FromBody] OrderModelDTO newOrderDT0)
         {
@@ -80,11 +82,11 @@ namespace CoffeeShopApi.Controllers
             return BadRequest();
         }
 
-        //[HttpDelete("[action]")]
-        //public async Task<ActionResult> DeleteItemsOfOrder()
-        //{
+        [HttpDelete("[action]")]
+        public async Task<ActionResult> DeleteItemsOfOrder()
+        {
 
-        //}
+        }
 
 
 

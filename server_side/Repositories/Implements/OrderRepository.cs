@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using CoffeeShopApi.DataAccess;
 using CoffeeShopApi.DTOs;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.PostModels;
+using CoffeeShopApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace CoffeeShopApi.Implements
+namespace CoffeeShopApi.Repositories.Implements
 {
     public class OrderRepository : IOrderRepository
     {
@@ -24,7 +24,7 @@ namespace CoffeeShopApi.Implements
         public async Task<IEnumerable<OrderDTO>> GetAllOrdersAsync()
         {
             var s = context.Orders.Include(o => o.User)
-                .Include(o=> o.OrderItems).ToList();
+                .Include(o => o.OrderItems).ToList();
 
             var orders = await context.Orders.Select(o => new OrderDTO
             {
