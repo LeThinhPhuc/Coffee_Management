@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
-using CoffeeShopApi.DataAccess;    // for .UseSqlServer()
+using CoffeeShopApi.DataAccess;
+using CoffeeShopApi.Implements;    // for .UseSqlServer()
 
 
 // $ dotnet add package Microsoft.OpenApi --version 1.6.14

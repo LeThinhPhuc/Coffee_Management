@@ -16,5 +16,6 @@ namespace CoffeeShopApi.DTOs
         public ApplicationUserDTO? User { get; set; }  // the staff who create(confirm) the order
 
         public List<OrderItemDTO>? OrderItems { get; set; }
+
     }
 }
