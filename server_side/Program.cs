@@ -134,6 +134,17 @@ builder.Services.AddAuthentication(x =>
 });
 #endregion
 
+#region CORS
+builder.Services.AddCors(policy => {
+    policy.AddPolicy("defaultPolicy", options => {
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
+        options.AllowAnyOrigin();
+
+    });
+});
+#endregion
+
 
 var app = builder.Build();
 
