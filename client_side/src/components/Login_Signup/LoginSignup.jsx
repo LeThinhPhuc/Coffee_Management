@@ -6,8 +6,10 @@ import email_icon from '../../assets/email.png'
 import password_icon from '../../assets/password.png'
 import address_icon from '../../assets/address.png'
 import business_icon from '../../assets/business.png'
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginSignup = () => {
+    const navigate=useNavigate()
     const[action,setAction] = useState("Sign Up");
     const[username,setUsername] = useState("");
     const[password,setPassword] = useState("");
@@ -64,6 +66,10 @@ const LoginSignup = () => {
         <span>Click here</span>  
         <button className="btn_login" onClick={() => {
             doLogin()
+            navigate('/order')
+                // setCheck(true);
+                window.location.reload();
+
         }}>Login</button> 
         </div>}
         {action==="Login"?<div></div>: <div className="change_signup">Register already? <span onClick={()=>{setAction("Login")}}>Login</span><button className="btn_signup">SignUp</button>

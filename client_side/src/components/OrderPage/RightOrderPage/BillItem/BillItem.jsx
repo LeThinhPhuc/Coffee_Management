@@ -4,12 +4,12 @@ const BillItem = ({items})=>{
         <div className="flex items-center justify-center">
             <div className="pl-2">
                 <div className="font-bold text-[#6f4436]">{items.name}</div>
-                <div>Số lượng: {items.soluong}</div>
+                <div>Số lượng: {items.quantity}</div>
             </div>
         </div>
 
         <div className="flex items-center ">
-            <div className="p-2">{items.price*items.soluong}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
+            <div className="p-2">{items.price*items.quantity}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
             {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
         </div>
     </div>

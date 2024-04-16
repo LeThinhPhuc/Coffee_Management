@@ -10,7 +10,7 @@ export const AppProvider = ({ children }) => {
     const [voucherValue,setVoucherValue]=useState()
 
     const addSelectedDrink = (newSelected) => {
-        setSelectedDrink([...selectedDrink, newSelected]);
+        setSelectedDrink([...selectedDrink, {id:newSelected.id, quantity:1, price:newSelected.price, name:newSelected.name, imagePath:newSelected.imagePath}]);
     };
 
     const deleteOutSelected = (deleteSelected)=>{

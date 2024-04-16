@@ -3,7 +3,7 @@ import { MenuContext } from "../../../../context/MenuContext";
 
 const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
     const { deleteOutSelected , selectedDrink} = useContext(MenuContext);
-    const [cnt, setCnt] = useState(items.soluong);
+    const [cnt, setCnt] = useState(items.quantity);
 
     const handleDecrease = () => {
         if (cnt > 1) {
@@ -18,7 +18,7 @@ const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
 
     useEffect(() => {
         // Cập nhật giá trị soluong trong items khi cnt thay đổi
-        items.soluong = cnt;
+        items.quantity = cnt;
 
         setChangeCnt(changeCnt+1)
     }, [cnt]);
@@ -26,7 +26,7 @@ const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
     return (
         <div className="flex justify-between pr-2 pl-2 pb-3">
             <div className="flex items-center justify-center">
-                <img className="w-[4vw] rounded-lg" src={items.image} alt="Coffee" />
+                <img className="w-[4vw] rounded-lg" src={items?.imagePath} alt="Coffee" />
                 <div className="pl-2">
                     <div className="font-bold text-[#6f4436]">{items.name}</div>
                     <div>{items.price * cnt} VND</div>
