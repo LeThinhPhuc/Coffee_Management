@@ -16,6 +16,7 @@ const RightOrderPage = () => {
     }
 
     const handleModelOrder = () => {
+        console.log("bill order: ", {selectedDrink:selectedDrink, total:total()-discount()})
         setCheckOrderFinal(!checkOrderFinal)
     }
 
@@ -32,7 +33,7 @@ const RightOrderPage = () => {
 
         if (selectedDrink) {
             for (let i = 0; i < selectedDrink.length; i++) {
-                sum += (selectedDrink[i].price * selectedDrink[i].soluong)
+                sum += (selectedDrink[i].price * selectedDrink[i].quantity)
             }
         }
         return sum;
@@ -70,7 +71,7 @@ const RightOrderPage = () => {
 
             {
                 selectedDrink.map((item) => {
-                    return <OrderItem changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
+                    return <OrderItem key={item?.id} changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
             {/* {
