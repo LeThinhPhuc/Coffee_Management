@@ -6,6 +6,7 @@ namespace CoffeeShopApi.Services.Implements
     using Services.Interfaces;
     using Models.DomainModels;
     using CoffeeShopApi.Models.DAL;
+    using Microsoft.EntityFrameworkCore;
 
     public class DrinkService : IDrinkService
     {
@@ -60,24 +61,46 @@ namespace CoffeeShopApi.Services.Implements
             return drinks;
         }
 
-        public async Task<List<DrinkViewModel>> GetDrinksByTypeAsync(string typeName)
+        public async Task<List<DrinkViewModel>> GetDrinksByTypeNameAsync(string typeName)
         {
-
-            var drinks = await GetDrinksByTypeAsync(typeName);
-
-            var drinkViewModels = drinks.Select(d => new DrinkViewModel
+            var drinks = await _dbContext.Drinks
+            .Include(d => d.DrinkType)
+            .Where(d => d.DrinkType.Name == typeName)
+            .Select(d => new DrinkViewModel
             {
                 Id = d.Id,
                 Name = d.Name,
                 Price = d.Price,
                 ImagePath = d.ImagePath,
                 DrinkTypeId = d.DrinkTypeId,
-                DrinkTypeName = typeName
-            }).ToList();
+                DrinkTypeName = d.DrinkType.Name,
+            })
+            .ToListAsync();
 
+            return drinks;
+        }
 
+        public async Task<List<object>> GetMenuDataAsync()
+        {
+            var drinkCategories = await _dbContext.DrinkTypes
+                .Include(dt => dt.Drinks)
+                .ToListAsync();
 
-            return drinkViewModels;
+            var menuData = drinkCategories.Select(category => new
+            {
+                category = category.Name,
+                items = category.Drinks.Select(drink => new
+                {
+                    id = drink.Id,
+                    image = drink.ImagePath,
+                    name = drink.Name,
+                    price = $"{drink.Price}VNĐ",
+                    drinkTypeId = drink.DrinkTypeId,
+                    // desc = drink.Description // Ko có field này
+                }).ToList<object>()
+            }).ToList<object>();
+
+            return menuData;
         }
 
         public async Task<Drink> GetDrinkByIdAsync(string id)

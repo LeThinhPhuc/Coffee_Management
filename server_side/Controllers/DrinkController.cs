@@ -43,10 +43,17 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getdrinksbytype")]
+        [HttpGet("getdrinksbytypename")]
         public async Task<ActionResult> GetDrinksByTypeName(string typeName)
         {
-            var result = await _drinkService.GetDrinksByTypeAsync(typeName);
+            var result = await _drinkService.GetDrinksByTypeNameAsync(typeName);
+            return Ok(result);
+        }
+
+        [HttpGet("getallgrouped")]
+        public async Task<ActionResult> GetAllDrinksGrouped()
+        {
+            var result = await _drinkService.GetMenuDataAsync();
             return Ok(result);
         }
 
