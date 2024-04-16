@@ -11,7 +11,7 @@ export const fetchDrinks = () => {
       // const data = await response.json();
 
       // Dispatch action fetchDrinksSuccess với dữ liệu người dùng
-      dispatch(fetchDrinksSuccess(data));
+      dispatch(fetchDrinksSuccess(response.data));
     } catch (error) {
       // Nếu gặp lỗi, dispatch action fetchDrinksFailure với thông điệp lỗi
       dispatch(fetchDrinksFailure(error.message));
