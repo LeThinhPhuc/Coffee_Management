@@ -10,7 +10,7 @@ const drinkService = {
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
             Accept: "application/x-www-form-urlencoded, text/plain",
           },
-    }).get('api/Drink/getall')
+    }).get('api/Drink/getallgrouped')
 
 }
 export default drinkService;
