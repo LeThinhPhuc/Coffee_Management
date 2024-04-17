@@ -94,7 +94,7 @@ namespace CoffeeShopApi.Services.Implements
                     id = drink.Id,
                     image = drink.ImagePath,
                     name = drink.Name,
-                    price = $"{drink.Price}VNĐ",
+                    price = $"{drink.Price}",
                     drinkTypeId = drink.DrinkTypeId,
                     // desc = drink.Description // Ko có field này
                 }).ToList<object>()
