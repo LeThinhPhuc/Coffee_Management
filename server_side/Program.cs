@@ -3,9 +3,17 @@ using Microsoft.OpenApi.Models; // for Swagger
 using Microsoft.AspNetCore.Identity;
 using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
-using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
+using Microsoft.EntityFrameworkCore;
+using CoffeeShopApi.Services.Interfaces;
+using CoffeeShopApi.Services.Implements;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using CoffeeShopApi.Repositories.Interfaces;
+using CoffeeShopApi.Repositories.Implements;    // for .UseSqlServer()
 
 
+// $ dotnet add package Newtonsoft.Json --version 13.0.3
 // $ dotnet add package Microsoft.OpenApi --version 1.6.14
 // $ dotnet add package Swashbuckle.AspNetCore --version 6.5.0
 // $ dotnet add package Microsoft.EntityFrameworkCore --version 6.0.28
@@ -15,9 +23,21 @@ using Microsoft.EntityFrameworkCore;    // for .UseSqlServer()
 // $ dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.28
 // $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 6.0.28
 // $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 6.0.27
+// $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 6.0.28
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+#region Services injection
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAuthTokenService, AuthTokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IDrinkTypeService, DrinkTypeService>();
+builder.Services.AddScoped<IDrinkService, DrinkService>();
+builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+#endregion
 
 #region Controllers:
 builder.Services.AddControllers();
@@ -74,7 +94,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 #region DbContext & Identity Auth:
-var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
+var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
 builder.Services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
 
@@ -85,6 +105,46 @@ builder.Services.AddDefaultIdentity<ApplicationUser>()
 
     // #region Email Confirmation (1) (using EmailService;)
     // .AddTokenProvider<EmailConfirmationTokenProvider<ApplicationUser>>("emailconfirmation");
+#endregion
+
+
+#region LocalStorage Jwt Authentication:
+
+var key = Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:JWT_Secret"]); //from appsettings.json
+
+// @Warning: if use Cookie to authenticate private endpoints, disable these line below
+// cuz ASP.NET Core can only use ONE auth scheme (LocalSotrage or Cookie) only!!! 
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = false;
+    x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidIssuer = "https://localhost:5146", //some string, normally web url,  
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+#endregion
+
+#region CORS
+builder.Services.AddCors(policy => {
+    policy.AddPolicy("defaultPolicy", options => {
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
+        options.AllowAnyOrigin();
+
+    });
+});
 #endregion
 
 
@@ -106,25 +166,27 @@ if (app.Environment.IsDevelopment())
 
     app.UseDeveloperExceptionPage();
 }
-// Put this "UseCors" before "UseMvc" or else it wont permit any Origins !
-// this one UseCors code solve all the CORS issues !! (preference: https://briancaos.wordpress.com/2022/10/03/net-api-cors-response-to-preflight-request-doesnt-pass-access-control-check-no-access-control-allow-origin-header-net-api/)
-// app.UseCors(CorsBuilder =>
-// {
-//     CorsBuilder
-//        //.AllowAnyOrigin()  // .net doesnt allow 'AllowAnyOrigin' together with 'AllowCredentials'
-//        .WithOrigins("http://localhost:44429", "https://localhost:44429", "http://localhost:19006") // set your ClientApp origins here !!
-//        .SetIsOriginAllowedToAllowWildcardSubdomains()
-//        .AllowAnyHeader()
-//        .AllowCredentials()
-//        .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
-//        .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)); // TimeSpan.FromMinutes(60)
-// });
+app.UseCors(CorsBuilder =>
+{
+    CorsBuilder
+       //.AllowAnyOrigin()  // .net doesnt allow 'AllowAnyOrigin' together with 'AllowCredentials'
+       .WithOrigins("http://localhost:3000", "http://192.168.1.1:3000", "http://localhost:5173") // set your ClientApp origins here !!
+       .SetIsOriginAllowedToAllowWildcardSubdomains()
+       .AllowAnyHeader()
+       .AllowCredentials()
+       .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
+       .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)); // TimeSpan.FromMinutes(60)
+});
 #endregion
 
 
 
-app.UseHttpsRedirection();
 
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
