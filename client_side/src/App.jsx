@@ -1,9 +1,9 @@
 import { AppProvider } from "./context/MenuContext";
-import Discount from "./components/Discount/Discount";
+import Statistic from "./components/Statistic/Statistic";
 function App() {
   return (
     <AppProvider>
-      <Discount />
+      <Statistic />
     </AppProvider>
   );
 }
