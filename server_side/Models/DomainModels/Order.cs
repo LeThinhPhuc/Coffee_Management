@@ -14,8 +14,6 @@ namespace CoffeeShopApi.Models.DomainModels
 
         public double Total { get; set; }
 
-        public string? Note { get; set; }
-
         [JsonIgnore]
         public ApplicationUser? User { get; set; }  // the staff who create(confirm) the order
 
