@@ -1,7 +1,6 @@
 import FavoriteGraph from "./FavoriteGraph/FavoriteGraph";
 import RevenueGraph from "./RevenueGraph/RevenueGraph";
 import Table from "./Table/Table";
-
 const Statistic = () => {
   return (
     <div className="pt-6 px-4">
