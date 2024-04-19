@@ -7,6 +7,8 @@ import AnimateRoute from "./components/Animate/AnimateRoute";
 import store from "./redux/Store/store";
 import { fetchDrinks } from "./redux/Action/drinkAction";
 import { fetchTypes } from "./redux/Action/typeAction";
+import store from './redux/Store/store';
+import { fetchOrders } from './redux/Action/orderAction';
 
 function App() {
     const dispatch = useDispatch();
@@ -14,12 +16,12 @@ function App() {
     useEffect(() => {
         dispatch(fetchDrinks());
         dispatch(fetchTypes());
+        dispatch(fetchOrders())
     }, [dispatch]);
 
     return (
         <AppProvider>
             <Router>
-                {window.location.href == "localhost:5173/" ? "" : <Navbar />}
                 <AnimateRoute />
             </Router>
         </AppProvider>

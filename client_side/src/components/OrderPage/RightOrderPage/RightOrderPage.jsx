@@ -2,22 +2,33 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
 import '../../../App.css'
+import {Textarea} from '@material-tailwind/react'
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
+import { useDispatch} from 'react-redux';
+import { addOrder } from "../../../redux/Action/orderAction";
 const RightOrderPage = () => {
     const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
     const [checkOrderFinal, setCheckOrderFinal] = useState(false)
     const [changeCnt, setChangeCnt] = useState(0)
+    const [note, setNote] = useState("");
+    const dispatch = useDispatch();
 
     const handleModal = () => {
         setCheckModal(!checkModal);
     }
 
+
+
     const handleModelOrder = () => {
-        console.log("bill order: ", {selectedDrink:selectedDrink, total:total()-discount()})
+        console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() })
+        const data ={userId:"1",total:total()-discount(),orderItems:selectedDrink}
+        dispatch(addOrder(data))
+        
         setCheckOrderFinal(!checkOrderFinal)
+        console.log("thong tin order: ",data)
     }
 
     const handleChose = (tmp) => {
@@ -39,6 +50,10 @@ const RightOrderPage = () => {
         return sum;
     }
 
+    const writeNote =(e)=>{
+        console.log(e.target.value)
+        setNote(e.target.value);
+    }
     const discount = () => {
         let to = total();
         if (voucherValue) {
@@ -74,9 +89,14 @@ const RightOrderPage = () => {
                     return <OrderItem key={item?.id} changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
-            {/* {
-                checkModalVoucher?"":<CardVoucher   val={voucherValue}/>
-            } */}
+            <div className="flex items-center justify-center">
+            <div className="w-1/2">
+                <label className="text-[#be9b7b] ">Note</label>
+                <Textarea className="border-2" onChange={(e)=>writeNote(e)}/>    
+            </div>
+            </div>
+
+
             <div className="flex justify-center items-center">
                 <div onClick={handleModal} className="flex justify-center items-center margin-[0 auto] cursor-pointer p-5 border-2 mx-2 text-[vw] max-w-[300px] min-w-[100px] textbase rounded-md ">% Apply Discount Voucher</div>
 
@@ -185,7 +205,7 @@ const RightOrderPage = () => {
                                         </div>
 
                                         <div className="flex items-center ">
-                                            <div className="p-2">{total()-discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
+                                            <div className="p-2">{total() - discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
                                             {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
                                         </div>
                                     </div>
