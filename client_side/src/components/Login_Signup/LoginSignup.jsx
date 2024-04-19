@@ -23,8 +23,8 @@ const LoginSignup = () => {
         const response = await LoginService.doLogin(account);
         console.log(response);
         if (response.status == 200) {
-            localStorage.setItem("user", JSON.stringify(response.data.accessToken));
-            navigate('/order');
+            localStorage.setItem("user", JSON.stringify(response.data));
+            navigate('/home/order');
         }
 
     }
@@ -33,7 +33,7 @@ const LoginSignup = () => {
         const jwtToken = localStorage.getItem('user');
         if(jwtToken)
         {
-            navigate('/order');
+            navigate('/home/order');
         }
     }, []);
 

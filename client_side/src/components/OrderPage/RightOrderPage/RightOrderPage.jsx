@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
 import '../../../App.css'
-import {Textarea} from '@material-tailwind/react'
+import {Textarea, Input} from '@material-tailwind/react'
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
 import { useDispatch} from 'react-redux';
 import { addOrder } from "../../../redux/Action/orderAction";
 const RightOrderPage = () => {
-    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue } = useContext(MenuContext)
+    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
     const [checkOrderFinal, setCheckOrderFinal] = useState(false)
     const [changeCnt, setChangeCnt] = useState(0)
@@ -18,17 +18,29 @@ const RightOrderPage = () => {
 
     const handleModal = () => {
         setCheckModal(!checkModal);
+        
+    }
+
+    const handleCloseModal = () =>{
+        setCheckOrderFinal(!checkOrderFinal)
+
+        clearSelected()
     }
 
 
 
     const handleModelOrder = () => {
+       if(selectedDrink.length>0){
         console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() })
-        const data ={userId:"1",total:total()-discount(),orderItems:selectedDrink}
+        // console.log("storage: ", JSON.parse(localStorage.getItem("user")).user.idToUpdate)
+        const data ={userId:JSON.parse(localStorage.getItem("user")).user.idToUpdate,total:total()-discount(),orderItems:selectedDrink}
         dispatch(addOrder(data))
         
         setCheckOrderFinal(!checkOrderFinal)
         console.log("thong tin order: ",data)
+       }else{
+        alert("Vui long chon mon !")
+       }
     }
 
     const handleChose = (tmp) => {
@@ -89,12 +101,7 @@ const RightOrderPage = () => {
                     return <OrderItem key={item?.id} changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
-            <div className="flex items-center justify-center">
-            <div className="w-1/2">
-                <label className="text-[#be9b7b] ">Note</label>
-                <Textarea className="border-2" onChange={(e)=>writeNote(e)}/>    
-            </div>
-            </div>
+            
 
 
             <div className="flex justify-center items-center">
@@ -148,7 +155,7 @@ const RightOrderPage = () => {
                                         BILL
                                     </h1>
                                 </div>
-                                <button onClick={handleModelOrder} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                                <button onClick={handleCloseModal} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                                     <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>

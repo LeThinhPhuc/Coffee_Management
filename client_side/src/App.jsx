@@ -21,9 +21,9 @@ function App() {
 
     return (
         <AppProvider>
-            <Router>
-                <AnimateRoute />
-            </Router>
+                <Router>
+                    <AnimateRoute />
+                </Router>
         </AppProvider>
     );
 }
