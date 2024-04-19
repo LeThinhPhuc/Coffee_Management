@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
+    "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
+    "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "projectUniqueName": "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
         "projectName": "CoffeeShopApi",
-        "projectPath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "projectPath": "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
         "packagesPath": "C:\\Users\\tuand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\obj\\",
+        "outputPath": "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

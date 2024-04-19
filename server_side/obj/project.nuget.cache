@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JwyjifY+B3jObwEeCPiqsneBn2hJE6Q35lG9z/i7TKN6Ah+r95uNfoUV6SreyGdE5O/9vcrhL7Op+gdW82pydw==",
+  "dgSpecHash": "cpzJqsX672VcexQFTclIPIToQTnTuWgSf3b1N/XdbnuxTMiMfsk9scyvhPRFENBkh1mgR2OZwT1ae3zTZ6trgw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tuand\\Desktop\\coffe\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+  "projectFilePath": "C:\\Users\\tuand\\Desktop\\main\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tuand\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\tuand\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
