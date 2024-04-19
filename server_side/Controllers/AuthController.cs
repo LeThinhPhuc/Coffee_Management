@@ -37,7 +37,7 @@ namespace CoffeeShopApi.Controllers
             return Ok(authResult);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("all-users")]
         public async Task<ActionResult> getAllUsers()
         {
