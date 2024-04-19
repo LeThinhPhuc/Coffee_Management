@@ -2,22 +2,45 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
 import '../../../App.css'
+import {Textarea, Input} from '@material-tailwind/react'
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
+import { useDispatch} from 'react-redux';
+import { addOrder } from "../../../redux/Action/orderAction";
 const RightOrderPage = () => {
-    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue } = useContext(MenuContext)
+    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
     const [checkOrderFinal, setCheckOrderFinal] = useState(false)
     const [changeCnt, setChangeCnt] = useState(0)
+    const [note, setNote] = useState("");
+    const dispatch = useDispatch();
 
     const handleModal = () => {
         setCheckModal(!checkModal);
+        
     }
 
-    const handleModelOrder = () => {
-        console.log("bill order: ", {selectedDrink:selectedDrink, total:total()-discount()})
+    const handleCloseModal = () =>{
         setCheckOrderFinal(!checkOrderFinal)
+
+        clearSelected()
+    }
+
+
+
+    const handleModelOrder = () => {
+       if(selectedDrink.length>0){
+        console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() })
+        // console.log("storage: ", JSON.parse(localStorage.getItem("user")).user.idToUpdate)
+        const data ={userId:JSON.parse(localStorage.getItem("user")).user.idToUpdate,total:total()-discount(),orderItems:selectedDrink}
+        dispatch(addOrder(data))
+        
+        setCheckOrderFinal(!checkOrderFinal)
+        console.log("thong tin order: ",data)
+       }else{
+        alert("Vui long chon mon !")
+       }
     }
 
     const handleChose = (tmp) => {
@@ -39,6 +62,10 @@ const RightOrderPage = () => {
         return sum;
     }
 
+    const writeNote =(e)=>{
+        console.log(e.target.value)
+        setNote(e.target.value);
+    }
     const discount = () => {
         let to = total();
         if (voucherValue) {
@@ -74,9 +101,9 @@ const RightOrderPage = () => {
                     return <OrderItem key={item?.id} changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
-            {/* {
-                checkModalVoucher?"":<CardVoucher   val={voucherValue}/>
-            } */}
+            
+
+
             <div className="flex justify-center items-center">
                 <div onClick={handleModal} className="flex justify-center items-center margin-[0 auto] cursor-pointer p-5 border-2 mx-2 text-[vw] max-w-[300px] min-w-[100px] textbase rounded-md ">% Apply Discount Voucher</div>
 
@@ -128,7 +155,7 @@ const RightOrderPage = () => {
                                         BILL
                                     </h1>
                                 </div>
-                                <button onClick={handleModelOrder} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                                <button onClick={handleCloseModal} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                                     <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -185,7 +212,7 @@ const RightOrderPage = () => {
                                         </div>
 
                                         <div className="flex items-center ">
-                                            <div className="p-2">{total()-discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
+                                            <div className="p-2">{total() - discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
                                             {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
                                         </div>
                                     </div>
