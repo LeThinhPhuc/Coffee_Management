@@ -17,9 +17,11 @@ function App() {
     return (
         <AppProvider>
                 <Router>
-                    <Navbar />
+                    {window.location.href=="localhost:5173/"?"":<Navbar/>}
                     <AnimateRoute />
                 </Router>
+
+                
         </AppProvider>
     );
 }
