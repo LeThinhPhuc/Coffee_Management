@@ -16,12 +16,10 @@ function App() {
 
     return (
         <AppProvider>
-            <Router>
-                {window.location.href == "https://localhost:5173/" ? "" : <Navbar />}
-                <AnimateRoute />
-            </Router>
-
-
+                <Router>
+                    {window.location.href=="localhost:5173/"?"":<Navbar/>}
+                    <AnimateRoute />
+                </Router>
         </AppProvider>
     );
 }

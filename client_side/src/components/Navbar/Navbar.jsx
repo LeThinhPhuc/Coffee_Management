@@ -4,6 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () =>{
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
+
+     // Hàm xử lý sự kiện khi người dùng click vào phần tử
+     const handleSignOut = () => {
+        // Xóa dữ liệu trong localStorage
+        localStorage.removeItem('user');
+        navigate('/');        
+    };
     return(
         <div className="sticky top-0 z-40">
             <nav class="bg-gray-800">
@@ -78,7 +85,7 @@ const Navbar = () =>{
           <div class={`${show?'':'hidden'} absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none `} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-            <a onClick={()=>{navigate('/'); window.location.reload()}} class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+            <a onClick={handleSignOut} class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
             
           </div>
         </div>
