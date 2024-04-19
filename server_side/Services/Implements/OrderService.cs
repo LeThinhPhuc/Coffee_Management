@@ -64,7 +64,6 @@ namespace CoffeeShopApi.Services.Implements
             // Create a new order
             Order order = new Order
             {
-                //Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 Total = CalculateTotal(createOrderModel.Drinks),
@@ -80,15 +79,33 @@ namespace CoffeeShopApi.Services.Implements
                     Quantity = drink.Quantity,
                     OrderId = order.Id
                 }).ToList();
+
+
+                // AS-52: API methods for Ingredient entity
+                // Update ingredient amounts
+                foreach (var drink in createOrderModel.Drinks)
+                {
+                    var ingredientsInDrink = await _dbContext.Set<IngredientInDrink>()
+                        .Where(iid => iid.DrinkId == drink.DrinkId)
+                        .Include(iid => iid.Ingredient)
+                        .ToListAsync();
+
+                    foreach (var ingredientInDrink in ingredientsInDrink)
+                    {
+                        var ingredient = ingredientInDrink.Ingredient;
+                        if (ingredient != null)
+                        {
+                            ingredient.Amount -= ingredientInDrink.Quantity * drink.Quantity;
+                            _dbContext.Entry(ingredient).State = EntityState.Modified;
+                        }
+                    }
+                }
             }
 
             // Save the order
-            // await _unitOfWork.Orders.AddAsync(order);
-            // await _unitOfWork.SaveEntitiesAsync();
             _dbContext.Orders.Add(order);
             await _dbContext.SaveChangesAsync();
             return order;
-            
         }
 
         /*
