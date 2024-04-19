@@ -17,7 +17,7 @@ function App() {
     return (
         <AppProvider>
                 <Router>
-                    {window.location.href=="http://localhost:5173/"?"":<Navbar/>}
+                    {window.location.href=="localhost:5173/"?"":<Navbar/>}
                     <AnimateRoute />
                 </Router>
         </AppProvider>
