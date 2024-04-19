@@ -39,7 +39,11 @@ const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
                 <div className="pl-2">
                     <div className="font-bold text-[#6f4436]">{items.name}</div>
                     <div>{items.price * cnt} VND</div>
-                    <Input onChange={(e)=>handleChange(e)} placeholder="Note here !" className="border-b-3 border-t-0 border-l-0 border-r-0 border-[#6f4436] w-[14vw] font-[#6f4436]"/>
+                    <input
+    onChange={(e) => handleChange(e)}
+    placeholder="Note here !"
+    className="bg-[#ffffff] bg-opacity-10 border-b-4 pl-2 border-t-0 border-l-0 border-r-0 border-[#6f4436] w-[14vw] font-[#6f4436]"
+/>
                 </div>
             </div>
 

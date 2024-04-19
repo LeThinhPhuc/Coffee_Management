@@ -7,7 +7,6 @@ import AnimateRoute from "./components/Animate/AnimateRoute";
 import store from "./redux/Store/store";
 import { fetchDrinks } from "./redux/Action/drinkAction";
 import { fetchTypes } from "./redux/Action/typeAction";
-import store from './redux/Store/store';
 import { fetchOrders } from './redux/Action/orderAction';
 
 function App() {
