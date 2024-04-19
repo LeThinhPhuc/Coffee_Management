@@ -1,55 +1,94 @@
-﻿using AutoMapper;
-using CoffeeShopApi.DataAccess;
-using CoffeeShopApi.DTO;
-using CoffeeShopApi.Models.DomainModels;
+﻿using CoffeeShopApi.DTOs;
+using CoffeeShopApi.PostModels;
+using CoffeeShopApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Collections;
+using System.Formats.Asn1;
 
 namespace CoffeeShopApi.Controllers
 {
-    [ApiController]
-    [Route("api/Orders")]
-    public class OrderController : ControllerBase
+    public class OrderController : BaseApiController
     {
-        private IOrderService orderRepo;
-        public OrderController(IOrderService orderRepo) 
+        private IOrderRepository repo;
+        public OrderController(IOrderRepository repo)
         {
-            this.orderRepo = orderRepo; 
+            this.repo = repo;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderItemDTO>>> GetAllOrders()
         {
-            var orders = await orderRepo.GetOrdersAsync();
+            var orders = await repo.GetAllOrdersAsync();
             if (orders.Count() == 0)
             {
-                return NotFound("Không tìm thấy order");
+                return NotFound();
             }
+
+            return Ok(orders);
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<OrderItemDTO>> GetOrderById([FromQuery] string id)
+        {
+            var orders = await repo.GetOrderByIdAsync(id);
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(orders);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<OrderItemDTO>> GetOrdersByUserId([FromQuery] string id)
+        {
+            var orders = await repo.GetOrdersByUserIdAsync(id);
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
             return Ok(orders);
         }
 
 
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<Order>> GetOrderById(string id)
+        [HttpDelete("[action]")]
+        public async Task<ActionResult> DeleteOrder([FromQuery] string id)
         {
-            var order = await orderRepo.GetOrdersByIdAsync(id);
-            if (order == null)
+            var check = await repo.DeleteOrderAsync(id);
+            if (check == true)
             {
-                return NotFound("Không tìm thấy order");
+                return NoContent();
             }
-            return Ok(order);
+            else
+            {
+                return NotFound();
+            }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersByUserId(string userId)
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> AddOrder([FromBody] OrderModelDTO newOrderDT0)
         {
-            var order = await orderRepo.GetOrdersByUserIdAsync(userId);
-            if(order == null)
+            var newOrder = await repo.AddNewOrderAsync(newOrderDT0);
+
+            if (newOrder != null)
             {
-                return NotFound("Không tìm thấy order");
+                return CreatedAtAction(nameof(AddOrder), newOrder);
             }
-            return Ok(order);
+            return BadRequest();
         }
+
+        //[HttpDelete("[action]")]
+        //public async Task<ActionResult> DeleteItemsOfOrder()
+        //{
+
+        //}
+
+
+
     }
 }

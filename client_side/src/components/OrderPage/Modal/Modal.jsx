@@ -1,4 +1,5 @@
 const Modal = () => {
+    const {setVoucherValue}=useContext
     return (
         <div>
             <button
