@@ -30,13 +30,13 @@ const Navbar = () => {
                                     className="block h-6 w-6"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
+                                    stroke-width="1.5"
                                     stroke="currentColor"
                                     aria-hidden="true"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                                     />
                                 </svg>
@@ -45,13 +45,13 @@ const Navbar = () => {
                                     className="hidden h-6 w-6"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
+                                    stroke-width="1.5"
                                     stroke="currentColor"
                                     aria-hidden="true"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         d="M6 18L18 6M6 6l12 12"
                                     />
                                 </svg>
@@ -67,43 +67,7 @@ const Navbar = () => {
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
-                                    <Link
-                                        to="/home/order"
-                                        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Order
-                                    </Link>
-                                    <Link
-                                        to="/home/drink"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Drinks
-                                    </Link>
-                                    <Link
-                                        to="/home/voucher"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Voucher
-                                    </Link>
-                                    <Link
-                                        to="/home/overview"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Overview
-                                    </Link>
-                                    <Link
-                                        to="/home/ingredient"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Ingredients
-                                    </Link>
-                                    <Link
-                                        to="/home/type"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Types Of Drink
-                                    </Link>
-                                    {/* <Link to="/home/order">
+                                    <Link to="/home/order">
                                         <a
                                             className="text-gray-300 hover:bg-gray-700 focus:bg-gray-900 focus:text-white hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                                             aria-current="page"
@@ -155,7 +119,7 @@ const Navbar = () => {
                                         >
                                             Types Of Drink
                                         </a>
-                                    </Link> */}
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -172,13 +136,13 @@ const Navbar = () => {
                                     className="h-6 w-6"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
+                                    stroke-width="1.5"
                                     stroke="currentColor"
                                     aria-hidden="true"
                                 >
                                     <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                                     />
                                 </svg>
@@ -217,13 +181,13 @@ const Navbar = () => {
                                     role="menu"
                                     aria-orientation="vertical"
                                     aria-labelledby="user-menu-button"
-                                    tabIndex="-1"
+                                    tabindex="-1"
                                 >
                                     <a
                                         href="#"
                                         className="block px-4 py-2 text-sm text-gray-700"
                                         role="menuitem"
-                                        tabIndex="-1"
+                                        tabindex="-1"
                                         id="user-menu-item-0"
                                     >
                                         Your Profile
@@ -232,7 +196,7 @@ const Navbar = () => {
                                         href="#"
                                         className="block px-4 py-2 text-sm text-gray-700"
                                         role="menuitem"
-                                        tabIndex="-1"
+                                        tabindex="-1"
                                         id="user-menu-item-1"
                                     >
                                         Settings
@@ -241,7 +205,7 @@ const Navbar = () => {
                                         onClick={handleSignOut}
                                         className="block px-4 py-2 text-sm text-gray-700"
                                         role="menuitem"
-                                        tabIndex="-1"
+                                        tabindex="-1"
                                         id="user-menu-item-2"
                                     >
                                         Sign out

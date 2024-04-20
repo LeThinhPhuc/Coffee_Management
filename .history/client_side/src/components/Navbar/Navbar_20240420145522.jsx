@@ -67,43 +67,7 @@ const Navbar = () => {
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
-                                    <Link
-                                        to="/home/order"
-                                        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Order
-                                    </Link>
-                                    <Link
-                                        to="/home/drink"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Drinks
-                                    </Link>
-                                    <Link
-                                        to="/home/voucher"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Voucher
-                                    </Link>
-                                    <Link
-                                        to="/home/overview"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Overview
-                                    </Link>
-                                    <Link
-                                        to="/home/ingredient"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Ingredients
-                                    </Link>
-                                    <Link
-                                        to="/home/type"
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                    >
-                                        Types Of Drink
-                                    </Link>
-                                    {/* <Link to="/home/order">
+                                    <Link to="/home/order">
                                         <a
                                             className="text-gray-300 hover:bg-gray-700 focus:bg-gray-900 focus:text-white hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                                             aria-current="page"
@@ -155,7 +119,7 @@ const Navbar = () => {
                                         >
                                             Types Of Drink
                                         </a>
-                                    </Link> */}
+                                    </Link>
                                 </div>
                             </div>
                         </div>
