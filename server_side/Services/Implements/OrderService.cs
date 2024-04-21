@@ -79,27 +79,6 @@ namespace CoffeeShopApi.Services.Implements
                     Quantity = drink.Quantity,
                     OrderId = order.Id
                 }).ToList();
-
-
-                // AS-52: API methods for Ingredient entity
-                // Update ingredient amounts
-                foreach (var drink in createOrderModel.Drinks)
-                {
-                    var ingredientsInDrink = await _dbContext.Set<IngredientInDrink>()
-                        .Where(iid => iid.DrinkId == drink.DrinkId)
-                        .Include(iid => iid.Ingredient)
-                        .ToListAsync();
-
-                    foreach (var ingredientInDrink in ingredientsInDrink)
-                    {
-                        var ingredient = ingredientInDrink.Ingredient;
-                        if (ingredient != null)
-                        {
-                            ingredient.Amount -= ingredientInDrink.Quantity * drink.Quantity;
-                            _dbContext.Entry(ingredient).State = EntityState.Modified;
-                        }
-                    }
-                }
             }
 
             // Save the order
