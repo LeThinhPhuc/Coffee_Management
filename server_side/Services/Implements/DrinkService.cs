@@ -82,25 +82,33 @@ namespace CoffeeShopApi.Services.Implements
 
         public async Task<List<object>> GetMenuDataAsync()
         {
-            var drinkCategories = await _dbContext.DrinkTypes
-                .Include(dt => dt.Drinks)
+            var menuData = await _dbContext.Drinks
+                .Include(d => d.DrinkType)
+                .Include(d => d.Ingredients)
+                    .ThenInclude(di => di.Ingredient)
+                .GroupBy(d => d.DrinkType.Name)
+                .Select(group => new
+                {
+                    Category = group.Key,
+                    Items = group.Select(d => new
+                    {
+                        Id = d.Id,
+                        Image = d.ImagePath,
+                        Name = d.Name,
+                        // Price = $"{d.Price}VNĐ",
+                        Price = d.Price,
+                        DrinkTypeId = d.DrinkTypeId,
+                        Ingredients = d.Ingredients
+                            .Select(di => new
+                            {
+                                IngredientName = di.Ingredient.Name,
+                                Quantity = di.Quantity
+                            }).ToList()
+                    }).ToList()
+                })
                 .ToListAsync();
 
-            var menuData = drinkCategories.Select(category => new
-            {
-                category = category.Name,
-                items = category.Drinks.Select(drink => new
-                {
-                    id = drink.Id,
-                    image = drink.ImagePath,
-                    name = drink.Name,
-                    price = $"{drink.Price}",
-                    drinkTypeId = drink.DrinkTypeId,
-                    // desc = drink.Description // Ko có field này
-                }).ToList<object>()
-            }).ToList<object>();
-
-            return menuData;
+            return menuData.Cast<object>().ToList();
         }
 
         public async Task<Drink> GetDrinkByIdAsync(string id)
