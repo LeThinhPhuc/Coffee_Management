@@ -5,16 +5,21 @@ namespace CoffeeShopApi.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Services.Interfaces;
     using System.Security.Claims;
+    using CoffeeShopApi.Models.DAL;
+    using Microsoft.EntityFrameworkCore;
+    using CoffeeShopApi.Models.DomainModels;
 
     [ApiController]
     [Route("api/[Controller]")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly AppDbContext _dbContext;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, AppDbContext dbContext)
         {
             _orderService = orderService;
+            _dbContext = dbContext;
         }
 
         [HttpGet("getall")]
@@ -34,63 +39,87 @@ namespace CoffeeShopApi.Controllers
             // Get the UserId from the current user's claims (JWT)
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            // This rarely happen since we already had Authorize attribute above!
+            // This rarely happens since we already have the Authorize attribute above
             if (string.IsNullOrEmpty(userId))
             {
-                // actually never reach this if the method has [Authorize] attribute
-                return Unauthorized("Please login to create order, staff."); 
+                // Actually never reaches this if the method has [Authorize] attribute
+                return Unauthorized("Please login to create order, staff.");
             }
 
             try
             {
                 // Create the order
-                var result = await _orderService.CreateOrder(createOrderModel, userId);
+                var order = new Order
+                {
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    Note = createOrderModel.Note
+                };
+
+                // Add order items
+                if (createOrderModel.Drinks != null && createOrderModel.Drinks.Any())
+                {
+                    order.OrderItems = createOrderModel.Drinks.Select(drink => new OrderItem
+                    {
+                        DrinkId = drink.DrinkId,
+                        Quantity = drink.Quantity,
+                        OrderId = order.Id
+                    }).ToList();
+                }
+
+                // Calculate the total
+                order.Total = CalculateTotal(order);
+
+                // Update ingredient amounts
+                foreach (var drink in createOrderModel.Drinks)
+                {
+                    var ingredientsInDrink = await _dbContext.Set<IngredientInDrink>()
+                        .Where(iid => iid.DrinkId == drink.DrinkId)
+                        .Include(iid => iid.Ingredient)
+                        .ToListAsync();
+
+                    foreach (var ingredientInDrink in ingredientsInDrink)
+                    {
+                        var ingredient = ingredientInDrink.Ingredient;
+                        if (ingredient != null)
+                        {
+                            ingredient.Amount -= ingredientInDrink.Quantity * (double)drink.Quantity;
+                            _dbContext.Entry(ingredient).State = EntityState.Modified;
+                        }
+                    }
+                }
+
+                // Save the order
+                _dbContext.Orders.Add(order);
+                await _dbContext.SaveChangesAsync();
 
                 // return Ok(result);
-                return Ok(new { succeeded = true, order = result, message = "Order/Bill created!" });
+                return Ok(new { succeeded = true, order = order, message = "Order/Bill created!" });
             }
             catch (Exception ex)
             {
                 // await _unitOfWork.RollbackAsync();  // cancel the transaction
                 return Ok(new { succeeded = false, message = ex.Message });
             }
-            #region example input:
-            //{
-            //    "drinks": [
-            //    {
-            //        "drinkId": "e5874547-419b-4d61-b3a8-ca87281a6166",
-            //        "price": 28000,
-            //        "quantity": 1
-            //    }
-            //    ]
-            //}
+        }
+        private double CalculateTotal(Order order)
+        {
+            double total = 0;
 
+            if (order.OrderItems != null)
+            {
+                foreach (var orderItem in order.OrderItems)
+                {
+                    if (orderItem.Drink != null)
+                    {
+                        double price = orderItem.Drink.Price;
+                        int quantity = orderItem.Quantity ?? 0;
+                        total += price * quantity;
+                    }
+                }
+            }
 
-            // eg2:
-
-            //            {
-            //                "drinks": [
-            //                  {
-            //                    "drinkId": "1b85c24c-d571-4e3f-8335-ae0217dd80ef",
-            //      "price": 28000,
-            //      "quantity": 2
-            //                  }
-            //  ]
-            //}
-
-            // return obj:
-
-            //            {
-            //                "userId": "a4439771-4c5b-4146-8544-692f9ac524e9",
-            //  "orderDate": "2023-05-17T10:05:55.943393+07:00",
-            //  "total": 56000,
-            //  "feedbacked": false,
-            //  "id": "8458a572-73a8-4817-8a12-8bab1c1a6455",
-            //  "dateCreated": "0001-01-01T00:00:00",
-            //  "dateModified": "0001-01-01T00:00:00",
-            //  "isActive": false
-            //}
-            #endregion
+            return total;
         }
 
         /*
