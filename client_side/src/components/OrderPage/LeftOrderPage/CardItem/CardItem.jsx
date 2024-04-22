@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import '../../../../App.css'
 import { MenuContext } from "../../../../context/MenuContext";
 const CardItem = ({ items }) => {
     const [checkTheme, setCheckTheme] = useState(false);
-    const { addSelectedDrink, deleteOutSelected } = useContext(MenuContext);
+    const { addSelectedDrink, deleteOutSelected, selectedDrink } = useContext(MenuContext);
 
     const handleClickTheme = () => {
         setCheckTheme(!checkTheme);
@@ -12,6 +12,19 @@ const CardItem = ({ items }) => {
         else
             deleteOutSelected(items);
     }
+
+   
+    useEffect(()=>{
+        let cnt=0;
+        for(let i=0;i<selectedDrink.length;i++){
+            if(selectedDrink[i].drinkId==items.id){
+                cnt++;
+            }
+        }
+        if(cnt==0){
+            setCheckTheme(false)
+        }
+    },[selectedDrink])
 
     return (
         <div onClick={handleClickTheme} className="relative grid h-[200px] w-full flex-col items-end justify-center overflow-hidden rounded-xl bg-white bg-clip-border text-center text-white-700 transition duration-300 transform hover:scale-105">

@@ -64,7 +64,6 @@ namespace CoffeeShopApi.Services.Implements
             // Create a new order
             Order order = new Order
             {
-                //Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 Total = CalculateTotal(createOrderModel.Drinks),
@@ -83,12 +82,9 @@ namespace CoffeeShopApi.Services.Implements
             }
 
             // Save the order
-            // await _unitOfWork.Orders.AddAsync(order);
-            // await _unitOfWork.SaveEntitiesAsync();
             _dbContext.Orders.Add(order);
             await _dbContext.SaveChangesAsync();
             return order;
-            
         }
 
         /*

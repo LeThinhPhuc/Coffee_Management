@@ -181,6 +181,7 @@ namespace CoffeeShopApi.Services.Implements
             // (LocalStorage way, no Cookie): return the user info together with accesstoken
             ApplicationUserViewModel uservm = new ApplicationUserViewModel
             {
+                IdToUpdate = user.Id,
                 UserName = user.UserName,
                 FullName = user.FullName,
                 Email = user.Email,
