@@ -8,36 +8,87 @@ import address_icon from "../../assets/address.png";
 import business_icon from "../../assets/business.png";
 import { Link, useNavigate } from "react-router-dom";
 import drinkService from "../../services/drinkService";
+import RegisterService from "../../services/RegisterService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// toast.configure({
+//     autoClose: 2000,
+//     draggable: false,
+//     position: toast.POSITION.TOP_LEFT
+//   })
+  const notify = () => {
+    toast.success('🦄 Wow so easy!', {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+  }
 const LoginSignup = () => {
     const navigate = useNavigate();
     const [action, setAction] = useState("Sign Up");
-    const [userNameOrEmailOrPhoneNumber, setUserNameOrEmailOrPhoneNumber] =
-        useState("");
+    const [userNameOrEmailOrPhoneNumber, setUserNameOrEmailOrPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
+
+    const [userName,setUserName] = useState("");
+    const [fullName,setfullName] = useState("");
+    const [Business,setBusiness] = useState("");
+    const [Address,setAddress] = useState("");
+ 
+
     const account = {
         userNameOrEmailOrPhoneNumber: userNameOrEmailOrPhoneNumber,
         password: password,
     };
 
+    const infoRegister = {
+        fullName : fullName,
+        Business:Business,
+        userName:Business,
+        Address:Address,
+        email: userNameOrEmailOrPhoneNumber,
+        password:password
+    }
+
     const doLogin = async () => {
-        console.log(account);
         const response = await LoginService.doLogin(account);
-        console.log(response);
+        
         if (response.status == 200) {
             localStorage.setItem("user", JSON.stringify(response.data));
             navigate("/home/order");
         }
     };
 
+    const doRegister = async() => {
+       
+        try{
+            console.log(infoRegister)
+            await RegisterService.doRegister(infoRegister);
+            setAction("Login");
+
+                // const res = await LoginService.doLogin(account);
+                //     localStorage.setItem("user", JSON.stringify(res.data));
+                //     navigate("/home/order");
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         const jwtToken = localStorage.getItem("user");
         if (jwtToken) {
+
             navigate("/home/order");
         }
     }, []);
 
     return (
         <div className="container">
+
             <div className="header">
                 <div className="text">{action}</div>
                 <div className="underline"></div>
@@ -48,7 +99,14 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={user_icon} alt="" />
-                        <input type="text" placeholder="Name" />
+                        <input type="text" 
+                        placeholder="Full Name" 
+                        autoComplete="fullName"
+                        value ={fullName}
+                        onChange={(e) =>
+                            setfullName(e.target.value)
+                        }
+                        />
                     </div>
                 )}
                 {action === "Login" ? (
@@ -56,7 +114,14 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={business_icon} alt="" />
-                        <input type="text" placeholder="Business" />
+                        <input type="text" 
+                        placeholder="Business"  
+                        autoComplete="Business"
+                        value ={Business}
+                        onChange={(e) =>
+                            setBusiness(e.target.value)
+                        }
+                        />
                     </div>
                 )}
                 {action === "Login" ? (
@@ -64,7 +129,14 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={address_icon} alt="" />
-                        <input type="text" placeholder="Address" />
+                        <input type="text" 
+                        placeholder="Address" 
+                        autoComplete="Address"
+                        value ={Address}
+                        onChange={(e) =>
+                            setAddress(e.target.value)
+                        }
+                        />
                     </div>
                 )}
                 <div className="input">
@@ -93,11 +165,12 @@ const LoginSignup = () => {
                 ) : (
                     <div className="forgot_password">
                         Forgot Password?
-                        <span>Click here</span>
+                        <span onClick={notify}>Click here</span>
                         <button
                             className="btn_login"
                             onClick={() => {
                                 doLogin();
+
                                 // navigate('/order')
                                 //     // setCheck(true);
                                 //     window.location.reload();
@@ -121,7 +194,12 @@ const LoginSignup = () => {
                     >
                         Login
                     </span>
-                    <button className="btn_signup">SignUp</button>
+                    <button 
+                    className="btn_signup"
+                    onClick={()=>{
+                        doRegister();
+                    }}
+                    >SignUp</button>
                 </div>
             )}
 
