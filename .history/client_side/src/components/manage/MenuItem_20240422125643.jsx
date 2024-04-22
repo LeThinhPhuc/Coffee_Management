@@ -82,7 +82,7 @@ const MenuItem = (props) => {
                     {propsItem.info || propsItem.price}
                     {propsItem.price ? " VNĐ" : ""}
                 </p>
-                <p className="block text-base antialiased font-semibold leading-relaxed text-inherit">
+                <p className="block  text-base antialiased font-medium leading-relaxed text-inherit">
                     {propsItem.desc}
                 </p>
             </div>
