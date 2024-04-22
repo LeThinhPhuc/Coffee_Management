@@ -1,7 +1,6 @@
 import axios from 'axios'
-const LoginService = {
-
-   doLogin: (body)=> axios.create({
+const VoucherService = {
+    getAll: ()=> axios.create({
         baseURL: "http://localhost:5146/",
         timeout: 5000,
         headers: {
@@ -11,8 +10,7 @@ const LoginService = {
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
             Accept: "application/x-www-form-urlencoded, text/plain",
           },
-    }).post('api/Auth/loginef',body)
+    }).get('api/VoucherCode/getall')
 
 }
-
-export default LoginService;
+export default VoucherService;
