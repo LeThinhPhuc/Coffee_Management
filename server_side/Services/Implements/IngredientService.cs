@@ -1,11 +1,9 @@
 ﻿namespace CoffeeShopApi.Services.Implements
 {
     using Models.DomainModels;
-    using Models.DTOs;
     using Services.Interfaces;
     using Models.DAL;
     using Microsoft.EntityFrameworkCore;
-    using Exceptions;
 
     public class IngredientService : IIngredientService
     {
@@ -21,9 +19,9 @@
             return await _context.Ingredients.ToListAsync();
         }
 
-        public async Task<Ingredient> GetByIdAsync(int id)
+        public async Task<Ingredient> GetByIdAsync(string id)
         {
-            return await _context.Ingredients.FindAsync(id);
+            return await _context.Ingredients.FindAsync(int.Parse(id));
         }
 
         public async Task<Ingredient> CreateAsync(Ingredient ingredient)
@@ -33,9 +31,9 @@
             return ingredient;
         }
 
-        public async Task<Ingredient> UpdateAsync(int id, Ingredient ingredient)
+        public async Task<Ingredient> UpdateAsync(string id, Ingredient ingredient)
         {
-            var existingIngredient = await _context.Ingredients.FindAsync(id);
+            var existingIngredient = await _context.Ingredients.FindAsync(int.Parse(id));
             if (existingIngredient == null)
             {
                 return null;
@@ -49,9 +47,9 @@
             return existingIngredient;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
-            var ingredient = await _context.Ingredients.FindAsync(id);
+            var ingredient = await _context.Ingredients.FindAsync(int.Parse(id));
             if (ingredient != null)
             {
                 _context.Ingredients.Remove(ingredient);
