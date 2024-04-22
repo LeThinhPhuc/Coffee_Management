@@ -12,7 +12,7 @@ namespace CoffeeShopApi.Models.DTOs
 
         public string Password { get; set; } = string.Empty;
         public string FullName { get; set; } = "Default";
-
-        // public string Roles { get; set; } = "Default";
+        public string BussinessName { get; set; } // Add property for Shop name
+        public string? BussinessAdress { get; set; } // Add property for Shop address
     }
 }

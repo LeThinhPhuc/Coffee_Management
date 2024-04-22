@@ -177,9 +177,12 @@ namespace CoffeeShopApi.Services.Implements
             var accesstokenExpiration = accessToken.ValidTo;
             var accessTokenExpiresIn = accesstokenExpiration - DateTime.UtcNow;
 
+            // Get the Bussiness associated with the user
+            var shop = await _context.Shops.FirstOrDefaultAsync(s => s.OwnerId == user.Id);
+
 
             // (LocalStorage way, no Cookie): return the user info together with accesstoken
-            ApplicationUserViewModel uservm = new ApplicationUserViewModel
+            ApplicationUserViewModel uservm = new ApplicationUserViewModel 
             {
                 IdToUpdate = user.Id,
                 UserName = user.UserName,
@@ -187,6 +190,7 @@ namespace CoffeeShopApi.Services.Implements
                 Email = user.Email,
                 //Roles = string.Join(", ", roles.ToList())
                 Roles = roles.ToList()
+                // DateJoined = user.DateJoined
             };
 
 
@@ -197,8 +201,7 @@ namespace CoffeeShopApi.Services.Implements
 
 
             // (No Hangfire): Save RefreshToken & RefreshTokenExpiryTime to DB before API respond
-            _context.SaveChanges();
-
+            // _context.SaveChanges();
 
 
             return new AuthResult
@@ -207,6 +210,7 @@ namespace CoffeeShopApi.Services.Implements
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(accessToken),
                 // RefreshToken = refreshToken,
                 user = uservm,
+                Shop = shop, // Assign the retrieved shop to the Shop property
                 Expiration = accesstokenValidTo,
                 ValidFor = $"{(int)accessTokenExpiresIn.TotalHours} hours, {(int)accessTokenExpiresIn.TotalMinutes % 60} minutes"
             };
@@ -257,6 +261,19 @@ namespace CoffeeShopApi.Services.Implements
                     #region (Background Job Scheduling) Mail Send
                     // BackgroundJob.Enqueue(() => SendConfirmationEmail(applicationUser));
                     #endregion
+
+                    // Create a shop for the user
+                    var shop = new Shop
+                    {
+                        Name = model.BussinessName, // Use the provided business name
+                        Address = model.BussinessAdress, // Use the provided business address
+                        OwnerId = applicationUser.Id, // Assign the owner ID to the user's ID
+                        Revenue = 0
+                    };
+
+                    // Save the shop to the database
+                    await _context.Shops.AddAsync(shop);
+                    await _context.SaveChangesAsync();
 
                     //_logger.LogInformation($"\nNew user registered (UserName: {applicationUser.UserName})\n");
                 }
