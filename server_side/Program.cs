@@ -36,6 +36,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDrinkTypeService, DrinkTypeService>();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 

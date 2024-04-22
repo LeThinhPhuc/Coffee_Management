@@ -2,7 +2,6 @@ namespace CoffeeShopApi.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
     using Models.DTOs;
     using Services.Interfaces;
     using System.Security.Claims;

@@ -1,0 +1,44 @@
+.bgr {
+    background-image: linear-gradient(1deg, white, #dfccaf);
+}
+
+.item-options {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-in-out; /* Hiệu ứng transition cho opacity */
+}
+
+.item-options.show {
+    opacity: 1; /* Hiển thị phần tử khi được kích hoạt */
+    pointer-events: auto;
+}
+
+@keyframes custom-pulse {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.custom-animate-pulse {
+    animation: custom-pulse 0.08s ease-in 1;
+}
+
+/* MenuModel */
+/* Trong file CSS của bạn */
+.alert {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    transition: transform 0.3s ease; /* Áp dụng hiệu ứng cho transform */
+    transform: translateY(-100%); /* Dịch chuyển alert lên trên để ẩn đi */
+}
+
+.alert.active {
+    transform: translateY(0); /* Đưa alert về vị trí ban đầu */
+}
