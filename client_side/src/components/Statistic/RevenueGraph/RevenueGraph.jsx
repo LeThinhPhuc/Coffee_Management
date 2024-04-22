@@ -25,7 +25,7 @@ const options = {
     },
     title: {
       display: true,
-      text: "Thống kê doanh thu",
+      text: "",
     },
   },
 };
