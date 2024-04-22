@@ -1,0 +1,654 @@
+[33mcommit 9675c0d6fd7417a959e275610762bebc3c628f8c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtuan[m[33m)[m
+Merge: d6da9f9 d204fc3
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:42:39 2024 +0700
+
+    Merge branch 'branch_hoa' into tuan
+
+[33mcommit d204fc3f4734b6ecf9ac6f8b2ac40d64059680d5[m[33m ([m[1;32mbranch_hoa[m[33m)[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:39:34 2024 +0700
+
+    add
+
+[33mcommit c5775853188f91150c4b69501b5383d4841c77cf[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:37:56 2024 +0700
+
+    some changes
+
+[33mcommit d6da9f9a224395ff49a42e9efdf2a3a645e8747f[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:33:25 2024 +0700
+
+    modify .gitignore
+
+[33mcommit 82b920a64bd51764cb98f77cc15c9fa485ba5678[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:31:00 2024 +0700
+
+    objbin
+
+[33mcommit d12ff9e7a2f43cba1888164ed08482d64ecb215d[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Thu Apr 18 19:30:08 2024 +0700
+
+    .gitignore
+
+[33mcommit c1083db4c087fefae9170c0d0f29c4a4f9a6efaf[m[33m ([m[1;31morigin/branch_hoa[m[33m)[m
+Author: thuhoa0810 <thuhoa08102003@gmail.com>
+Date:   Thu Apr 18 13:39:07 2024 +0700
+
+    AS-59: Statistic Dashboard Layout
+
+[33mcommit ac4e19d2613f61e202e06d98022b213e78d7a74e[m[33m ([m[1;31morigin/tuan2[m[33m, [m[1;31morigin/tuan[m[33m)[m
+Merge: 7ac182f 02fa56f
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Wed Apr 17 15:24:42 2024 +0700
+
+    Merge branch 'main' into tuan
+
+[33mcommit 02fa56f334ac1bd2cc3ffa8c8f57efc20b9edeb1[m
+Merge: 58cf10e c77dcd8
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Wed Apr 17 15:23:27 2024 +0700
+
+    Merge branch 'main' of https://github.com/LeThinhPhuc/Coffee_Management
+
+[33mcommit c77dcd89656c41864cfa4185758b2113f255e08e[m
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Tue Apr 16 22:23:56 2024 +0700
+
+    Delete node_modules directory
+
+[33mcommit 7ac182f9e2d0d64b4e7a8e77f1836fc38ef97782[m
+Merge: b81ef29 58cf10e
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 22:21:38 2024 +0700
+
+    Merge branch 'main' into tuan
+
+[33mcommit 58cf10e1ee88df8496d9d2b1bc9eeaf932a4da06[m
+Merge: dd97ff2 26f65b5
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 22:21:19 2024 +0700
+
+    Merge branch 'main' of https://github.com/LeThinhPhuc/Coffee_Management
+
+[33mcommit cedb6595dad4d00d23171fc0677c46ab29fe5a0f[m
+Author: thuhoa0810 <thuhoa08102003@gmail.com>
+Date:   Tue Apr 16 22:20:39 2024 +0700
+
+    AS-59: Tạo folder
+
+[33mcommit 26f65b57037c3aa5d3498811cd81aa3676a65a95[m
+Merge: cbde170 df3d52a
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Tue Apr 16 22:20:26 2024 +0700
+
+    Merge pull request #30 from LeThinhPhuc/tuan
+    
+    [AS-54 CRUD Order]
+
+[33mcommit b81ef29fc25537c03626aff0d7c6fb0bcdcc4191[m
+Merge: df3d52a dd97ff2
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 22:13:51 2024 +0700
+
+    Merge branch 'main' into tuan
+
+[33mcommit dd97ff2c8f98999f5a29e350823827f266954236[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 22:13:24 2024 +0700
+
+    npm i --save vite
+
+[33mcommit cbde170069c9e5b973e12a2382ccde5bf6d1c441[m[33m ([m[1;31morigin/release[m[33m)[m
+Merge: 3061ffc 405a193
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Tue Apr 16 20:50:22 2024 +0700
+
+    Merge pull request #29 from LeThinhPhuc/phuc
+    
+    AS-65 : UPDATE CONNECT API
+
+[33mcommit 405a193e574a29e390062f6615f5e51877ad2cea[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 16 20:49:28 2024 +0700
+
+    AS-65 : UPDATE CONNECT API
+
+[33mcommit 3061ffc2024880e95e3acbc84f77f1e7292bcea7[m
+Merge: 17474fb ad7c5c7
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Tue Apr 16 20:22:57 2024 +0700
+
+    Merge pull request #28 from LeThinhPhuc/phuc
+    
+    AS-65 : KET NOI API DRINK
+
+[33mcommit ad7c5c75d74656a94df26a89e8fc5f40e5412ee7[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 16 20:12:38 2024 +0700
+
+    AS-65 : KET NOI API DRINK
+
+[33mcommit 17474fb0b48b4856b7c30e9660cc9f53bcbd7f8a[m
+Merge: f2929ff 256b058
+Author: Nguyen Huu Anh Tuan <89012668+entykey@users.noreply.github.com>
+Date:   Tue Apr 16 13:36:52 2024 +0700
+
+    Merge pull request #27 from LeThinhPhuc/Backend
+    
+    Adjusted CORS
+
+[33mcommit 256b05849fa620ded7114ee2266807bcdc8b1168[m[33m ([m[1;31morigin/Backend[m[33m)[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Tue Apr 16 13:35:53 2024 +0700
+
+    Adjusted CORS
+
+[33mcommit f2929ff25bd2dbca87a31c0bb49c20c897d5ec84[m
+Merge: b148a21 a078d82
+Author: Nguyen Huu Anh Tuan <89012668+entykey@users.noreply.github.com>
+Date:   Tue Apr 16 13:25:27 2024 +0700
+
+    Merge pull request #26 from LeThinhPhuc/Backend
+    
+    Enabled CORS for React's origin
+
+[33mcommit a078d82b01b5d2b158c8f803a8c4b538159d4587[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Tue Apr 16 13:23:56 2024 +0700
+
+    Enabled CORS for React's origin
+
+[33mcommit b148a214a55aca5a3b3747c2cf089fe95822ae20[m
+Merge: 43c344f 767cc0a
+Author: Nguyen Huu Anh Tuan <89012668+entykey@users.noreply.github.com>
+Date:   Tue Apr 16 12:46:08 2024 +0700
+
+    Merge pull request #25 from LeThinhPhuc/Backend
+    
+    Add method cho Minh
+
+[33mcommit 767cc0a55beedae3d645de6e3366dd9ff57369c5[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Tue Apr 16 12:44:13 2024 +0700
+
+    Add method cho Minh
+
+[33mcommit df3d52a438ca9e5822b9e6831241de456cfb3a9c[m
+Merge: 33447b3 3f15db9
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 08:27:48 2024 +0700
+
+    Merge branch 'tuan' of https://github.com/LeThinhPhuc/Coffee_Management into tuan
+
+[33mcommit 33447b33898e3ed1885c79b2a332fd0fdcc2335e[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 07:06:17 2024 +0700
+
+    AS-54 CRUD Order
+
+[33mcommit 3f15db982f57157f351a4117f3a1087601390645[m
+Author: Counter Logic <tuandinhbi75@gmail.com>
+Date:   Tue Apr 16 07:06:17 2024 +0700
+
+    CRUD order
+
+[33mcommit 43c344f98a725f270294e25e70bc0c4cc7e3d717[m
+Merge: 4752131 405a5fb
+Author: Nguyen Huu Anh Tuan <89012668+entykey@users.noreply.github.com>
+Date:   Sun Apr 14 01:20:16 2024 +0700
+
+    Merge pull request #23 from LeThinhPhuc/Backend
+    
+    Updated Shops, Register, Role
+
+[33mcommit 405a5fbb2ae1743c2f4bb2e63e3cf8ddbf5e0ac1[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Sun Apr 14 01:16:49 2024 +0700
+
+    Updated Shops, Register, Role
+
+[33mcommit 47521310815c6fedec0ae682bac889f1e268b243[m
+Merge: 8737c4b f50a441
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Fri Apr 12 22:18:37 2024 +0700
+
+    Merge pull request #22 from LeThinhPhuc/Backend
+    
+    đừng conflict nữa :<
+
+[33mcommit f50a4418304f7a5b0410443880b56323c8183f9d[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Fri Apr 12 22:14:47 2024 +0700
+
+    đừng conflict nữa :<
+
+[33mcommit 8737c4b2cba16e88d48e1d2fc3b768985955fbc9[m
+Merge: 5d8f9d7 fbf8757
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Fri Apr 12 22:10:29 2024 +0700
+
+    Merge pull request #21 from LeThinhPhuc/Backend
+    
+    backend tuanhayho
+
+[33mcommit fbf87574c8b6eae9347c71dc136e2efb2aa1a5c4[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Fri Apr 12 22:05:38 2024 +0700
+
+    backend tuanhayho
+
+[33mcommit 5d8f9d77977f18333a55e0981353ff78b28fda33[m
+Merge: d0b027e 5f25178
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 8 23:00:15 2024 +0700
+
+    Merge pull request #20 from LeThinhPhuc/branch_phuc
+    
+    theme
+
+[33mcommit 5f25178e65ea858c392b249cca02e04f4e2f8355[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Apr 8 22:58:59 2024 +0700
+
+    theme
+
+[33mcommit ecd7d4e8b18ed7cf5136d2f0ea94d58d2c77a4e1[m
+Author: thuhoa0810 <thuhoa08102003@gmail.com>
+Date:   Mon Apr 8 22:43:49 2024 +0700
+
+    AS-39: Discount UI
+
+[33mcommit d0b027ef90f4d2cc7346d177a08d872c47c39ad5[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Apr 8 22:38:27 2024 +0700
+
+    no
+
+[33mcommit 332f7c7428ee62cd119a0135ed45d3d3b5421aad[m
+Merge: a3f6dfb 6e73d49
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 8 19:21:51 2024 +0700
+
+    Merge pull request #19 from LeThinhPhuc/branch_phuc
+    
+    Branch phuc
+
+[33mcommit 6e73d49523941e1285d1b59a04a8faf4a89c4e8a[m
+Merge: fede752 a3f6dfb
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 8 19:20:22 2024 +0700
+
+    Merge branch 'main' into branch_phuc
+
+[33mcommit fede752e4d9477b67938c446f8e9e6c886228031[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Apr 8 16:01:27 2024 +0700
+
+    modal bill
+
+[33mcommit a3f6dfb73b8e557f08dd2e7904548727682f5e1b[m
+Merge: b312077 e278111
+Author: Counter Logic <92509424+dark-doraemon@users.noreply.github.com>
+Date:   Mon Apr 8 15:47:45 2024 +0700
+
+    Merge pull request #18 from LeThinhPhuc/tuan2
+    
+    fix bugs
+
+[33mcommit e2781110442590d4d54a5ba8c62564fc18181862[m
+Author: dark-doraemon <tuandinhbi75@gmail.com>
+Date:   Mon Apr 8 15:47:13 2024 +0700
+
+    fix bugs
+
+[33mcommit b312077450d11511cde8e5bc141ccb3c4a80c181[m
+Merge: 31662c0 49e293a
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 8 14:18:51 2024 +0700
+
+    Merge pull request #17 from LeThinhPhuc/tuan2
+    
+    fix some bugs
+
+[33mcommit 49e293a79a974d8e112b72f1bfb70c788e516eed[m
+Author: dark-doraemon <tuandinhbi75@gmail.com>
+Date:   Mon Apr 8 13:06:36 2024 +0700
+
+    fix some bugs
+
+[33mcommit 25e6a81babadb23539efdd03884c6eb2000fd84b[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Apr 8 13:39:28 2024 +0700
+
+    c
+
+[33mcommit 31662c08d07fb3a614e099dfcdf081556d126628[m
+Merge: d0108f9 c9bd8c5
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 8 13:20:05 2024 +0700
+
+    Merge pull request #16 from LeThinhPhuc/trieu
+    
+    fix lai css
+
+[33mcommit c9bd8c5bba974c9fdbb507f0fc7f0e5497eb0251[m[33m ([m[1;31morigin/trieu[m[33m)[m
+Author: PhamTrieu0703 <thanhtrieupham10@gmail.com>
+Date:   Mon Apr 8 13:16:37 2024 +0700
+
+    fix lai css
+
+[33mcommit 42207dbc2b6d4e32051e7598df1d93be8de3554c[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Sat Apr 6 16:01:05 2024 +0700
+
+    AS-32:scroll
+
+[33mcommit d0108f94347579518db3c27c089dd7a7dbde4f19[m
+Merge: 0c1b9ca 00a8888
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Sat Apr 6 15:26:55 2024 +0700
+
+    Merge pull request #15 from LeThinhPhuc/trieu
+    
+    Trieu
+
+[33mcommit 0c1b9ca0a580e96d82014a95a6c9710c3f9a45d5[m
+Merge: 80435d0 8ae2b93
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Sat Apr 6 15:26:03 2024 +0700
+
+    Merge pull request #13 from LeThinhPhuc/tuan
+    
+    first push
+
+[33mcommit 8ae2b93a26c0e83217b9a2781e4b1cc60373e25d[m
+Author: dark-doraemon <tuandinhbi75@gmail.com>
+Date:   Sat Apr 6 15:22:05 2024 +0700
+
+    first push
+
+[33mcommit 00a8888a88e21b3ca053c75facb26aaedbe142ab[m
+Author: PhamTrieu0703 <thanhtrieupham10@gmail.com>
+Date:   Sat Apr 6 08:49:56 2024 +0700
+
+    fix css
+
+[33mcommit 943522cc026a58e5f531cf9876bc92a06dd4890c[m
+Author: PhamTrieu0703 <thanhtrieupham10@gmail.com>
+Date:   Sat Apr 6 08:45:42 2024 +0700
+
+    fix loi
+
+[33mcommit 59d9dbe7ba9c58382d0d66f04c0d78646f280fbc[m
+Author: PhamTrieu0703 <thanhtrieupham10@gmail.com>
+Date:   Sat Apr 6 08:31:39 2024 +0700
+
+    thêm thuộc tính
+
+[33mcommit 80435d0b6faab5d1104b2d5b466b7e6df4a24846[m
+Merge: 5b9e559 2ad1135
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Wed Apr 3 13:43:02 2024 +0700
+
+    Merge pull request #12 from LeThinhPhuc/branch_hoa
+    
+    discount
+
+[33mcommit 2ad1135288a8fd9d2a521465a00afbb471c5a0ac[m
+Merge: 4c15944 5b9e559
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Wed Apr 3 13:42:47 2024 +0700
+
+    Merge branch 'main' into branch_hoa
+
+[33mcommit 5b9e559e2f6167f1010e408ffb36b9e8594a9b96[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Wed Apr 3 13:39:17 2024 +0700
+
+    AS-31:MODAL
+
+[33mcommit 83c06576da27090385782ae244a8a13d3a6f3fd7[m
+Merge: 7b335d4 e1832be
+Author: Tăng Khải Minh <88530628+kauittt@users.noreply.github.com>
+Date:   Tue Apr 2 23:07:59 2024 +0700
+
+    Merge pull request #11 from LeThinhPhuc/minh
+    
+    Minh
+
+[33mcommit e1832be2e3eeb4409be2983558b613de9a65e5f9[m[33m ([m[1;31morigin/minh[m[33m)[m
+Merge: 3f5d274 4569a12
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Tue Apr 2 23:06:20 2024 +0700
+
+    AS-33: add comment
+
+[33mcommit 3f5d27437eea68dd7cfdaadb0e32262f25b2bcc8[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Tue Apr 2 22:36:28 2024 +0700
+
+    thêm lại trong App.css
+
+[33mcommit 83d80ffaed571029ea37d744d0757157efba9639[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Tue Apr 2 22:29:45 2024 +0700
+
+    add comment to components
+
+[33mcommit 4569a1277e8429d356ef00a8ddca58c34cb80b39[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Tue Apr 2 22:36:28 2024 +0700
+
+    thêm lại trong App.css
+
+[33mcommit 4c15944efaa6ebf443a0d7bffd5f4698a5353976[m
+Author: thuhoa0810 <thuhoa08102003@gmail.com>
+Date:   Tue Apr 2 22:25:25 2024 +0700
+
+    discount
+
+[33mcommit 462057afe295c954d4af8038acbe41d07d5fd5a4[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Tue Apr 2 22:29:45 2024 +0700
+
+    add comment to components
+
+[33mcommit 7b335d407bd360f5492a4f771ba8ed2ceacca2e6[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 2 14:56:12 2024 +0700
+
+    c
+
+[33mcommit cd146329a2ffa0ddab9161a64178955f09112e8f[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 2 14:42:16 2024 +0700
+
+    fix
+
+[33mcommit dc033f1a1c259efeaf11f2d82b57e296c77cbac1[m
+Merge: f521343 f6e96da
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Tue Apr 2 14:33:31 2024 +0700
+
+    Merge pull request #10 from LeThinhPhuc/branch_phuc
+    
+    css
+
+[33mcommit f6e96dabcae23515e2e31a4b400b6521d11a8347[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 2 14:27:41 2024 +0700
+
+    css
+
+[33mcommit f5213437cc12c43d92741616a81eebf21cae137e[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Tue Apr 2 14:30:07 2024 +0700
+
+    c
+
+[33mcommit c63d02e138c88a9e59487026c799e49a3d097eef[m
+Merge: 2db26a1 55b3c75
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 1 22:05:20 2024 +0700
+
+    Merge pull request #4 from LeThinhPhuc/branch_phuc
+    
+    mBranch phuc
+
+[33mcommit 55b3c75f32891580e8f3b001445bb37112db3815[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Apr 1 22:01:12 2024 +0700
+
+    order
+
+[33mcommit 2db26a1a8703af0236522dcd2884bcb95b025072[m
+Merge: 27443ce 529a01a
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 1 21:57:39 2024 +0700
+
+    Merge pull request #8 from LeThinhPhuc/minh
+    
+    complete ManageIngredient, update MenuModel
+
+[33mcommit 27443ce7e9cd639f029ce80890747afd4a56c443[m
+Merge: 52f4e65 b159841
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Apr 1 21:56:23 2024 +0700
+
+    Merge pull request #9 from LeThinhPhuc/Backend
+    
+    init backend
+
+[33mcommit 529a01ad1dd41a90b29a0eb8287c810085afd1e0[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Mon Apr 1 21:55:32 2024 +0700
+
+    update MenuModel
+
+[33mcommit b159841e45f8beeb83ed24331f91c9a38b6ea54d[m
+Author: entykey <nguyentuan4026@gmail.com>
+Date:   Mon Apr 1 21:47:21 2024 +0700
+
+    init backend
+
+[33mcommit 459018e38d39e759a1316d58e35076bafda214b5[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Mon Apr 1 14:26:03 2024 +0700
+
+    complete ManageIngredient, update MenuModel
+
+[33mcommit 52f4e65ce422ac1b6c5910ab0edfb37bb8bf68c0[m
+Merge: 7e575be c26e47d
+Author: Tăng Khải Minh <88530628+kauittt@users.noreply.github.com>
+Date:   Sun Mar 31 14:56:16 2024 +0700
+
+    Merge pull request #7 from LeThinhPhuc/minh
+    
+    create manage component and change location of ManageMenu (old name: …
+
+[33mcommit c26e47d3df2d3a64f1885499d104eb8dd1578722[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Sun Mar 31 14:45:22 2024 +0700
+
+    create manage component and change location of ManageMenu (old name: LeftMenu)
+
+[33mcommit 7e575bee917b0e97d1c3ad56659c40a8d661dd5a[m
+Merge: 5430d4c 1bf4356
+Author: Tăng Khải Minh <88530628+kauittt@users.noreply.github.com>
+Date:   Sat Mar 30 05:59:45 2024 +0700
+
+    Merge pull request #6 from LeThinhPhuc/minh
+    
+    complete QL menu
+
+[33mcommit 1bf4356aaf2b5c9f25d1133e49450fa2255c3672[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Sat Mar 30 05:58:19 2024 +0700
+
+    complete QL menu
+
+[33mcommit 5430d4cd8612dc5e229904a90e920a1091c0b9ef[m
+Merge: abf1284 3daf30e
+Author: Tăng Khải Minh <88530628+kauittt@users.noreply.github.com>
+Date:   Fri Mar 29 20:03:21 2024 +0700
+
+    Merge pull request #5 from LeThinhPhuc/minh
+    
+    add MenuItem, MenuModel, TemplateData, LeftMenu
+
+[33mcommit 3daf30eaebb54100c784e4259f36b0c890abdf04[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Fri Mar 29 18:48:12 2024 +0700
+
+    add MenuItem, MenuModel, TemplateData, LeftMenu
+
+[33mcommit e724ed639632e192056bc5323536b5f77876f8fa[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Fri Mar 29 12:35:34 2024 +0700
+
+    first commit
+
+[33mcommit abf128475c94e97520c000ad4852df0fca591315[m
+Author: Tăng Khải Minh <tangkhaiminh2002@gmail.com>
+Date:   Thu Mar 28 23:58:52 2024 +0700
+
+    npm install: tailwind, lodash, axios
+
+[33mcommit 4540b72b6dd674798ee48a3d655deaf3df6d725d[m
+Merge: aad2103 2fbbd77
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Thu Mar 28 23:33:02 2024 +0700
+
+    Merge pull request #2 from LeThinhPhuc/branch_phuc
+    
+    Branch phuc
+
+[33mcommit 2fbbd778580834c697b6ae649ffd4e56e7372d0d[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Thu Mar 28 23:28:50 2024 +0700
+
+    c
+
+[33mcommit 44baa148cd9e5a989cf5bf65c3493de1e0afbb85[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Thu Mar 28 23:10:28 2024 +0700
+
+    c
+
+[33mcommit aad2103fa00f641bc24c7600396153bbe19872e0[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Thu Mar 28 23:25:52 2024 +0700
+
+    vite
+
+[33mcommit 8bd0f405102e8b028e37e835b7c3c560c62856f2[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Thu Mar 28 23:20:36 2024 +0700
+
+    vite setup
+
+[33mcommit 23eec8e86d3b766f4bf2e37beea3ea7466d9532b[m
+Merge: ac03a07 0709a71
+Author: LeThinhPhuc <110512559+LeThinhPhuc@users.noreply.github.com>
+Date:   Mon Mar 25 22:06:30 2024 +0700
+
+    Merge pull request #1 from LeThinhPhuc/release
+    
+    setup fe
+
+[33mcommit 0709a71b1981c203554e637d9f8b31413aed6a23[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Mar 25 22:05:49 2024 +0700
+
+    setup fe
+
+[33mcommit ac03a07bf3052abcff824fd314e34099b6c57028[m
+Author: LeThinhPhuc <phuclethinh70@gmail.com>
+Date:   Mon Mar 25 21:35:07 2024 +0700
+
+    first commit

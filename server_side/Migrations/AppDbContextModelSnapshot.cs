@@ -57,73 +57,73 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f9655de8-f30c-4910-91ca-1e07c0070700",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9560),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9540),
-                            DrinkTypeId = "82c34dab-70c0-46e4-a06d-4d3439cbb589",
+                            Id = "dbb39949-9079-45fa-a80b-32c7e4f7dfe6",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2475),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2471),
+                            DrinkTypeId = "cd9d7987-072c-47b4-b37a-6cf6659d3d1a",
                             Name = "Latte",
                             Price = 28000.0
                         },
                         new
                         {
-                            Id = "148be6e8-72c1-43b6-99fc-d0ed91f75d80",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9620),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9610),
-                            DrinkTypeId = "82c34dab-70c0-46e4-a06d-4d3439cbb589",
+                            Id = "776cb952-fe4c-4644-89f0-f34bd9b918f2",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2487),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2481),
+                            DrinkTypeId = "cd9d7987-072c-47b4-b37a-6cf6659d3d1a",
                             Name = "Cappuccino",
                             Price = 28000.0
                         },
                         new
                         {
-                            Id = "f4b2244e-cebd-42b7-85c2-bd1539de485a",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9680),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9670),
-                            DrinkTypeId = "dd91c711-8e1f-4d90-ace8-f696b95d1ed7",
+                            Id = "0b84dc72-eb80-4586-9257-861d2564ae79",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2496),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2493),
+                            DrinkTypeId = "3162cc3f-d641-427c-bd7c-3cf55043dbec",
                             Name = "Earl Grey",
                             Price = 25000.0
                         },
                         new
                         {
-                            Id = "2a32adc7-92d8-4e83-bdb0-0ff028de8e3d",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9750),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9740),
-                            DrinkTypeId = "dd91c711-8e1f-4d90-ace8-f696b95d1ed7",
+                            Id = "e95bcb91-aa09-4bf8-9f5a-ce56761e8308",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2506),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2502),
+                            DrinkTypeId = "3162cc3f-d641-427c-bd7c-3cf55043dbec",
                             Name = "Green Tea",
                             Price = 22000.0
                         },
                         new
                         {
-                            Id = "5868bc92-9f4e-47cc-8fdb-13e3d4a8a0fa",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9880),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9870),
-                            DrinkTypeId = "c1aa00ce-7c64-4981-8dc2-f58f6fe0dd3e",
+                            Id = "ca5288e5-2df5-437c-a858-b8ba15931f7e",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2515),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2512),
+                            DrinkTypeId = "cbd96455-2068-4461-b3e4-b6443ade7dfb",
                             Name = "Strawberry Banana Smoothie",
                             Price = 28000.0
                         },
                         new
                         {
-                            Id = "9bdebaef-4ed5-4bb2-8162-61e20d2bfb04",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9940),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9930),
-                            DrinkTypeId = "c1aa00ce-7c64-4981-8dc2-f58f6fe0dd3e",
+                            Id = "89659306-0fab-4a69-8e70-518bd214f6a6",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2527),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2521),
+                            DrinkTypeId = "cbd96455-2068-4461-b3e4-b6443ade7dfb",
                             Name = "Mango Pineapple Smoothie",
                             Price = 23000.0
                         },
                         new
                         {
-                            Id = "4f927e1f-8fb7-4a61-8c2d-9498227823a9",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Local),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9990),
-                            DrinkTypeId = "60fc2806-2c83-41bc-8f92-809a3116ca33",
+                            Id = "04c4231b-9a6e-4811-b806-46dac56c5d41",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2536),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2532),
+                            DrinkTypeId = "f8770135-cc60-4a9f-83d5-2e04b992d99a",
                             Name = "Orange Juice",
                             Price = 24000.0
                         },
                         new
                         {
-                            Id = "d43534a6-ebdb-4a6d-8808-601075e9233e",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Local).AddTicks(70),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(60),
-                            DrinkTypeId = "60fc2806-2c83-41bc-8f92-809a3116ca33",
+                            Id = "f1cbd738-1eb0-4feb-8229-8fcc43b3d78d",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2545),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2541),
+                            DrinkTypeId = "f8770135-cc60-4a9f-83d5-2e04b992d99a",
                             Name = "Apple Juice",
                             Price = 24000.0
                         });
@@ -158,35 +158,35 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "82c34dab-70c0-46e4-a06d-4d3439cbb589",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9170),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9160),
+                            Id = "cd9d7987-072c-47b4-b37a-6cf6659d3d1a",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2417),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2413),
                             Name = "Coffee",
-                            ShopId = "fd827bac-0bba-40df-adb9-a26f36c528e5"
+                            ShopId = "8f7a87cc-53f3-4334-b0a1-cf841dff094a"
                         },
                         new
                         {
-                            Id = "dd91c711-8e1f-4d90-ace8-f696b95d1ed7",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9230),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9220),
+                            Id = "3162cc3f-d641-427c-bd7c-3cf55043dbec",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2430),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2423),
                             Name = "Tea",
-                            ShopId = "fd827bac-0bba-40df-adb9-a26f36c528e5"
+                            ShopId = "8f7a87cc-53f3-4334-b0a1-cf841dff094a"
                         },
                         new
                         {
-                            Id = "c1aa00ce-7c64-4981-8dc2-f58f6fe0dd3e",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9370),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9360),
+                            Id = "cbd96455-2068-4461-b3e4-b6443ade7dfb",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2439),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2435),
                             Name = "Smoothie",
-                            ShopId = "fd827bac-0bba-40df-adb9-a26f36c528e5"
+                            ShopId = "8f7a87cc-53f3-4334-b0a1-cf841dff094a"
                         },
                         new
                         {
-                            Id = "60fc2806-2c83-41bc-8f92-809a3116ca33",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Local).AddTicks(9440),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9430),
+                            Id = "f8770135-cc60-4a9f-83d5-2e04b992d99a",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2448),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2444),
                             Name = "Juice",
-                            ShopId = "fd827bac-0bba-40df-adb9-a26f36c528e5"
+                            ShopId = "8f7a87cc-53f3-4334-b0a1-cf841dff094a"
                         });
                 });
 
@@ -218,20 +218,20 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Amount = 5.0,
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(150),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(180),
-                            ExpiryDate = new DateTime(2024, 5, 14, 0, 27, 3, 513, DateTimeKind.Local).AddTicks(190),
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2576),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2578),
+                            ExpiryDate = new DateTime(2024, 5, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2580),
                             Name = "Milk"
                         },
                         new
                         {
-                            Id = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Amount = 10.0,
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(220),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(240),
-                            ExpiryDate = new DateTime(2024, 6, 14, 0, 27, 3, 513, DateTimeKind.Local).AddTicks(250),
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2615),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2617),
+                            ExpiryDate = new DateTime(2024, 6, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2619),
                             Name = "Sugar"
                         });
                 });
@@ -269,146 +269,146 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c73894c5-3b0f-462b-a883-04e4b25969ed",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(390),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(420),
-                            DrinkId = "f9655de8-f30c-4910-91ca-1e07c0070700",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "2252ef29-4fe8-44f2-8e99-431e2ca3e926",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2642),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2644),
+                            DrinkId = "dbb39949-9079-45fa-a80b-32c7e4f7dfe6",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "b3120ea5-af7c-457e-87e4-6ee839f89395",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(460),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(480),
-                            DrinkId = "f9655de8-f30c-4910-91ca-1e07c0070700",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "46a4a71e-656a-488c-a07c-33aac4338957",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2651),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2653),
+                            DrinkId = "dbb39949-9079-45fa-a80b-32c7e4f7dfe6",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "f1ec82de-2f4b-4f87-97f0-f72e920732d4",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(520),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(550),
-                            DrinkId = "148be6e8-72c1-43b6-99fc-d0ed91f75d80",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "75846658-e6b8-491f-ad7e-da3b230294cf",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2661),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2662),
+                            DrinkId = "776cb952-fe4c-4644-89f0-f34bd9b918f2",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "d57e31a0-1dbe-428d-b0fa-4430f9b7bc20",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(580),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(610),
-                            DrinkId = "148be6e8-72c1-43b6-99fc-d0ed91f75d80",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "daeeb32d-90bc-48db-aa73-ef371bb28cfd",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2670),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2671),
+                            DrinkId = "776cb952-fe4c-4644-89f0-f34bd9b918f2",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "d248c312-3738-4ea7-9769-feeef05998c3",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(640),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(670),
-                            DrinkId = "f4b2244e-cebd-42b7-85c2-bd1539de485a",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "8cf1237d-e2f9-4296-a163-30d2e3d75bbf",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2682),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2683),
+                            DrinkId = "0b84dc72-eb80-4586-9257-861d2564ae79",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "1f78dd55-f575-429f-883d-afdc27f28923",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(700),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1060),
-                            DrinkId = "f4b2244e-cebd-42b7-85c2-bd1539de485a",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "a25e7a3d-9695-4d6f-a7a7-bf37794dbe26",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2690),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2692),
+                            DrinkId = "0b84dc72-eb80-4586-9257-861d2564ae79",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "2c0904e8-bf92-4448-a97b-78e2be53f32b",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1120),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1140),
-                            DrinkId = "2a32adc7-92d8-4e83-bdb0-0ff028de8e3d",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "74a0846e-c586-4119-a59d-996c5a71574e",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2700),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2702),
+                            DrinkId = "e95bcb91-aa09-4bf8-9f5a-ce56761e8308",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "7e3aaefd-73c8-4efb-aa95-1d4bd99ccc00",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1180),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1210),
-                            DrinkId = "2a32adc7-92d8-4e83-bdb0-0ff028de8e3d",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "e2132200-5f51-4e70-9e3e-2222095a8afe",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2709),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2711),
+                            DrinkId = "e95bcb91-aa09-4bf8-9f5a-ce56761e8308",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "d6ecb34a-c359-4c40-8fe8-8a73134e9ac7",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1240),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1260),
-                            DrinkId = "5868bc92-9f4e-47cc-8fdb-13e3d4a8a0fa",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "d87d27a3-47fd-417b-a8fe-6c754d8ee15f",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2720),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2722),
+                            DrinkId = "ca5288e5-2df5-437c-a858-b8ba15931f7e",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "213d09e4-717f-44c4-b591-4c1acafad5fa",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1300),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1320),
-                            DrinkId = "5868bc92-9f4e-47cc-8fdb-13e3d4a8a0fa",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "97ec37b0-489c-4d7c-9ab2-713042c7583d",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2729),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2731),
+                            DrinkId = "ca5288e5-2df5-437c-a858-b8ba15931f7e",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "a1175138-2364-4200-a012-cfaedaadb349",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1360),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1380),
-                            DrinkId = "9bdebaef-4ed5-4bb2-8162-61e20d2bfb04",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "4efa5eeb-99ff-4680-87c9-f2acb3833cf7",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2738),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2739),
+                            DrinkId = "89659306-0fab-4a69-8e70-518bd214f6a6",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "c96770b8-d221-4010-b738-179d5def3853",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1420),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1500),
-                            DrinkId = "9bdebaef-4ed5-4bb2-8162-61e20d2bfb04",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "ae635651-070c-4b8c-ab0f-dd77d5e15127",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2746),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2748),
+                            DrinkId = "89659306-0fab-4a69-8e70-518bd214f6a6",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "0cd843a3-b6c1-480a-969c-f82842f95a35",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1540),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1560),
-                            DrinkId = "4f927e1f-8fb7-4a61-8c2d-9498227823a9",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "b40cac38-7ec1-4b18-9198-35cf84376a67",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2757),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2759),
+                            DrinkId = "04c4231b-9a6e-4811-b806-46dac56c5d41",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "51e6b005-2f67-49dd-9952-e6e11b194e0b",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1600),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1620),
-                            DrinkId = "4f927e1f-8fb7-4a61-8c2d-9498227823a9",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "dd5c149a-b872-4a29-9ff8-cc12d68d0360",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2766),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2767),
+                            DrinkId = "04c4231b-9a6e-4811-b806-46dac56c5d41",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         },
                         new
                         {
-                            Id = "88ed8e55-0787-4d2a-a9d7-4ed7e48ca276",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1660),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1690),
-                            DrinkId = "d43534a6-ebdb-4a6d-8808-601075e9233e",
-                            IngredientId = "690621f7-0f25-4a35-8bed-8c2a968f197a",
+                            Id = "f518bb0c-1d3c-4e04-b3fe-25e42d511966",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2774),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2776),
+                            DrinkId = "f1cbd738-1eb0-4feb-8229-8fcc43b3d78d",
+                            IngredientId = "6444d68e-fb3f-403a-bcb6-99479b6e6bca",
                             Quantity = 100
                         },
                         new
                         {
-                            Id = "3b510b2b-e15e-4c93-95e7-70566140bdae",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1720),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1750),
-                            DrinkId = "d43534a6-ebdb-4a6d-8808-601075e9233e",
-                            IngredientId = "33cb620e-746c-4212-aff3-5448fc3d2b24",
+                            Id = "604809da-0d34-4ffd-bf60-275cd84d7938",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2783),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2785),
+                            DrinkId = "f1cbd738-1eb0-4feb-8229-8fcc43b3d78d",
+                            IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         });
                 });
@@ -447,12 +447,12 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "733a0e42-2cfa-4b68-b148-730a6a160b58",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Local).AddTicks(1900),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(1880),
+                            Id = "a27b9c43-e672-46a3-8a46-042ae32e1e03",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2859),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2852),
                             OrderDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Total = 28000.0,
-                            UserId = "f4dfa19f-3243-48fd-b2cd-e187beefd672"
+                            UserId = "48163789-5220-48f0-85b9-7ebbb3daa63e"
                         });
                 });
 
@@ -494,11 +494,11 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4228af53-d20e-4745-9597-f39f1162fd90",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(2010),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 513, DateTimeKind.Unspecified).AddTicks(2040),
-                            DrinkId = "f9655de8-f30c-4910-91ca-1e07c0070700",
-                            OrderId = "733a0e42-2cfa-4b68-b148-730a6a160b58",
+                            Id = "047fc7cb-fa36-4b03-babe-60e68a8164d1",
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2878),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2880),
+                            DrinkId = "dbb39949-9079-45fa-a80b-32c7e4f7dfe6",
+                            OrderId = "a27b9c43-e672-46a3-8a46-042ae32e1e03",
                             Quantity = 1
                         });
                 });
@@ -544,24 +544,24 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fd827bac-0bba-40df-adb9-a26f36c528e5",
+                            Id = "8f7a87cc-53f3-4334-b0a1-cf841dff094a",
                             Address = "123 Main St",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(8960),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9020),
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2365),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2392),
                             IsSuspended = false,
                             Name = "Coffee House",
-                            OwnerId = "f4dfa19f-3243-48fd-b2cd-e187beefd672",
+                            OwnerId = "48163789-5220-48f0-85b9-7ebbb3daa63e",
                             Revenue = 0.0
                         },
                         new
                         {
-                            Id = "2c2a561e-a060-4475-81a3-7116d8180ebf",
+                            Id = "36b0c5ec-1c24-456c-9ccd-c58e0468ad21",
                             Address = "456 Elm St",
-                            DateCreated = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9060),
-                            DateModified = new DateTime(2024, 4, 14, 0, 27, 3, 512, DateTimeKind.Unspecified).AddTicks(9080),
+                            DateCreated = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2399),
+                            DateModified = new DateTime(2024, 4, 19, 12, 0, 32, 962, DateTimeKind.Unspecified).AddTicks(2401),
                             IsSuspended = false,
                             Name = "Tea Shop",
-                            OwnerId = "f4dfa19f-3243-48fd-b2cd-e187beefd672",
+                            OwnerId = "48163789-5220-48f0-85b9-7ebbb3daa63e",
                             Revenue = 0.0
                         });
                 });
@@ -630,8 +630,8 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3ec70352-b83e-463f-890e-a2935450376e",
-                            ConcurrencyStamp = "7e05ad81-9586-48de-a337-610fc25a5589",
+                            Id = "13286075-5c0f-40ca-8882-02e253c27910",
+                            ConcurrencyStamp = "725f08f6-9e53-4866-9c74-fad2fa50c33a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -799,8 +799,8 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "f4dfa19f-3243-48fd-b2cd-e187beefd672",
-                            RoleId = "3ec70352-b83e-463f-890e-a2935450376e"
+                            UserId = "48163789-5220-48f0-85b9-7ebbb3daa63e",
+                            RoleId = "13286075-5c0f-40ca-8882-02e253c27910"
                         });
                 });
 
@@ -840,15 +840,15 @@ namespace CoffeeShopApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f4dfa19f-3243-48fd-b2cd-e187beefd672",
+                            Id = "48163789-5220-48f0-85b9-7ebbb3daa63e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0cf83623-dd01-4dc8-a665-7d9108dfd3d7",
+                            ConcurrencyStamp = "aaa4750e-4189-4929-9160-471a76204b98",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEyso3P/S4/xM9dVs0jDq9aUkDPBXcki3++HJzpO9DkU6bYJc7dX6Jkb4E1ocN7QZg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP9o1VYs+ImRMnZXBGRUffeWyJkKZ747UDkN8huXlScCcwJyO0YO8cd9iSkR1qDnrw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d366722b-7ada-4f04-bc06-9155d2f5955c",
+                            SecurityStamp = "a015a8b7-40be-482c-9532-327851dab6f0",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FullName = "Admin"

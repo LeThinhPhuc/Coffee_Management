@@ -1,23 +1,28 @@
-
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import Home from "./components/Home/Home";
-import LeftMenu from "./components/Menu/LeftMenu/LeftMenu";
-import ManageMenu from "./components/manage/manageMenu/ManageMenu";
-import ManageIngredient from "./components/manage/manageIngredient/ManageIngredient";
-import Manage from "./components/manage/Manage";
-import Loading from "./components/manage/Loading";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider, useDispatch } from "react-redux";
 import { AppProvider } from "./context/MenuContext";
-import OrderPage from "./components/OrderPage/OrderPage";
-import LoginSignup from "./components/Login_Signup/LoginSignup";
+import Navbar from "./components/Navbar/Navbar";
+import AnimateRoute from "./components/Animate/AnimateRoute";
+import store from "./redux/Store/store";
+import { fetchDrinks } from "./redux/Action/drinkAction";
+import { fetchTypes } from "./redux/Action/typeAction";
+import { fetchOrders } from './redux/Action/orderAction';
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchDrinks());
+        dispatch(fetchTypes());
+        dispatch(fetchOrders())
+    }, [dispatch]);
+
     return (
         <AppProvider>
-            {/* <OrderPage></OrderPage> */}
-            <LoginSignup/>
+                <Router>
+                    <AnimateRoute />
+                </Router>
         </AppProvider>
     );
 }

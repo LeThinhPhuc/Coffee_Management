@@ -10,12 +10,19 @@ export const AppProvider = ({ children }) => {
     const [voucherValue,setVoucherValue]=useState()
 
     const addSelectedDrink = (newSelected) => {
-        setSelectedDrink([...selectedDrink, newSelected]);
+        setSelectedDrink([...selectedDrink, {drinkId:newSelected.id, quantity:1, price:newSelected.price, name:newSelected.name, imagePath:newSelected.image, note:""}]);
     };
 
     const deleteOutSelected = (deleteSelected)=>{
-        const updatedSelectedDrink = selectedDrink.filter((item) => item.id !== deleteSelected.id);
+        const updatedSelectedDrink = selectedDrink.filter((item) => item.drinkId !== deleteSelected.id);
             setSelectedDrink(updatedSelectedDrink);
+    }
+    const deleteOutSelectedOnOrder = (deleteSelected)=>{
+        const updatedSelectedDrink = selectedDrink.filter((item) => item.drinkId !== deleteSelected.drinkId);
+            setSelectedDrink(updatedSelectedDrink);
+    }
+    const clearSelected = () =>{
+        setSelectedDrink([]);
     }
    
     return (
@@ -25,6 +32,8 @@ export const AppProvider = ({ children }) => {
                 setSelectedDrink:setSelectedDrink,
                 addSelectedDrink: addSelectedDrink, // Thêm hàm addSelectedDrink vào context
                 deleteOutSelected:deleteOutSelected,
+                deleteOutSelectedOnOrder:deleteOutSelectedOnOrder,
+                clearSelected:clearSelected,
                 checkModalVoucher:checkModalVoucher,
                 setModalVoucher:setModalVoucher,
                 voucherValue:voucherValue,
