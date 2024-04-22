@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -9,61 +9,53 @@ import {
     faChampagneGlasses,
 } from "@fortawesome/free-solid-svg-icons";
 
-//* Card
-//! Cần sửa chổ desc cho drinks
+//! Card
+//* Cần sửa chổ desc cho drinks
 const MenuItem = (props) => {
-    //* Lấy Item được truyền vào, để có thể sửa.
+    //! Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState(props.item);
 
-    //* Theo như templateData thì nếu không có "desc" thì sẽ là card của nguyên liệu
-    //! đổi cái desc tùy theo field của ingredients
+    //! Theo như templateData thì nếu không có "desc" thì sẽ là card của nguyên liệu
+    //* đổi cái desc tùy theo field của ingredients
     // if (!propsItem.desc) { //? Cũ rồi
     //     const desc = propsItem.entryDate + " - " + propsItem.expiryDate;
 
     //     setPropsItem({
-    //         // ... là destructuring object, bung hết các field của object
+    //         //! ... là destructuring object, bung hết các field của object
     //         ...props.item,
 
-    //         // field chưa có -> thêm, có -> update
+    //         //! field chưa có -> thêm, có -> update
     //         desc: desc,
     //         info: propsItem.quantity,
     //     });
     // }
-    // console.log(propsItem);
 
-    const ingredients = propsItem.ingredients
-        .map((item) => {
-            return item.quantity + " " + item.ingredientName;
-        })
-        .join(", ");
+    const ingredients = propsItem.ingredients.map((item) => {
+        return item.ingredientName + ", ";
+    });
+    console.log("Ingredient");
+    console.log(ingredients);
 
-    const desc = propsItem.ingredients
-        ? ingredients
-        : //! Coi rồi đổi lại cho phù hợp với bên ingredient
-          propsItem.entryDate + " - " + propsItem.expiryDate;
+    const desc = propsItem.ingredients ? ingredients : null;
 
-    useEffect(() => {
-        setPropsItem({
-            //* ... là destructuring object, bung hết các field của object
-            ...props.item,
+    setPropsItem({
+        //! ... là destructuring object, bung hết các field của object
+        ...props.item,
 
-            //* field chưa có -> thêm, có -> update
-            desc: desc,
-            info: propsItem.quantity,
-        });
-    }, []);
+        //! field chưa có -> thêm, có -> update
+        desc: desc,
+        info: propsItem.quantity,
+    });
+    console.log(propsItem);
 
     return (
-        <div
-            className="relative flex flex-col justify-start mx-auto p-[12px] gap-2 text-gray-700 bgr bg shadow-xl bg-clip-border rounded-xl 
-            w-[180px] h-[300px]"
-        >
+        <div className="relative flex flex-col justify-start mx-auto p-[12px] gap-2 text-gray-700 bgr bg shadow-xl bg-clip-border rounded-xl ">
             {/*//! Card-Image */}
-            <div className="relative w-full h-[150px] min-h-[150px] max-h-[150px]  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+            <div className="relative w-full max-w-[200px] min-h-[200px] max-h-[200px]  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
                 <img
                     src={propsItem.image}
                     alt="card-image"
-                    className="w-full h-full object-cover"
+                    className="object-cover  size-full "
                 />
             </div>
 
@@ -72,8 +64,7 @@ const MenuItem = (props) => {
                 <h5
                     className={`${
                         propsItem.price && "min-h-[55px]"
-                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900
-                     `}
+                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900`}
                 >
                     {propsItem.name}
                 </h5>
@@ -82,7 +73,7 @@ const MenuItem = (props) => {
                     {propsItem.info || propsItem.price}
                     {propsItem.price ? " VNĐ" : ""}
                 </p>
-                <p className="block text-base antialiased font-semibold leading-relaxed text-inherit">
+                <p className="block  text-base antialiased font-medium leading-relaxed text-inherit">
                     {propsItem.desc}
                 </p>
             </div>

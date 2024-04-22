@@ -56,10 +56,10 @@ const MenuItem = (props) => {
     return (
         <div
             className="relative flex flex-col justify-start mx-auto p-[12px] gap-2 text-gray-700 bgr bg shadow-xl bg-clip-border rounded-xl 
-            w-[180px] h-[300px]"
+            w-[180px] h-[200px]"
         >
             {/*//! Card-Image */}
-            <div className="relative w-full h-[150px] min-h-[150px] max-h-[150px]  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+            <div className="relative w-full  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
                 <img
                     src={propsItem.image}
                     alt="card-image"
@@ -82,7 +82,7 @@ const MenuItem = (props) => {
                     {propsItem.info || propsItem.price}
                     {propsItem.price ? " VNĐ" : ""}
                 </p>
-                <p className="block text-base antialiased font-semibold leading-relaxed text-inherit">
+                <p className="block  text-base antialiased font-medium leading-relaxed text-inherit">
                     {propsItem.desc}
                 </p>
             </div>

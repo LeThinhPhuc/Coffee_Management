@@ -59,7 +59,7 @@ const MenuItem = (props) => {
             w-[180px] h-[300px]"
         >
             {/*//! Card-Image */}
-            <div className="relative w-full h-[150px] min-h-[150px] max-h-[150px]  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+            <div className="relative w-full h-[200px] min-h-[200px] max-h-[200px]  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
                 <img
                     src={propsItem.image}
                     alt="card-image"
@@ -82,7 +82,7 @@ const MenuItem = (props) => {
                     {propsItem.info || propsItem.price}
                     {propsItem.price ? " VNĐ" : ""}
                 </p>
-                <p className="block text-base antialiased font-semibold leading-relaxed text-inherit">
+                <p className="block  text-base antialiased font-medium leading-relaxed text-inherit">
                     {propsItem.desc}
                 </p>
             </div>
