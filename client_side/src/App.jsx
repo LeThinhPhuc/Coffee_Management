@@ -7,6 +7,7 @@ import { fetchDrinks } from "./redux/Action/drinkAction";
 import { fetchTypes } from "./redux/Action/typeAction";
 import { fetchOrders } from "./redux/Action/orderAction";
 import { fetchIngredients } from "./redux/Action/ingredientAction";
+import { fetchVouchers } from "./redux/Action/voucherAction";
 
 function App() {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function App() {
         dispatch(fetchTypes());
         dispatch(fetchOrders());
         dispatch(fetchIngredients());
+        dispatch(fetchVouchers())
     }, [dispatch]);
 
     return (
