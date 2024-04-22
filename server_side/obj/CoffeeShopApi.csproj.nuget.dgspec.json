@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj": {}
+    "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {}
   },
   "projects": {
-    "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj": {
+    "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
+        "projectUniqueName": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
         "projectName": "CoffeeShopApi",
-        "projectPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
-        "packagesPath": "/Users/user/.nuget/packages/",
-        "outputPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/obj/",
+        "projectPath": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+        "packagesPath": "C:\\Users\\thuho\\.nuget\\packages\\",
+        "outputPath": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/user/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\thuho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -103,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.203/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
