@@ -23,7 +23,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ingredient>> GetIngredient(int id)
+        public async Task<ActionResult<Ingredient>> GetIngredient(string id)
         {
             var ingredient = await _ingredientService.GetByIdAsync(id);
             if (ingredient == null)
@@ -41,9 +41,9 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Ingredient>> UpdateIngredient(int id, Ingredient ingredient)
+        public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
         {
-            if (id != Convert.ToInt32(ingredient.Id))
+            if (id != ingredient.Id.ToString())
             {
                 return BadRequest();
             }
@@ -53,11 +53,12 @@ namespace CoffeeShopApi.Controllers
             {
                 return NotFound();
             }
+
             return Ok(updatedIngredient);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteIngredient(int id)
+        public async Task<IActionResult> DeleteIngredient(string id)
         {
             await _ingredientService.DeleteAsync(id);
             return NoContent();
