@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //     draggable: false,
 //     position: toast.POSITION.TOP_LEFT
 //   })
-  const notify = () => {
+const notify = () => {
     toast.success('🦄 Wow so easy!', {
         position: "top-left",
         autoClose: 5000,
@@ -27,18 +27,18 @@ import 'react-toastify/dist/ReactToastify.css';
         draggable: true,
         progress: undefined,
     });
-  }
+}
 const LoginSignup = () => {
     const navigate = useNavigate();
     const [action, setAction] = useState("Sign Up");
     const [userNameOrEmailOrPhoneNumber, setUserNameOrEmailOrPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
 
-    const [userName,setUserName] = useState("");
-    const [fullName,setfullName] = useState("");
-    const [Business,setBusiness] = useState("");
-    const [Address,setAddress] = useState("");
- 
+    const [userName, setUserName] = useState("");
+    const [fullName, setfullName] = useState("");
+    const [Business, setBusiness] = useState("");
+    const [Address, setAddress] = useState("");
+
 
     const account = {
         userNameOrEmailOrPhoneNumber: userNameOrEmailOrPhoneNumber,
@@ -46,34 +46,34 @@ const LoginSignup = () => {
     };
 
     const infoRegister = {
-        fullName : fullName,
-        Business:Business,
-        userName:Business,
-        Address:Address,
+        fullName: fullName,
+        bussinessName: Business,
+        bussinessAdress: Address,
+        userName: userNameOrEmailOrPhoneNumber,
         email: userNameOrEmailOrPhoneNumber,
-        password:password
+        password: password
     }
 
     const doLogin = async () => {
         const response = await LoginService.doLogin(account);
-        
+
         if (response.status == 200) {
             localStorage.setItem("user", JSON.stringify(response.data));
             navigate("/home/order");
         }
     };
 
-    const doRegister = async() => {
-       
-        try{
+    const doRegister = async () => {
+
+        try {
             console.log(infoRegister)
             await RegisterService.doRegister(infoRegister);
             setAction("Login");
 
-                // const res = await LoginService.doLogin(account);
-                //     localStorage.setItem("user", JSON.stringify(res.data));
-                //     navigate("/home/order");
-        }catch(error){
+            // const res = await LoginService.doLogin(account);
+            //     localStorage.setItem("user", JSON.stringify(res.data));
+            //     navigate("/home/order");
+        } catch (error) {
             console.log(error)
         }
     }
@@ -99,13 +99,12 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={user_icon} alt="" />
-                        <input type="text" 
-                        placeholder="Full Name" 
-                        autoComplete="fullName"
-                        value ={fullName}
-                        onChange={(e) =>
-                            setfullName(e.target.value)
-                        }
+                        <input type="text"
+                            placeholder="Full Name"
+                            value={fullName}
+                            onChange={(e) =>
+                                setfullName(e.target.value)
+                            }
                         />
                     </div>
                 )}
@@ -114,13 +113,12 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={business_icon} alt="" />
-                        <input type="text" 
-                        placeholder="Business"  
-                        autoComplete="Business"
-                        value ={Business}
-                        onChange={(e) =>
-                            setBusiness(e.target.value)
-                        }
+                        <input type="text"
+                            placeholder="Business"
+                            value={Business}
+                            onChange={(e) =>
+                                setBusiness(e.target.value)
+                            }
                         />
                     </div>
                 )}
@@ -129,20 +127,18 @@ const LoginSignup = () => {
                 ) : (
                     <div className="input">
                         <img src={address_icon} alt="" />
-                        <input type="text" 
-                        placeholder="Address" 
-                        autoComplete="Address"
-                        value ={Address}
-                        onChange={(e) =>
-                            setAddress(e.target.value)
-                        }
+                        <input type="text"
+                            placeholder="Address"
+                            value={Address}
+                            onChange={(e) =>
+                                setAddress(e.target.value)
+                            }
                         />
                     </div>
                 )}
                 <div className="input">
                     <img src={email_icon} alt="" />
                     <input
-                        autoComplete="username"
                         placeholder="Email"
                         value={userNameOrEmailOrPhoneNumber}
                         onChange={(e) =>
@@ -153,7 +149,6 @@ const LoginSignup = () => {
                 <div className="input">
                     <img src={password_icon} alt="" />
                     <input
-                        autoComplete="current-password"
                         type="password"
                         placeholder="Password"
                         value={password}
@@ -170,10 +165,6 @@ const LoginSignup = () => {
                             className="btn_login"
                             onClick={() => {
                                 doLogin();
-
-                                // navigate('/order')
-                                //     // setCheck(true);
-                                //     window.location.reload();
                             }}
                         >
                             Login
@@ -194,11 +185,11 @@ const LoginSignup = () => {
                     >
                         Login
                     </span>
-                    <button 
-                    className="btn_signup"
-                    onClick={()=>{
-                        doRegister();
-                    }}
+                    <button
+                        className="btn_signup"
+                        onClick={() => {
+                            doRegister();
+                        }}
                     >SignUp</button>
                 </div>
             )}
