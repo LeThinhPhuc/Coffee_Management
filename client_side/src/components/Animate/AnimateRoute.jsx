@@ -9,10 +9,9 @@ import LoginSignup from "../Login_Signup/LoginSignup";
 import OrderPage from "../OrderPage/OrderPage";
 import ManageMenu from "../manage/manageMenu/ManageMenu";
 import ManageIngredient from "../manage/manageIngredient/ManageIngredient";
-import Table from "./../Statistic/Table/Table";
-import Discount from '../Discount/Discount'
 import Statistic from '../Statistic/Statistic';
 import MainPage from '../MainPage/MainPage';
+import Discount from '../Discount/Discount'
 const AnimateRoute = () => {
     const location = useLocation();
 
@@ -22,7 +21,7 @@ const AnimateRoute = () => {
             <Route path="/home" element={<MainPage/>}>
                 <Route exact path="/home/order" element={<OrderPage/>}/>
                 <Route exact path="/home/drink" element={<ManageMenu/>}/>
-                <Route exact path="/home/voucher" element={<Table />}/>
+                <Route exact path="/home/voucher" element={<Discount/>}/>
                 <Route exact path="/home/ingredient" element={<ManageIngredient/>}/>
                 <Route exact path="/home/static" element={<Statistic/>}/>
                 <Route path="*" element={<div className='text-center text-[100px]'>PAGE NOT FOUND</div>} />
