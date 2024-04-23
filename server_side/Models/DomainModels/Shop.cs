@@ -21,6 +21,10 @@ namespace CoffeeShopApi.Models.DomainModels
         [JsonIgnore]
         public virtual ApplicationUser? Owner { get; set; }
 
+        // For suspension
+        public bool IsSuspended { get; set; } = false;
+        public DateTime? SuspensionEndDate { get; set; }
+
         // Navigation property for DrinkTypes
         [JsonIgnore]
         public virtual List<DrinkType>? DrinkTypes { get; set; }
