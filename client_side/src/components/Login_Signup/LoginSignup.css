@@ -1,0 +1,127 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px; 
+    margin:auto;
+    width: 600px;
+    background-color:#f8f2e7;
+    padding-bottom: 30px;
+   
+}
+.header{
+    display:flex ;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+.text{
+    color:rgb(63, 24, 24);
+    font-size: 48px;
+    font-weight: 700;
+}
+.underline{
+   width: 140px; 
+   height: 6px;
+   background-color: rgb(124 45 18);
+   border-radius: 9px;
+}
+.inputs{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+    background: #eaeaea;
+    border-radius: 6px;
+}
+.input img{
+    margin: 0px 30px;
+}
+.input input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color:#797979;
+    font-size: 19px;
+}
+
+.forgot_password{
+    padding-left: 35.333%;
+    margin-top: 27px;
+    color:#797979;
+    font-size: 18px;
+}
+
+.forgot_password span{
+    color: brown;
+    cursor: pointer;
+}
+
+.text_havenot_acccout{
+    margin-top: 10px;
+    color:#797979;
+    font-size: 18px;
+    display:flex;
+    justify-content: center;
+}
+.text_havenot_acccout span{
+    color: brown;
+    cursor: pointer;
+}
+
+.change_signup{
+    padding-left:35.333%;
+    margin-top: 25px;
+    color:#797979;
+    font-size: 18px;
+}
+.change_signup span{
+    color: brown;
+    cursor: pointer;
+}
+
+.btn_login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    margin: 10px 116px;
+    color: #fff;
+    background-color:#854442;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;    
+}
+.btn_signup{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    margin: 10px 116px;
+    color: #fff;
+    background-color:#854442;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;  
+}
+
+.btn_signup:hover{
+    background-color:#be9b7b;
+}
+.btn_login:hover{
+    background-color:#be9b7b;
+}
