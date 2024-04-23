@@ -2847,26 +2847,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thuho\\.nuget\\packages\\": {}
+    "/Users/user/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
+      "projectUniqueName": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
       "projectName": "CoffeeShopApi",
-      "projectPath": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\CoffeeShopApi.csproj",
-      "packagesPath": "C:\\Users\\thuho\\.nuget\\packages\\",
-      "outputPath": "D:\\HK6\\Agile-Scrum\\Coffee_Management\\server_side\\obj\\",
+      "projectPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/CoffeeShopApi.csproj",
+      "packagesPath": "/Users/user/.nuget/packages/",
+      "outputPath": "/Users/user/Documents/AspNetWebApi/CoffeeShopApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\thuho\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/user/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2879,6 +2877,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2945,7 +2948,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.203/RuntimeIdentifierGraph.json"
       }
     }
   }

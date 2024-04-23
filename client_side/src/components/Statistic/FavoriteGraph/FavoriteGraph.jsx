@@ -4,14 +4,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const FavoriteGraph = () => {
   const data = {
-    labels: [
-      "Trà Sen Vàng",
-      "PhinDi Kem Sữa",
-      "Trà Đào",
-      "Trà Dâu",
-      "Capuchino",
-      "Espresso",
-    ],
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [
       {
         label: "# of Votes",
