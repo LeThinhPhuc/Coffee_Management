@@ -53,6 +53,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("DrinkTypeId");
 
                     b.ToTable("Drinks");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -127,6 +128,8 @@ namespace CoffeeShopApi.Migrations
                             Name = "Apple Juice",
                             Price = 24000.0
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.DrinkType", b =>
@@ -154,6 +157,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("ShopId");
 
                     b.ToTable("DrinkTypes");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -188,6 +192,8 @@ namespace CoffeeShopApi.Migrations
                             Name = "Juice",
                             ShopId = "8f7a87cc-53f3-4334-b0a1-cf841dff094a"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.Ingredient", b =>
@@ -214,6 +220,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -234,6 +241,8 @@ namespace CoffeeShopApi.Migrations
                             ExpiryDate = new DateTime(2024, 6, 19, 12, 0, 32, 962, DateTimeKind.Local).AddTicks(2619),
                             Name = "Sugar"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.IngredientInDrink", b =>
@@ -265,6 +274,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("IngredientId");
 
                     b.ToTable("IngredientsInDrinks");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -411,6 +421,8 @@ namespace CoffeeShopApi.Migrations
                             IngredientId = "5fb6e5e1-1182-42f7-843d-bc8dc5f3dff9",
                             Quantity = 50
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.Order", b =>
@@ -423,9 +435,6 @@ namespace CoffeeShopApi.Migrations
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("OrderDate")
                         .IsRequired()
@@ -443,6 +452,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -454,6 +464,8 @@ namespace CoffeeShopApi.Migrations
                             Total = 28000.0,
                             UserId = "48163789-5220-48f0-85b9-7ebbb3daa63e"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.OrderItem", b =>
@@ -490,6 +502,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -501,6 +514,8 @@ namespace CoffeeShopApi.Migrations
                             OrderId = "a27b9c43-e672-46a3-8a46-042ae32e1e03",
                             Quantity = 1
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.Shop", b =>
@@ -518,9 +533,6 @@ namespace CoffeeShopApi.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsSuspended")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -532,14 +544,12 @@ namespace CoffeeShopApi.Migrations
                     b.Property<double>("Revenue")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("SuspensionEndDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Shops");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -564,6 +574,8 @@ namespace CoffeeShopApi.Migrations
                             OwnerId = "48163789-5220-48f0-85b9-7ebbb3daa63e",
                             Revenue = 0.0
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.VoucherCode", b =>
@@ -626,6 +638,7 @@ namespace CoffeeShopApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", (string)null);
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -635,6 +648,8 @@ namespace CoffeeShopApi.Migrations
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -795,6 +810,7 @@ namespace CoffeeShopApi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -802,6 +818,8 @@ namespace CoffeeShopApi.Migrations
                             UserId = "48163789-5220-48f0-85b9-7ebbb3daa63e",
                             RoleId = "13286075-5c0f-40ca-8882-02e253c27910"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -836,6 +854,7 @@ namespace CoffeeShopApi.Migrations
                     b.ToTable("Users");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+<<<<<<< HEAD
 
                     b.HasData(
                         new
@@ -853,6 +872,8 @@ namespace CoffeeShopApi.Migrations
                             UserName = "admin",
                             FullName = "Admin"
                         });
+=======
+>>>>>>> 536ad41fbc1a6c94b4e0cfb34180bc16648f0480
                 });
 
             modelBuilder.Entity("CoffeeShopApi.Models.DomainModels.Drink", b =>
