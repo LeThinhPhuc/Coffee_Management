@@ -70,9 +70,9 @@ namespace CoffeeShopApi.Controllers
                 }
 
                 var result = await _drinkService.AddDrinkAsync(model);
-                if (result)
+                if (result != null)
                 {
-                    return Ok(new { succeeded = true, message = "Created" });
+                    return Ok(result);
                 }
                 return Ok(new { succeeded = false, message = "Failed to add drink!" });
             }
@@ -81,20 +81,28 @@ namespace CoffeeShopApi.Controllers
                 await _unitOfWork.RollbackAsync();
                 return Ok(new { succeeded = false, message = ex.Message });
             }
-            #region example input:
-            //{
-            //    "name": "test"
-            //}
-            #endregion
-            #region example success return:
-            //{
-            //  "succeeded": true,
-            //  "message": "Created"
-            //}
+            #region example input data:
+            // {
+            //     "id": "",
+            //     "name": "Test thêm Drink",
+            //     "price": 0,
+            //     "imagePath": "ko co anh",
+            //     "drinkTypeId": "dd91c711-8e1f-4d90-ace8-f696b95d1ed7",
+            //     "ingredients": [
+            //         {
+            //         "ingredientId": "33cb620e-746c-4212-aff3-5448fc3d2b24",
+            //         "quantity": 1
+            //         },
+            //         {
+            //         "ingredientId": "690621f7-0f25-4a35-8bed-8c2a968f197a",
+            //         "quantity": 3
+            //         }
+            //     ]
+            // }
             #endregion
         }
 
-        // [Authorize]  
+        // [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateDrink([FromBody]CreateUpdateDrinkModel model)
         {
@@ -107,9 +115,9 @@ namespace CoffeeShopApi.Controllers
                 }
 
                 var result = await _drinkService.UpdateDrinkAsync(model);
-                if (result)
+                if (result != null)
                 {
-                    return Ok(new { succeeded = true, message = "Updated" });
+                    return Ok(result);
                 }
                 return Ok(new { succeeded = false, message = "Failed to update drink!" });
 
@@ -125,7 +133,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteDrink(string id)
         {
@@ -150,7 +158,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete("deleteall")]
         public async Task<IActionResult> DeleteAllDrinks()
         {
