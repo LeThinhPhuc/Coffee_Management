@@ -34,12 +34,24 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> CreateIngredient(Ingredient ingredient)
+        public async Task<ActionResult<Ingredient>> CreateIngredient([FromForm] IngredientCreateDto ingredientDto)
         {
-            var createdIngredient = await _ingredientService.CreateAsync(ingredient);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var ingredient = new Ingredient
+            {
+                Name = ingredientDto.Name,
+                Amount = ingredientDto.Amount,
+                ExpiryDate = ingredientDto.ExpiryDate
+            };
+
+            var createdIngredient = await _ingredientService.CreateAsync(ingredient, ingredientDto.ImageFile);
             return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.Id }, createdIngredient);
         }
-
+        
         [HttpPut("{id}")]
         public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
         {

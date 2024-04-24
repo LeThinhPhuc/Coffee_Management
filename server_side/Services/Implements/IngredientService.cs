@@ -24,11 +24,36 @@
             return await _context.Ingredients.FindAsync(int.Parse(id));
         }
 
-        public async Task<Ingredient> CreateAsync(Ingredient ingredient)
-        {
+       public async Task<Ingredient> CreateAsync(Ingredient ingredient, IFormFile imageFile)
+       {
+            // Save the image file and get the image URL or file path
+            string imageUrl = await SaveImageAsync(imageFile);
+
+            // Set the Image property of the ingredient
+            ingredient.Image = imageUrl;
+
             _context.Ingredients.Add(ingredient);
             await _context.SaveChangesAsync();
             return ingredient;
+        }
+        private async Task<string> SaveImageAsync(IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return null;
+            }
+
+            var folderPath = Path.Combine("Resources", "Images");
+            var folderDirectory = Directory.CreateDirectory(folderPath);
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+            var filePath = Path.Combine(folderDirectory.FullName, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+
+            return fileName;
         }
 
         public async Task<Ingredient> UpdateAsync(string id, Ingredient ingredient)
