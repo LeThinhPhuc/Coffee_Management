@@ -7,10 +7,7 @@ import { useSelector } from "react-redux";
 import { selectTypes } from "../../redux/Reducer/typeSlice";
 import { useDispatch } from "react-redux";
 import { addDrink, updateDrink } from "../../redux/Action/drinkAction";
-import {
-    addIngredient,
-    updateIngredient,
-} from "../../redux/Action/ingredientAction";
+import { addIngredient } from "../../redux/Action/ingredientAction";
 
 const MenuModel = (props) => {
     // Helper function to format the date
@@ -149,20 +146,43 @@ const MenuModel = (props) => {
                 return;
             }
 
-            const ingredientData = {
-                id: "string",
-                name: name,
-                // imagePath: image,
-                amount: info,
-                dateCreated: entryDate,
-                dateModified: new Date(Date.now()),
-                expiryDate: expiryDate,
-            };
-
-            isAdd
-                ? dispatch(addIngredient(ingredientData))
-                : dispatch(updateIngredient(props.item.id, ingredientData));
+            //* add
+            if (isAdd) {
+                const ingredientData = {
+                    id: "string",
+                    name: name,
+                    // imagePath: image,
+                    amount: info,
+                    dateCreated: entryDate,
+                    dateModified: new Date(Date.now()),
+                    expiryDate: expiryDate,
+                };
+                // console.log(ingredientData);
+                dispatch(addIngredient(ingredientData));
+            }
+            //* update
+            else {
+                //
+            }
         }
+
+        //! api ingredients - chưa làm
+        // const result = {
+        //     ...props.item,
+        //     name: name,
+        //     image: image,
+        //     info: info,
+        //     desc: desc,
+
+        //     //* nếu != "" thì sẽ trả về {field},
+        //     //* field đó sẽ destructuring và thêm vào object result, không thì thôi
+        //     ...(ingredients != "" && { ingredients }),
+        //     ...(drinkTypeId != "" && { drinkTypeId }),
+
+        //     ...(entryDate != "" && { entryDate }),
+        //     ...(expiryDate != "" && { expiryDate }),
+        // };
+        // console.log(result);
 
         props.handleCloseModel();
     };

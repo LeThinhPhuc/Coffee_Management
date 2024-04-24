@@ -7,18 +7,8 @@ import { useSelector } from "react-redux";
 import { selectTypes } from "../../redux/Reducer/typeSlice";
 import { useDispatch } from "react-redux";
 import { addDrink, updateDrink } from "../../redux/Action/drinkAction";
-import {
-    addIngredient,
-    updateIngredient,
-} from "../../redux/Action/ingredientAction";
 
 const MenuModel = (props) => {
-    // Helper function to format the date
-    const formatDate = (dateString) => {
-        if (!dateString) return "";
-        const date = new Date(dateString);
-        return date.toISOString().split("T")[0];
-    };
     const dispatch = useDispatch();
     // console.log("props.item model");
     console.log(props.item);
@@ -28,12 +18,8 @@ const MenuModel = (props) => {
     const [info, setInfo] = useState(props.item.info || "");
     const [desc, setDesc] = useState(props.item.desc || "");
     const [image, setImage] = useState(props.item.image || null);
-    const [entryDate, setEntryDate] = useState(
-        formatDate(props.item.dateCreated) || ""
-    );
-    const [expiryDate, setExpiryDate] = useState(
-        formatDate(props.item.expiryDate) || ""
-    );
+    const [entryDate, setEntryDate] = useState(props.item.entryDate || "");
+    const [expiryDate, setExpiryDate] = useState(props.item.expiryDate || "");
     const [drinkTypeId, setDrinkTypeId] = useState(
         props.item.drinkTypeId || ""
     );
@@ -82,63 +68,13 @@ const MenuModel = (props) => {
 
     //* Khi bấm xác nhận -> lấy các field trong input thêm vào object, chưa có -> thêm, có -> update
     const handleSubmit = () => {
-        if (props.item.type == "menu") {
-            if (isAdd) {
-                if (
-                    name === "" ||
-                    info === "" ||
-                    image === null ||
-                    ingredients.length <= 0 ||
-                    /[^0-9]/.test(info)
-                ) {
-                    // Nếu có trường thông tin nào còn trống, đặt submitFail thành true
-                    setSubmitFail(true);
-                    setTimeout(() => {
-                        setSubmitFail(false);
-                    }, 3000);
-                    // Dừng hàm handleSubmit ở đây
-                    return;
-                }
-
-                //* add drink
-                const drinkData = {
-                    id: "string",
-                    name: name,
-                    price: parseFloat(info), //price
-                    imagePath: image,
-                    drinkTypeId: drinkTypeId, //drinkTypeId
-                };
-                console.log(drinkData);
-                dispatch(addDrink(drinkData));
-            }
-            //* Edit
-            else {
-                //* update drink
-                const drinkData = {
-                    id: props.item.id,
-                    name: name,
-                    price: parseFloat(info), //price
-                    imagePath: image,
-                    drinkTypeId: drinkTypeId, //drinkTypeId
-                };
-                console.log("Data to update");
-                console.log(drinkData);
-                dispatch(updateDrink(drinkData));
-            }
-        }
-        //* Ingredient
-        else {
-            //* để check ngày nhập <= ngày hết hạn
-            const entryDateObj = new Date(entryDate);
-            const expiryDateObj = new Date(expiryDate);
+        if (isAdd) {
             if (
-                image === null ||
                 name === "" ||
                 info === "" ||
-                /[^0-9]/.test(info) ||
-                expiryDate == "" ||
-                entryDate == "" ||
-                entryDateObj >= expiryDateObj
+                image === null ||
+                ingredients.length <= 0 ||
+                /[^0-9]/.test(info)
             ) {
                 // Nếu có trường thông tin nào còn trống, đặt submitFail thành true
                 setSubmitFail(true);
@@ -149,20 +85,49 @@ const MenuModel = (props) => {
                 return;
             }
 
-            const ingredientData = {
+            //* add drink
+            const drinkData = {
                 id: "string",
                 name: name,
-                // imagePath: image,
-                amount: info,
-                dateCreated: entryDate,
-                dateModified: new Date(Date.now()),
-                expiryDate: expiryDate,
+                price: parseFloat(info), //price
+                imagePath: image,
+                drinkTypeId: drinkTypeId, //drinkTypeId
             };
-
-            isAdd
-                ? dispatch(addIngredient(ingredientData))
-                : dispatch(updateIngredient(props.item.id, ingredientData));
+            console.log(drinkData);
+            dispatch(addDrink(drinkData));
         }
+        //* Edit
+        else {
+            //* update drink
+            const drinkData = {
+                id: props.item.id,
+                name: name,
+                price: parseFloat(info), //price
+                imagePath: image,
+                drinkTypeId: drinkTypeId, //drinkTypeId
+            };
+            console.log("Data to update");
+            console.log(drinkData);
+            dispatch(updateDrink(drinkData));
+        }
+
+        //! api ingredients - chưa làm
+        // const result = {
+        //     ...props.item,
+        //     name: name,
+        //     image: image,
+        //     info: info,
+        //     desc: desc,
+
+        //     //* nếu != "" thì sẽ trả về {field},
+        //     //* field đó sẽ destructuring và thêm vào object result, không thì thôi
+        //     ...(ingredients != "" && { ingredients }),
+        //     ...(drinkTypeId != "" && { drinkTypeId }),
+
+        //     ...(entryDate != "" && { entryDate }),
+        //     ...(expiryDate != "" && { expiryDate }),
+        // };
+        // console.log(result);
 
         props.handleCloseModel();
     };
@@ -347,10 +312,9 @@ const MenuModel = (props) => {
                             {props.type != "menu" && (
                                 //! 2 ô cuối của ingredient, sẽ là 2 input điền ngày
                                 <div
-                                //! Cho phép edit Ingredient
-                                // className={
-                                //     /!isAdd ? `pointer-events-none` : ""
-                                // }
+                                    className={
+                                        !isAdd ? `pointer-events-none` : ""
+                                    }
                                 >
                                     <div className="mb-6">
                                         <label
@@ -387,13 +351,30 @@ const MenuModel = (props) => {
                                                 placeholder="Select date"
                                             />
                                         </div>
+                                        {/* <label
+                                            className="block text-gray-700 text-sm font-bold mb-2"
+                                            htmlFor="entryDate"
+                                        >
+                                            Ngày nhập
+                                        </label>
+                                        <input
+                                            placeholder="Ngày nhập"
+                                            type="text"
+                                            name="entryDate"
+                                            id="entryDate"
+                                            value={entryDate}
+                                            className="inline-block shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
+                                    focus:outline-[#6f4436] focus:outline-none focus:shadow-outline "
+                                            onChange={(e) =>
+                                                setEntryDate(e.target.value)
+                                            }
+                                        /> */}
                                     </div>
 
                                     <div
-                                    //! Cho phép edit Ingredient
-                                    // className={
-                                    //     /!isAdd ? `pointer-events-none` : ""
-                                    // }
+                                        className={
+                                            !isAdd ? `pointer-events-none` : ""
+                                        }
                                     >
                                         <label
                                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -401,36 +382,18 @@ const MenuModel = (props) => {
                                         >
                                             Ngày hết hạn
                                         </label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <svg
-                                                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 20 20"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 8h12v8H4V8zm1-2v1h10V6H5z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </div>
-                                            <input
-                                                type="date"
-                                                name="expiryDate"
-                                                id="expiryDate"
-                                                value={expiryDate}
-                                                className="block w-full pl-10 p-2.5 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                onChange={(e) =>
-                                                    setExpiryDate(
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Select date"
-                                            />
-                                        </div>
+                                        <input
+                                            placeholder="Ngày hết hạn"
+                                            type="text"
+                                            name="expiryDate"
+                                            id="expiryDate"
+                                            value={expiryDate}
+                                            className="inline-block shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
+                                    focus:outline-[#6f4436] focus:outline-none focus:shadow-outline "
+                                            onChange={(e) =>
+                                                setExpiryDate(e.target.value)
+                                            }
+                                        />
                                     </div>
                                 </div>
                             )}

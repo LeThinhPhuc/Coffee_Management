@@ -36,7 +36,7 @@ export const addIngredient = (ingredientData) => {
     };
 };
 
-export const updateIngredient = (id, ingredientData) => {
+export const updateDrink = (id, ingredientData) => {
     return async (dispatch) => {
         try {
             const response = await ingredientService.updateIngredient(
@@ -53,16 +53,18 @@ export const updateIngredient = (id, ingredientData) => {
     };
 };
 
-export const deleteIngredient = (id) => {
+export const deleteDrink = (drinkId) => {
     return async (dispatch) => {
         try {
-            const response = await ingredientService.deleteIngredient(id);
-            console.log("delete");
+            // Gửi yêu cầu DELETE để xóa người dùng
+            const response = await ingredientService.deleteDrink(drinkId);
+            console.log("delete drink");
             console.log(response);
 
-            dispatch(deleteIngredient(id)); // do response trả về không có item đã thêm
+            dispatch(fetchDrinks()); // do response trả về không có item đã thêm
         } catch (error) {
-            console.log(error);
+            // Nếu gặp lỗi, dispatch action deleteDrinkFailure với thông điệp lỗi
+            dispatch(deleteDrinkFailure(error.message));
         }
     };
 };

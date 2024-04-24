@@ -23,13 +23,17 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState(props.item);
-    // console.log(propsItem);
+    console.log(propsItem);
 
-    const ingredients = propsItem.ingredients
-        ?.map((item) => {
-            return item.quantity + " " + item.ingredientName;
-        })
-        .join(", ");
+    //* Định nghĩa field "desc" tùy theo component
+    var ingredients = null;
+    if (propsItem.ingredients) {
+        ingredients = propsItem.ingredients
+            .map((item) => {
+                return item.quantity + " " + item.ingredientName;
+            })
+            .join(", ");
+    }
 
     //? cũ rồi, phân riêng ra cho 2 component
     const desc = `${formatDate(propsItem.dateCreated)} - ${formatDate(
@@ -43,7 +47,7 @@ const MenuItem = (props) => {
 
             //* field chưa có -> thêm, có -> update
             desc: ingredients || desc,
-            info: propsItem.quantity || propsItem.amount,
+            info: propsItem.quantity,
         });
     }, []);
 

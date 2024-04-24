@@ -56,12 +56,14 @@ export const updateIngredient = (id, ingredientData) => {
 export const deleteIngredient = (id) => {
     return async (dispatch) => {
         try {
+            // Gửi yêu cầu DELETE để xóa người dùng
             const response = await ingredientService.deleteIngredient(id);
             console.log("delete");
             console.log(response);
 
             dispatch(deleteIngredient(id)); // do response trả về không có item đã thêm
         } catch (error) {
+            // Nếu gặp lỗi, dispatch action deleteDrinkFailure với thông điệp lỗi
             console.log(error);
         }
     };

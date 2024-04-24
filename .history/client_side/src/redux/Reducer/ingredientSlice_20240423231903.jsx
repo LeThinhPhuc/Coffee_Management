@@ -33,15 +33,15 @@ const ingredientSlice = createSlice({
         addIngredientData(state, action) {
             state.ingredients.push(action.payload);
         },
-        updateIngredientData(state, action) {
+        deleteIngredient(state, action) {
+            state.ingredients = state.ingredients.filter(
+                (item) => item.id !== action.payload
+            );
+        },
+        updateIngredient(state, action) {
             const { id, ingredientData } = action.payload;
             state.ingredients = state.ingredients.map((item) =>
                 item.id === id ? { ...item, ...ingredientData } : item
-            );
-        },
-        deleteIngredientData(state, action) {
-            state.ingredients = state.ingredients.filter(
-                (item) => item.id !== action.payload
             );
         },
     },
@@ -49,8 +49,8 @@ const ingredientSlice = createSlice({
 
 export const {
     addIngredientData,
-    deleteIngredientData,
-    updateIngredientData,
+    deleteIngredient,
+    updateIngredient,
     fetchIngredientData,
 } = ingredientSlice.actions;
 
