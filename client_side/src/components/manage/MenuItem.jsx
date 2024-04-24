@@ -25,15 +25,11 @@ const MenuItem = (props) => {
     const [propsItem, setPropsItem] = useState(props.item);
     // console.log(propsItem);
 
-    //* Định nghĩa field "desc" tùy theo component
-    var ingredients = null;
-    if (propsItem.ingredients) {
-        ingredients = propsItem.ingredients
-            .map((item) => {
-                return item.quantity + " " + item.ingredientName;
-            })
-            .join(", ");
-    }
+    const ingredients = propsItem.ingredients
+        ?.map((item) => {
+            return item.quantity + " " + item.ingredientName;
+        })
+        .join(", ");
 
     //? cũ rồi, phân riêng ra cho 2 component
     const desc = `${formatDate(propsItem.dateCreated)} - ${formatDate(

@@ -6,15 +6,18 @@ import {Textarea, Input} from '@material-tailwind/react'
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { addOrder } from "../../../redux/Action/orderAction";
+import { selectVouchers } from "../../../redux/Reducer/voucherSlice";
 const RightOrderPage = () => {
-    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected } = useContext(MenuContext)
+    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected, setVoucherValue } = useContext(MenuContext)
     const [checkModal, setCheckModal] = useState(false);
     const [checkOrderFinal, setCheckOrderFinal] = useState(false)
     const [changeCnt, setChangeCnt] = useState(0)
     const [note, setNote] = useState("");
     const dispatch = useDispatch();
+    const vouchers = useSelector(selectVouchers)
+
 
     const handleModal = () => {
         setCheckModal(!checkModal);
@@ -23,6 +26,7 @@ const RightOrderPage = () => {
 
     const handleCloseModal = () =>{
         setCheckOrderFinal(!checkOrderFinal)
+        setVoucherValue()
 
         clearSelected()
     }
@@ -38,6 +42,7 @@ const RightOrderPage = () => {
         
         setCheckOrderFinal(!checkOrderFinal)
         console.log("thong tin order: ",data)
+
        }else{
         alert("Vui long chon mon !")
        }
@@ -69,7 +74,7 @@ const RightOrderPage = () => {
     const discount = () => {
         let to = total();
         if (voucherValue) {
-            return to * voucherValue.discount / 100;
+            return to * voucherValue.discountPercent / 100;
 
         } else {
             return 0;
@@ -93,7 +98,7 @@ const RightOrderPage = () => {
 
     return (
         <div>
-            <div className="font-bold text-[#6f4436]  flex items-center justify-center textright textlg">Lacome Coffee</div>
+            <div className="font-bold text-[#6f4436]  flex items-center justify-center textright textlg">{JSON.parse(localStorage.getItem("user"))?.shop?.name} Coffee</div>
             <div className="p-2 pt-0 font-bold text-[#be9b7b]  textright textlg">Order</div>
 
             {
@@ -257,7 +262,7 @@ const RightOrderPage = () => {
                                 </p>
                                 <ul class="flex flex-col gap-1 mt-3 -ml-2">
                                     {
-                                        arrVoucher.map((item) => {
+                                        vouchers.map((item) => {
                                             return <CardVoucher checkModal={checkModal} handleChose={handleChose} key={item.id} val={item}></CardVoucher>
                                         })
                                     }

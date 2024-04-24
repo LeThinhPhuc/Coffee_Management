@@ -47,9 +47,9 @@ const LoginSignup = () => {
 
     const infoRegister = {
         fullName : fullName,
-        Business:Business,
+        bussinessName:Business,
         userName:Business,
-        Address:Address,
+        bussinessAdress:Address,
         email: userNameOrEmailOrPhoneNumber,
         password:password
     }

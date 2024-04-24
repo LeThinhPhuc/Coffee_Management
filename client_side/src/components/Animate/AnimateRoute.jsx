@@ -22,7 +22,7 @@ const AnimateRoute = () => {
             <Route path="/home" element={<MainPage/>}>
                 <Route exact path="/home/order" element={<OrderPage/>}/>
                 <Route exact path="/home/drink" element={<ManageMenu/>}/>
-                <Route exact path="/home/voucher" element={<Table />}/>
+                <Route exact path="/home/voucher" element={<Discount/>}/>
                 <Route exact path="/home/ingredient" element={<ManageIngredient/>}/>
                 <Route exact path="/home/static" element={<Statistic/>}/>
                 <Route path="*" element={<div className='text-center text-[100px]'>PAGE NOT FOUND</div>} />
