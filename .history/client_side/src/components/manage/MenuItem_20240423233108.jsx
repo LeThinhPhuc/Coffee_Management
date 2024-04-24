@@ -23,7 +23,10 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState(props.item);
-    // console.log(propsItem);
+    console.log(propsItem);
+
+    if (propsItem.amount)
+        setPropsItem((propsItem) => ({ ...propsItem, info: propsItem.amount }));
 
     //* Định nghĩa field "desc" tùy theo component
     var ingredients = null;
@@ -47,7 +50,7 @@ const MenuItem = (props) => {
 
             //* field chưa có -> thêm, có -> update
             desc: ingredients || desc,
-            info: propsItem.quantity || propsItem.amount,
+            info: propsItem.quantity,
         });
     }, []);
 

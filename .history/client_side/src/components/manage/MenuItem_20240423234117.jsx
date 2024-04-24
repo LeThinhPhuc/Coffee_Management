@@ -23,7 +23,7 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState(props.item);
-    // console.log(propsItem);
+    console.log(propsItem);
 
     //* Định nghĩa field "desc" tùy theo component
     var ingredients = null;

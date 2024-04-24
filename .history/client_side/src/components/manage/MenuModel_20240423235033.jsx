@@ -164,6 +164,24 @@ const MenuModel = (props) => {
                 : dispatch(updateIngredient(props.item.id, ingredientData));
         }
 
+        //! api ingredients - chưa làm
+        // const result = {
+        //     ...props.item,
+        //     name: name,
+        //     image: image,
+        //     info: info,
+        //     desc: desc,
+
+        //     //* nếu != "" thì sẽ trả về {field},
+        //     //* field đó sẽ destructuring và thêm vào object result, không thì thôi
+        //     ...(ingredients != "" && { ingredients }),
+        //     ...(drinkTypeId != "" && { drinkTypeId }),
+
+        //     ...(entryDate != "" && { entryDate }),
+        //     ...(expiryDate != "" && { expiryDate }),
+        // };
+        // console.log(result);
+
         props.handleCloseModel();
     };
 

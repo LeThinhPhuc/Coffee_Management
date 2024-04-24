@@ -27,30 +27,30 @@ const ingredientSlice = createSlice({
     name: "ingredient",
     initialState,
     reducers: {
-        fetchIngredientData(state, action) {
-            state.ingredients = action.payload;
-        },
         addIngredientData(state, action) {
             state.ingredients.push(action.payload);
         },
-        updateIngredientData(state, action) {
-            const { id, ingredientData } = action.payload;
-            state.ingredients = state.ingredients.map((item) =>
-                item.id === id ? { ...item, ...ingredientData } : item
+        deleteIngredient(state, action) {
+            state.ingredients = state.ingredients.filter(
+                (drink) => drink.id !== action.payload
             );
         },
-        deleteIngredientData(state, action) {
-            state.ingredients = state.ingredients.filter(
-                (item) => item.id !== action.payload
-            );
+        updateIngredient(state, action) {
+            // const { id, updateddrinkData } = action.payload;
+            // state.ingredients = state.ingredients.map((drink) =>
+            //     drink.id === id ? { ...drink, ...updateddrinkData } : drink
+            // );
+        },
+        fetchIngredientData(state, action) {
+            state.ingredients = action.payload;
         },
     },
 });
 
 export const {
     addIngredientData,
-    deleteIngredientData,
-    updateIngredientData,
+    deleteIngredient,
+    updateIngredient,
     fetchIngredientData,
 } = ingredientSlice.actions;
 

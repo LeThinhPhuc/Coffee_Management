@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import "./styles.css";
 import { deleteDrink } from "../../redux/Action/drinkAction";
 import { useDispatch } from "react-redux";
-import { deleteIngredient } from "../../redux/Action/ingredientAction";
 
 const Manage = (props) => {
     const dispatch = useDispatch();
@@ -43,9 +42,7 @@ const Manage = (props) => {
     const handleDeleteItem = (id) => {
         // console.log(`Deleted item at [${index}] of [${category}]`);
         console.log(id);
-        props.type == "menu"
-            ? dispatch(deleteDrink(id))
-            : dispatch(deleteIngredient(id));
+        dispatch(deleteDrink(id));
     };
 
     //! Icon (+) trong MenuItem, chỉ có trong Ingredient

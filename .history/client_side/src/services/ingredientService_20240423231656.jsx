@@ -50,7 +50,7 @@ const ingredientService = {
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .put(`api/Ingredients/${id}`, ingredientData);
+            .put(`api/Ingredients/update/${id}`, ingredientData);
     },
     deleteIngredient: (id) => {
         return axios
