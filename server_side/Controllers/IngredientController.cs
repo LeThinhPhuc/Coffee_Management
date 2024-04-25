@@ -1,4 +1,5 @@
 ﻿using CoffeeShopApi.Models.DomainModels;
+using CoffeeShopApi.Models.DTOs;
 using CoffeeShopApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> CreateIngredient([FromForm] IngredientCreateDto ingredientDto)
+        public async Task<ActionResult<Ingredient>> CreateIngredient([FromForm] IngredientCreateDto ingredientModel)
         {
             if (!ModelState.IsValid)
             {
@@ -43,15 +44,15 @@ namespace CoffeeShopApi.Controllers
 
             var ingredient = new Ingredient
             {
-                Name = ingredientDto.Name,
-                Amount = ingredientDto.Amount,
-                ExpiryDate = ingredientDto.ExpiryDate
+                Name = ingredientModel.Name,
+                Amount = ingredientModel.Amount,
+                ExpiryDate = ingredientModel.ExpiryDate
             };
 
-            var createdIngredient = await _ingredientService.CreateAsync(ingredient, ingredientDto.ImageFile);
+            var createdIngredient = await _ingredientService.CreateAsync(ingredient, ingredientModel.ImageFile);
             return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.Id }, createdIngredient);
         }
-        
+
         [HttpPut("{id}")]
         public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
         {
@@ -65,7 +66,6 @@ namespace CoffeeShopApi.Controllers
             {
                 return NotFound();
             }
-
             return Ok(updatedIngredient);
         }
 

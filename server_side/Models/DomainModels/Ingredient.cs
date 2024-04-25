@@ -7,9 +7,9 @@ namespace CoffeeShopApi.Models.DomainModels
 
     public class Ingredient : BaseEntity
     {
-        [Key]        
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public override int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -19,6 +19,7 @@ namespace CoffeeShopApi.Models.DomainModels
         public DateTime ExpiryDate { get; set; }
 
         public string Image { get; set; }
+
         // 1 property for binding to IngredientInDrink (1 Ingredient - n IngredientInDrink)
         [JsonIgnore]
         public List<IngredientInDrink>? IngredientInDrinks { get; set; }

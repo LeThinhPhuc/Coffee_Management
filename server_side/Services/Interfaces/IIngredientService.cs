@@ -6,7 +6,7 @@ namespace CoffeeShopApi.Services.Interfaces
     {
         Task<IEnumerable<Ingredient>> GetAllAsync();
         Task<Ingredient> GetByIdAsync(string id);
-        Task<Ingredient> CreateAsync(Ingredient ingredient);
+        Task<Ingredient> CreateAsync(Ingredient ingredient, IFormFile imageFile);
         Task<Ingredient> UpdateAsync(string id, Ingredient ingredient);
         Task DeleteAsync(string id);
     }
