@@ -7,8 +7,9 @@ namespace CoffeeShopApi.Models.DomainModels
 
     public class Ingredient : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
+        [Column(TypeName = "nvarchar(100)")]
+        [MaxLength(100)]
         public string IngredientId { get; set; }
 
         [Required]
