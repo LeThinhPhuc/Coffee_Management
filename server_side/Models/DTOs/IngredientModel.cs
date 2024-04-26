@@ -7,6 +7,7 @@ namespace CoffeeShopApi.Models.DTOs
     public class IngredientCreateDto
     {
         [Required]
+        public string? Id {get; set;}
         public string Name { get; set; }
 
         public double Amount { get; set; }

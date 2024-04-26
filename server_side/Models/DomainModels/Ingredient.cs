@@ -9,16 +9,16 @@ namespace CoffeeShopApi.Models.DomainModels
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public string IngredientId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Name{ get; set; }
 
         public double Amount { get; set; }
 
         public DateTime ExpiryDate { get; set; }
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         // 1 property for binding to IngredientInDrink (1 Ingredient - n IngredientInDrink)
         [JsonIgnore]

@@ -50,13 +50,13 @@ namespace CoffeeShopApi.Controllers
             };
 
             var createdIngredient = await _ingredientService.CreateAsync(ingredient, ingredientModel.ImageFile);
-            return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.Id }, createdIngredient);
+            return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.IngredientId }, createdIngredient);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
         {
-            if (id != ingredient.Id.ToString())
+            if (id != ingredient.IngredientId.ToString())
             {
                 return BadRequest();
             }
