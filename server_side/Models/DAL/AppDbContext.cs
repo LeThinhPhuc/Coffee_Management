@@ -159,8 +159,8 @@ Could not create constraint or index. See previous errors.
 
             var ingredients = new[]
             {
-                new Ingredient { Id = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1) },
-                new Ingredient { Id = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2) }
+                new Ingredient { IngredientId = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1) },
+                new Ingredient { IngredientId = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2) }
             };
             modelBuilder.Entity<Ingredient>().HasData(ingredients);
 

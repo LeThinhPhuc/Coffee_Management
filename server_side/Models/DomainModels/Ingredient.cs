@@ -13,7 +13,7 @@ namespace CoffeeShopApi.Models.DomainModels
         public string IngredientId { get; set; }
 
         [Required]
-        public string Name{ get; set; }
+        public string? Name{ get; set; } = "Untitled Ingredient";
 
         public double Amount { get; set; }
 
