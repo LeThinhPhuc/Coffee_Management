@@ -1,23 +1,29 @@
-﻿using CoffeeShopApi.Models.DomainModels;
-using CoffeeShopApi.Models.DTOs;
-using CoffeeShopApi.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CoffeeShopApi.Controllers
+﻿namespace CoffeeShopApi.Controllers
 {
+    using Models.DomainModels;
+    using Models.DTOs;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using CoffeeShopApi.Exceptions;
+
     [ApiController]
     [Route("api/[controller]")]
     public class IngredientsController : ControllerBase
     {
         private readonly IIngredientService _ingredientService;
-
-        public IngredientsController(IIngredientService ingredientService)
+        private readonly IUnitOfWork _unitOfWork;
+        public IngredientsController(IIngredientService ingredientService,
+            IUnitOfWork unitOfWork
+        )
         {
             _ingredientService = ingredientService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ingredient>>> GetAllIngredients()
+        public async Task<ActionResult> GetAllIngredients()
         {
             var ingredients = await _ingredientService.GetAllAsync();
             return Ok(ingredients);
@@ -35,38 +41,58 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> CreateIngredient([FromForm] IngredientCreateDto ingredientModel)
+        public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var ingredient = new Ingredient
+            try
             {
-                Name = ingredientModel.Name,
-                Amount = ingredientModel.Amount,
-                ExpiryDate = ingredientModel.ExpiryDate
-            };
-
-            var createdIngredient = await _ingredientService.CreateAsync(ingredient, ingredientModel.ImageFile);
-            return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.IngredientId }, createdIngredient);
+                var result = await _ingredientService.CreateAsync(model);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return Ok(new { succeeded = false, message = "Failed to add Ingredient!" });
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return Ok(new { succeeded = false, message = ex.Message });
+            }           
         }
 
+        // [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
+        public async Task<ActionResult> UpdateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
-            if (id != ingredient.IngredientId.ToString())
+            try
             {
-                return BadRequest();
-            }
+                // Check if the model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var updatedIngredient = await _ingredientService.UpdateAsync(id, ingredient);
-            if (updatedIngredient == null)
-            {
-                return NotFound();
+                var result = await _ingredientService.UpdateAsync(model);
+                if (result != null)
+                {
+                    return Ok(new { succeeded = true, message = "Updated" });
+                    // return Ok(result)    // depends on client_side's requirement
+                }
+                return Ok(new { succeeded = false, message = "Failed to update Ingredient!" });
             }
-            return Ok(updatedIngredient);
+            catch (NotFoundException)
+            {
+                return Ok(new { succeeded = false, message = "Ingredient not found!" });
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
