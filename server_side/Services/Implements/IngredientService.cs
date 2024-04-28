@@ -4,6 +4,8 @@
     using Services.Interfaces;
     using Models.DAL;
     using Microsoft.EntityFrameworkCore;
+    using Models.DTOs;
+    using Exceptions;
 
     public class IngredientService : IIngredientService
     {
@@ -14,28 +16,65 @@
             _context = context;
         }
 
-        public async Task<IEnumerable<Ingredient>> GetAllAsync()
+        public async Task<List<IngredientViewModel>> GetAllAsync()
         {
-            return await _context.Ingredients.ToListAsync();
+            var ingredients = await Task.FromResult(_context.Ingredients.AsEnumerable());
+
+            var listIngredientsViewModel = ingredients.Select(d => new IngredientViewModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Amount = d.Amount,
+                ImagePath = d.Image,
+                ExpiryDate = d.ExpiryDate,
+            }).ToList();
+
+            return listIngredientsViewModel;
         }
 
-        public async Task<Ingredient> GetByIdAsync(string id)
+        public async Task<IngredientViewModel> GetByIdAsync(string id)
         {
-            return await _context.Ingredients.FindAsync(int.Parse(id));
+            var ingredient = await _context.Ingredients.FindAsync(id);
+
+            var mappedIngredientVm = new IngredientViewModel
+            {
+                Id = ingredient.Id,
+                Name = ingredient.Name,
+                Amount = ingredient.Amount,
+                ImagePath = ingredient.Image,
+                ExpiryDate = ingredient.ExpiryDate,
+            };
+
+            return mappedIngredientVm;
         }
 
-       public async Task<Ingredient> CreateAsync(Ingredient ingredient, IFormFile imageFile)
+       public async Task<Ingredient> CreateAsync(CreateUpdateIngredientModel model)
        {
-            // Save the image file and get the image URL or file path
-            string imageUrl = await SaveImageAsync(imageFile);
+            // Nhóm đã thống nhất không handle upload & save file ảnh trên server !!!
+            // // Save the image file and get the image URL or file path
+            // string imageUrl = await SaveImageAsync(imageFile);
 
-            // Set the Image property of the ingredient
-            ingredient.Image = imageUrl;
+            // // Set the Image property of the ingredient
+            // ingredient.Image = imageUrl;
 
-            _context.Ingredients.Add(ingredient);
+            // _context.Ingredients.Add(ingredient);
+            // await _context.SaveChangesAsync();
+            // return ingredient;
+
+            var ingre = new Ingredient
+            {
+                Name = model.Name,
+                Amount = model.Amount,
+                ExpiryDate = model.ExpiryDate,
+                Image = model.ImagePath
+            };
+
+            _context.Ingredients.Add(ingre);
             await _context.SaveChangesAsync();
-            return ingredient;
+
+            return ingre;
         }
+
         private async Task<string> SaveImageAsync(IFormFile imageFile)
         {
             if (imageFile == null || imageFile.Length == 0)
@@ -56,19 +95,23 @@
             return fileName;
         }
 
-        public async Task<Ingredient> UpdateAsync(string id, Ingredient ingredient)
+        public async Task<Ingredient> UpdateAsync(CreateUpdateIngredientModel model)
         {
-            var existingIngredient = await _context.Ingredients.FindAsync(int.Parse(id));
+            var existingIngredient = await _context.Ingredients.FindAsync(model.Id);
+
             if (existingIngredient == null)
             {
-                return null;
+                throw new NotFoundException("Ingredient not found");
             }
 
-            existingIngredient.Name = ingredient.Name;
-            existingIngredient.Amount = ingredient.Amount;
-            existingIngredient.ExpiryDate = ingredient.ExpiryDate;
+            existingIngredient.Name = model.Name;
+            existingIngredient.Amount = model.Amount;
+            existingIngredient.DateModified = DateTime.Now;
+            existingIngredient.ExpiryDate = model.ExpiryDate;
+            existingIngredient.Image = model.ImagePath;
 
             await _context.SaveChangesAsync();
+
             return existingIngredient;
         }
 

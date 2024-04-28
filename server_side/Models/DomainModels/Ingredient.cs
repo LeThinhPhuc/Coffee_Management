@@ -7,17 +7,17 @@ namespace CoffeeShopApi.Models.DomainModels
 
     public class Ingredient : BaseEntity
     {
-        [Required]
-        [Column(TypeName = "nvarchar(100)")]
-        [MaxLength(100)]
-        public string IngredientId { get; set; }
+        // [Required]
+        // [Column(TypeName = "nvarchar(100)")]
+        // [MaxLength(100)]
+        // public string IngredientId { get; set; } // already derived Id from BaseEntity !!!
 
         [Required]
         public string? Name{ get; set; } = "Untitled Ingredient";
 
         public double Amount { get; set; }
 
-        public DateTime ExpiryDate { get; set; }
+        public DateTime? ExpiryDate { get; set; }
 
         public string? Image { get; set; }
 
