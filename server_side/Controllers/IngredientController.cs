@@ -98,8 +98,29 @@
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(string id)
         {
-            await _ingredientService.DeleteAsync(id);
-            return NoContent();
+            // await _ingredientService.DeleteAsync(id);
+            // return NoContent();  // lacking info for FrontEnd team !
+
+            // more proper handling
+            try
+            {
+                var result = await _ingredientService.DeleteAsync(id);
+                if (result)
+                {
+                    return Ok(new { succeeded = true, message = "Deleted" });
+                }
+                return Ok(new { succeeded = false, message = "Failed to delete Ingredient!" });
+            }
+            catch (NotFoundException ex)
+            {
+                return Ok(new { succeeded = false, message = "Ingredient not found!" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                //return StatusCode(500, "Server error"); // 500 Internal Server Error with a generic error message
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
         }
     }
 }
