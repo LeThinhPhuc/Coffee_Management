@@ -9,6 +9,6 @@ namespace CoffeeShopApi.Services.Interfaces
         Task<IngredientViewModel> GetByIdAsync(string id);
         Task<Ingredient> CreateAsync(CreateUpdateIngredientModel model);
         Task<Ingredient> UpdateAsync(CreateUpdateIngredientModel model);
-        Task DeleteAsync(string id);
+        Task<bool> DeleteAsync(string id);
     }
 }

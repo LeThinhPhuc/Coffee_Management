@@ -20,13 +20,19 @@
         {
             var ingredients = await Task.FromResult(_context.Ingredients.AsEnumerable());
 
+            // string southEastAsiaZoneId = "SE Asia Standard Time";
+
+            // TimeZoneInfo seAZone = TimeZoneInfo.FindSystemTimeZoneById(southEastAsiaZoneId);
+
             var listIngredientsViewModel = ingredients.Select(d => new IngredientViewModel
             {
                 Id = d.Id,
                 Name = d.Name,
                 Amount = d.Amount,
                 ImagePath = d.Image,
-                ExpiryDate = d.ExpiryDate,
+                FormattedDateCreated = d.DateCreated.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedDateModified = d.DateModified.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedExpiryDate = d.ExpiryDate?.ToString("dddd, dd/MM/yyyy - HH:mm"),
             }).ToList();
 
             return listIngredientsViewModel;
@@ -42,7 +48,9 @@
                 Name = ingredient.Name,
                 Amount = ingredient.Amount,
                 ImagePath = ingredient.Image,
-                ExpiryDate = ingredient.ExpiryDate,
+                FormattedDateCreated = ingredient.DateCreated.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedDateModified = ingredient.DateModified.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedExpiryDate = ingredient.ExpiryDate?.ToString("dddd, dd/MM/yyyy - HH:mm"),
             };
 
             return mappedIngredientVm;
@@ -101,7 +109,7 @@
 
             if (existingIngredient == null)
             {
-                throw new NotFoundException("Ingredient not found");
+                throw new NotFoundException("Ingredient not found by provided Id!");
             }
 
             existingIngredient.Name = model.Name;
@@ -115,14 +123,19 @@
             return existingIngredient;
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            var ingredient = await _context.Ingredients.FindAsync(int.Parse(id));
-            if (ingredient != null)
+            var ingreToDelete = await _context.Ingredients.FindAsync(id);
+
+            if (ingreToDelete == null)
             {
-                _context.Ingredients.Remove(ingredient);
-                await _context.SaveChangesAsync();
+                throw new NotFoundException("Ingredient not found by provided Id!");
             }
+
+            _context.Ingredients.Remove(ingreToDelete);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
