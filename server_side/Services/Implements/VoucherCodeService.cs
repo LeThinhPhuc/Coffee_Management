@@ -29,8 +29,8 @@ namespace CoffeeShopApi.Services.Implements
                     DiscountPercent = vc.DiscountPercent,
                     ShopId = vc.ShopId,
                     IsActive = vc.EndDate >= DateTime.Now,
-                    FormattedStartDate = vc.StartDate.ToString("HH:mm dddd, dd/MM/yyyy"),
-                    FormattedEndDate = vc.EndDate.ToString("HH:mm dddd, dd/MM/yyyy")
+                    FormattedStartDate = vc.StartDate.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                    FormattedEndDate = vc.EndDate.ToString("dddd, dd/MM/yyyy - HH:mm")
                 })
                 .ToList());
 

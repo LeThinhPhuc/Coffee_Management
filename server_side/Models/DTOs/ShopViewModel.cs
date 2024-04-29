@@ -9,7 +9,9 @@ namespace CoffeeShopApi.Models.DTOs
         public string OwnerFullName {get; set; }
         // For suspension
         public bool IsSuspended { get; set; }
-        public DateTime? SuspensionEndDate { get; set; }
+        public string? FormattedSuspensionEndDate { get; set; }
+        public string? FormattedDateCreated { get; set; }
+        public string? FormattedDateModified { get; set; }
         public double Revenue { get; set; } //  (Tổng doanh thu của cửa hàng)
     }
 }
