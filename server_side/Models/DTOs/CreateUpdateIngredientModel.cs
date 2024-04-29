@@ -5,7 +5,7 @@ namespace CoffeeShopApi.Models.DTOs
 
     public class CreateUpdateIngredientModel
     {
-        [Required]
+        // [Required]   // ko nen rang buoc model nay
         public string? Id {get; set;}
         public string Name { get; set; }
 
