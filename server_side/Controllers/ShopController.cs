@@ -21,6 +21,11 @@ namespace CoffeeShopApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        // GET api/Shop/getall
+        /// <summary>
+        /// Retrieve lists of Shop
+        /// </summary>
+        /// <returns>Returns the list of ShopViewModel</returns>
         [HttpGet("getall")]
         public async Task<ActionResult> getall()
         {
@@ -28,6 +33,11 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
+        // GET api/Shop/getbyid
+        /// <summary>
+        /// Retrieve a single Shop by provided Id
+        /// </summary>
+        /// <returns>Returns a single Shop by provided Id</returns>
         [HttpGet("getbyid")]
         public async Task<ActionResult> getById(string id)
         {

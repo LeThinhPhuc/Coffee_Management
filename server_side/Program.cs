@@ -10,7 +10,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using CoffeeShopApi.Repositories.Interfaces;
-using CoffeeShopApi.Repositories.Implements;    // for .UseSqlServer()
+using CoffeeShopApi.Repositories.Implements;
+using System.Reflection;    // for .UseSqlServer()
 
 
 // $ dotnet add package Newtonsoft.Json --version 13.0.3
@@ -63,6 +64,10 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri("https://example.com/license"),
         }
     });
+    
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    
     // Configuring Swagger UI Authorization with Swagger
     #region Accepting Bearer Token:
     // tutorial: https://code-maze.com/swagger-authorization-aspnet-core
