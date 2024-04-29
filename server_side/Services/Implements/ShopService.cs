@@ -31,22 +31,43 @@ namespace CoffeeShopApi.Services.Implements
 
         public async Task<List<ShopViewModel>> GetAllShopsClientAsync()
         {
+            // This approach allow "null propagating operator"
+            var shops = await Task.FromResult(_dbContext.Shops.Include(s => s.Owner).AsEnumerable());
+
+            var listShopsViewModel = shops.Select(d => new ShopViewModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Address = d.Address,
+                OwnerId = d.OwnerId,
+                IsSuspended = d.IsSuspended,
+                FormattedSuspensionEndDate = d.SuspensionEndDate?.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedDateCreated = d.DateCreated.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                FormattedDateModified = d.DateModified.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                Revenue = d.Revenue,
+                OwnerFullName = d.Owner.FullName
+            }).ToList();
+
             // LinQ expression approach
-            var shops = await _dbContext.Shops
-                    .Include(s => s.Owner)
-                    .Select(d => new ShopViewModel
-                    {
-                        Id = d.Id,
-                        Name = d.Name,
-                        Address = d.Address,
-                        OwnerId = d.OwnerId,
-                        IsSuspended = d.IsSuspended,
-                        SuspensionEndDate = d.SuspensionEndDate,
-                        Revenue = d.Revenue,
-                        OwnerFullName = d.Owner.FullName
-                    })
-                    .ToListAsync();
-            return shops;
+            // ERR: "An expression tree lambda may not contain a null propagating operator."
+            // at line   "d.SuspensionEndDate?.ToString("dddd, dd/MM/yyyy - HH:mm")"
+            // var shops = await _dbContext.Shops
+            //         .Include(s => s.Owner)
+            //         .Select(d => new ShopViewModel
+            //         {
+            //             Id = d.Id,
+            //             Name = d.Name,
+            //             Address = d.Address,
+            //             OwnerId = d.OwnerId,
+            //             IsSuspended = d.IsSuspended,
+            //             FormattedSuspensionEndDate = d.SuspensionEndDate.HasValue ? d.SuspensionEndDate?.ToString("dddd, dd/MM/yyyy - HH:mm") : null,
+            //             FormattedDateCreated = d.DateCreated.ToString("dddd, dd/MM/yyyy - HH:mm"),
+            //             FormattedDateModified = d.DateModified.ToString("dddd, dd/MM/yyyy - HH:mm"),
+            //             Revenue = d.Revenue,
+            //             OwnerFullName = d.Owner.FullName
+            //         })
+            //         .ToListAsync();
+            return listShopsViewModel;
         }
 
         // public List<Drink> GetDrinksByType(string typeName)
