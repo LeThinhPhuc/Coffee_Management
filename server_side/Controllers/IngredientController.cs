@@ -79,8 +79,8 @@
                 var result = await _ingredientService.UpdateAsync(model);
                 if (result != null)
                 {
-                    return Ok(new { succeeded = true, message = "Updated" });
-                    // return Ok(result)    // depends on client_side's requirement
+                    // return Ok(new { succeeded = true, message = "Updated" });
+                    return Ok(result);    // depends on client_side's requirement
                 }
                 return Ok(new { succeeded = false, message = "Failed to update Ingredient!" });
             }
