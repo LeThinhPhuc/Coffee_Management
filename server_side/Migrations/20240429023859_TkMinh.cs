@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoffeeShopApi.Migrations
 {
-    public partial class TuanhayhoFixRole : Migration
+    public partial class TkMinh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -351,48 +351,48 @@ namespace CoffeeShopApi.Migrations
                 columns: new[] { "Id", "Amount", "DateCreated", "DateModified", "ExpiryDate", "Image", "Name" },
                 values: new object[,]
                 {
-                    { "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 10.0, new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5870), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5890), new DateTime(2024, 6, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5900), "", "Sugar" },
-                    { "55cafebe-f085-4b1a-ab9b-c6f128878995", 5.0, new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5800), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5820), new DateTime(2024, 5, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5830), "", "Milk" }
+                    { "6975e741-37ba-4222-909d-7dab7f82e088", 5.0, new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(192), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(194), new DateTime(2024, 5, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(196), "", "Milk" },
+                    { "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 10.0, new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(218), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(220), new DateTime(2024, 6, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(222), "", "Sugar" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "9597e3c2-469c-4ccc-8e0f-28e34a4a65c6", "Admin", "ADMIN" });
+                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "113165ab-1c91-4e70-8d98-8a468ce10623", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f2aff88c-1d4a-430b-bdc5-cb6358616a4e", 0, "499443ad-dee7-44ce-9fdf-1df83585376a", "ApplicationUser", null, false, "Admin", false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEFnNv4aZ6tUmyKW6pR1ophkULzlo3b79QE+v2cm+m8thxyZ7IuOKhPfKlqPWCwdyeQ==", null, false, "852e101c-1547-478f-95b5-675f9c993482", false, "admin" });
+                values: new object[] { "ef964b0c-1b97-4e08-9513-b06e7827488a", 0, "bdf92479-65f4-4879-a6e1-dde4e2e5c845", "ApplicationUser", null, false, "Admin", false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEO8oulJ6EZKdOjcNa9Fcq9lcfsuhv6SrHKyfnNBjSaigiPhHru7M+wTUh4Dbyz/TDQ==", null, false, "b35d32fe-90e2-4a69-add8-8005f19518a0", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "DateCreated", "DateModified", "Note", "OrderDate", "Total", "UserId" },
-                values: new object[] { "39d93e5f-1227-454b-8153-22b412232f95", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(9460), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(9450), null, new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 28000.0, "f2aff88c-1d4a-430b-bdc5-cb6358616a4e" });
+                values: new object[] { "edc80560-0e89-4778-9067-700c6c9f5cb1", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(690), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(684), null, new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 28000.0, "ef964b0c-1b97-4e08-9513-b06e7827488a" });
 
             migrationBuilder.InsertData(
                 table: "Shops",
                 columns: new[] { "Id", "Address", "DateCreated", "DateModified", "IsSuspended", "Name", "OwnerId", "Revenue", "SuspensionEndDate" },
                 values: new object[,]
                 {
-                    { "5563d293-21c4-4118-925c-346da5f58e7c", "456 Elm St", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4530), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4560), false, "Tea Shop", "f2aff88c-1d4a-430b-bdc5-cb6358616a4e", 0.0, null },
-                    { "5e8bfdd2-bd5d-4cec-9054-931f7715302d", "123 Main St", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4430), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4490), false, "Coffee House", "f2aff88c-1d4a-430b-bdc5-cb6358616a4e", 0.0, null }
+                    { "4fa75925-a8ee-4609-baa3-607486c6ba9b", "456 Elm St", new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9943), new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9946), false, "Tea Shop", "ef964b0c-1b97-4e08-9513-b06e7827488a", 0.0, null },
+                    { "e38c802f-3e35-4aa6-bd64-a4124aab7adb", "123 Main St", new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9749), new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9932), false, "Coffee House", "ef964b0c-1b97-4e08-9513-b06e7827488a", 0.0, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "f2aff88c-1d4a-430b-bdc5-cb6358616a4e" });
+                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "ef964b0c-1b97-4e08-9513-b06e7827488a" });
 
             migrationBuilder.InsertData(
                 table: "DrinkTypes",
                 columns: new[] { "Id", "DateCreated", "DateModified", "Name", "ShopId" },
                 values: new object[,]
                 {
-                    { "0d47c0fd-780a-48aa-99f2-2353d581de16", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5010), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5000), "Juice", "5e8bfdd2-bd5d-4cec-9054-931f7715302d" },
-                    { "2a14dae5-beb6-4dbb-a2ff-6153d00c1dbe", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(4820), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4800), "Coffee", "5e8bfdd2-bd5d-4cec-9054-931f7715302d" },
-                    { "62849ab7-3235-4ffa-a925-e604c059e268", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(4950), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4940), "Smoothie", "5e8bfdd2-bd5d-4cec-9054-931f7715302d" },
-                    { "e8e184b6-2bec-4403-af60-2765f1232147", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(4880), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(4870), "Tea", "5e8bfdd2-bd5d-4cec-9054-931f7715302d" }
+                    { "0554971e-8551-4513-882c-a1d0358c95d2", new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Local).AddTicks(9997), new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9992), "Smoothie", "e38c802f-3e35-4aa6-bd64-a4124aab7adb" },
+                    { "40593b35-0e4b-484c-a244-ab9ec8f3a417", new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Local).AddTicks(9968), new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9963), "Coffee", "e38c802f-3e35-4aa6-bd64-a4124aab7adb" },
+                    { "966e64a9-e0ed-4cf7-9eeb-614c1f57c796", new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Local).AddTicks(9985), new DateTime(2024, 4, 29, 9, 38, 59, 337, DateTimeKind.Unspecified).AddTicks(9976), "Tea", "e38c802f-3e35-4aa6-bd64-a4124aab7adb" },
+                    { "ad526dde-4339-4d9a-a314-7391dc03705e", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(9), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(4), "Juice", "e38c802f-3e35-4aa6-bd64-a4124aab7adb" }
                 });
 
             migrationBuilder.InsertData(
@@ -400,14 +400,14 @@ namespace CoffeeShopApi.Migrations
                 columns: new[] { "Id", "DateCreated", "DateModified", "DrinkTypeId", "ImagePath", "Name", "Price" },
                 values: new object[,]
                 {
-                    { "1de30657-b449-4692-84e1-98db384d0a85", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5320), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5310), "e8e184b6-2bec-4403-af60-2765f1232147", null, "Earl Grey", 25000.0 },
-                    { "201321c2-97e4-4bde-8d6f-1d100758976c", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5570), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5560), "0d47c0fd-780a-48aa-99f2-2353d581de16", null, "Orange Juice", 24000.0 },
-                    { "2136ad35-e89f-46f7-ab1f-dbedb7e50753", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5380), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5370), "e8e184b6-2bec-4403-af60-2765f1232147", null, "Green Tea", 22000.0 },
-                    { "249c15b0-74f7-4f61-abe0-cf74cc1fb489", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5630), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5620), "0d47c0fd-780a-48aa-99f2-2353d581de16", null, "Apple Juice", 24000.0 },
-                    { "908d84ef-bec5-487b-804d-f19609bf3a2f", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5190), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5180), "2a14dae5-beb6-4dbb-a2ff-6153d00c1dbe", null, "Cappuccino", 28000.0 },
-                    { "a111e3b6-53ef-451a-943d-cf1174359aa0", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5440), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5430), "62849ab7-3235-4ffa-a925-e604c059e268", null, "Strawberry Banana Smoothie", 28000.0 },
-                    { "ab26a783-deb7-4f60-a62c-aa11d5988b65", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5510), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5500), "62849ab7-3235-4ffa-a925-e604c059e268", null, "Mango Pineapple Smoothie", 23000.0 },
-                    { "fd068936-4f57-43a2-a012-42d580fd9fbf", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Local).AddTicks(5120), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5100), "2a14dae5-beb6-4dbb-a2ff-6153d00c1dbe", null, "Latte", 28000.0 }
+                    { "2e1021a8-b534-4467-a259-49acea096002", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(56), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(50), "40593b35-0e4b-484c-a244-ab9ec8f3a417", null, "Latte", 28000.0 },
+                    { "2fc68e1d-cffa-4d8e-9675-9c7de5ac445d", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(145), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(140), "ad526dde-4339-4d9a-a314-7391dc03705e", null, "Apple Juice", 24000.0 },
+                    { "58fc73d5-7056-4ba2-b53e-698d771e2b18", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(83), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(78), "966e64a9-e0ed-4cf7-9eeb-614c1f57c796", null, "Earl Grey", 25000.0 },
+                    { "7454cec2-e905-4201-b3a1-49f304956060", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(94), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(90), "966e64a9-e0ed-4cf7-9eeb-614c1f57c796", null, "Green Tea", 22000.0 },
+                    { "b45c2f32-40ee-4972-b724-226003d361ca", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(105), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(101), "0554971e-8551-4513-882c-a1d0358c95d2", null, "Strawberry Banana Smoothie", 28000.0 },
+                    { "d98ce735-ec08-4f1d-9317-ba3e507e9536", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(133), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(128), "ad526dde-4339-4d9a-a314-7391dc03705e", null, "Orange Juice", 24000.0 },
+                    { "e366f1e6-3804-474e-a503-c68109185484", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(71), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(63), "40593b35-0e4b-484c-a244-ab9ec8f3a417", null, "Cappuccino", 28000.0 },
+                    { "fb7de551-86f9-4465-932f-d7e49875e5f7", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Local).AddTicks(121), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(113), "0554971e-8551-4513-882c-a1d0358c95d2", null, "Mango Pineapple Smoothie", 23000.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -415,28 +415,28 @@ namespace CoffeeShopApi.Migrations
                 columns: new[] { "Id", "DateCreated", "DateModified", "DrinkId", "IngredientId", "Quantity" },
                 values: new object[,]
                 {
-                    { "00a971f0-c192-40d7-a58b-684e318cf963", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6150), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6230), "908d84ef-bec5-487b-804d-f19609bf3a2f", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "102c408f-22c6-43cc-b7ca-e0f6d096fa16", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6400), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6420), "2136ad35-e89f-46f7-ab1f-dbedb7e50753", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "315a527e-7b81-42aa-a42a-d76edb1aff3a", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6830), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6860), "201321c2-97e4-4bde-8d6f-1d100758976c", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "388ae7ce-05b1-4b82-879e-fcab2b0201a0", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6270), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6300), "1de30657-b449-4692-84e1-98db384d0a85", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "3ffbf627-1750-4f9a-a46e-cfcb9e3c9544", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6460), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6490), "2136ad35-e89f-46f7-ab1f-dbedb7e50753", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "54a8a601-7f14-4951-94c4-b33a3c7a1e97", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6030), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6060), "fd068936-4f57-43a2-a012-42d580fd9fbf", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "570319a9-46b8-4f04-9dba-8a0c20ae0aac", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6770), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6800), "ab26a783-deb7-4f60-a62c-aa11d5988b65", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "69bb416b-e0af-4847-90ae-e63ee3fe9012", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(8830), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(9060), "249c15b0-74f7-4f61-abe0-cf74cc1fb489", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "6b0b4cff-908b-4972-a7c1-d33c22865fe8", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5970), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(5990), "fd068936-4f57-43a2-a012-42d580fd9fbf", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "835eb2ef-d73b-49bf-be3d-af9ddd25817c", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6710), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6740), "ab26a783-deb7-4f60-a62c-aa11d5988b65", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "ac867217-2cd1-4342-83f1-ec971b246b2c", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6090), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6120), "908d84ef-bec5-487b-804d-f19609bf3a2f", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "c29497c3-acbb-419c-ad99-48abadac8998", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6530), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6550), "a111e3b6-53ef-451a-943d-cf1174359aa0", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 },
-                    { "d25b3e11-85cf-4979-932b-7590d2b2ee7f", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6340), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6360), "1de30657-b449-4692-84e1-98db384d0a85", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "d3875873-d7bd-4958-8261-3553b0274622", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6890), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6920), "201321c2-97e4-4bde-8d6f-1d100758976c", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "de503d88-a0b9-4af2-bdc0-57dcbbfe8b74", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6590), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6670), "a111e3b6-53ef-451a-943d-cf1174359aa0", "1f70f06b-4d7e-49c3-89c5-6bb8c6bd4d5d", 5 },
-                    { "e6355527-0e74-424b-a892-f56c10bcb191", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6950), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(6980), "249c15b0-74f7-4f61-abe0-cf74cc1fb489", "55cafebe-f085-4b1a-ab9b-c6f128878995", 10 }
+                    { "2c36b8aa-76a8-4af1-85c8-915841b1cfb4", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(495), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(497), "58fc73d5-7056-4ba2-b53e-698d771e2b18", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "52d09a6e-5631-4828-bd7c-93a00c4a0e42", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(553), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(555), "fb7de551-86f9-4465-932f-d7e49875e5f7", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "54e46fc9-1e59-44d2-8f41-e919db121578", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(578), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(580), "d98ce735-ec08-4f1d-9317-ba3e507e9536", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "6722792f-500e-41f8-8b14-aed8c7e9ed9b", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(529), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(532), "b45c2f32-40ee-4972-b724-226003d361ca", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "80685ebc-e3da-4d0c-94d5-9d802f6b3e53", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(564), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(566), "fb7de551-86f9-4465-932f-d7e49875e5f7", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "89747f92-a767-428f-bf8b-fe529b5fe9fb", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(588), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(590), "d98ce735-ec08-4f1d-9317-ba3e507e9536", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "971e7273-5296-43c4-a0a9-9b0b879b9826", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(506), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(508), "7454cec2-e905-4201-b3a1-49f304956060", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "9a658b07-36eb-4576-8bfe-dde007cd5879", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(259), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(435), "2e1021a8-b534-4467-a259-49acea096002", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "a9c007f2-8aba-482e-8f8e-0457db52e34c", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(483), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(486), "58fc73d5-7056-4ba2-b53e-698d771e2b18", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "ab4b464d-5b9d-4aaa-84dd-8a1f3d3604ec", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(459), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(461), "e366f1e6-3804-474e-a503-c68109185484", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "b84e1afe-fc35-4da3-9e33-7a03a3deea24", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(447), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(449), "2e1021a8-b534-4467-a259-49acea096002", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "cbba0cbd-09e7-49a5-9241-e9f45119312c", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(615), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(617), "2fc68e1d-cffa-4d8e-9675-9c7de5ac445d", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "d157f39c-dc94-4a66-9ed8-fa6dbcaea65e", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(516), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(518), "7454cec2-e905-4201-b3a1-49f304956060", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "d2dcb15d-8d93-441d-afb5-e67ea6c95da2", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(541), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(543), "b45c2f32-40ee-4972-b724-226003d361ca", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 },
+                    { "d44c6e0c-eeeb-4c81-8a98-5842ed8ac21b", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(604), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(606), "2fc68e1d-cffa-4d8e-9675-9c7de5ac445d", "6975e741-37ba-4222-909d-7dab7f82e088", 10 },
+                    { "d967d34b-044a-4562-953b-394db82cf77d", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(470), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(472), "e366f1e6-3804-474e-a503-c68109185484", "edbf880d-c597-46e2-9f66-a8d2bbcb6e28", 5 }
                 });
 
             migrationBuilder.InsertData(
                 table: "OrderItems",
                 columns: new[] { "Id", "DateCreated", "DateModified", "DrinkId", "Note", "OrderId", "Quantity" },
-                values: new object[] { "c130bb72-0884-4ddd-ab1c-3e0f8a500bab", new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(9530), new DateTime(2024, 4, 28, 23, 6, 1, 396, DateTimeKind.Unspecified).AddTicks(9570), "fd068936-4f57-43a2-a012-42d580fd9fbf", null, "39d93e5f-1227-454b-8153-22b412232f95", 1 });
+                values: new object[] { "9c8731ea-289d-41fc-9127-8653745f53e0", new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(783), new DateTime(2024, 4, 29, 9, 38, 59, 338, DateTimeKind.Unspecified).AddTicks(786), "2e1021a8-b534-4467-a259-49acea096002", null, "edc80560-0e89-4778-9067-700c6c9f5cb1", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drinks_DrinkTypeId",
