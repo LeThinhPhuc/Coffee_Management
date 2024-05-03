@@ -24,11 +24,11 @@ const Table = () => {
     },
   ];
   return (
-    <>
+    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">
-            Danh sách hóa đơn
+            Lịch Sử Hóa Đơn
           </h3>
         </div>
         <div className="flex-shrink-0">
@@ -99,7 +99,7 @@ const Table = () => {
           <Pagination />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

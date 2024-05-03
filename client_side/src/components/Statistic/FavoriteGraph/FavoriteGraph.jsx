@@ -1,14 +1,23 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const fakeData = [
+  { type: "Tea", total: 30 },
+  { type: "Coffe", total: 26 },
+  { type: "Juice", total: 15 },
+  { type: "Smoothie", total: 14 },
+  { type: "Teaa", total: 20 },
+];
+
 const FavoriteGraph = () => {
   const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: fakeData.map((item) => item.type),
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
+        data: fakeData.map((item) => item.total),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -29,7 +38,19 @@ const FavoriteGraph = () => {
       },
     ],
   };
-  return <Pie data={data} />;
+  const options = {
+    plugins: {},
+  };
+  return (
+    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 flex-row">
+      <h3 className="text-xl font-bold text-gray-900 mb-2">
+        Loại Được Yêu Thích Trong Tháng
+      </h3>
+      <div className="h-96 flex justify-center">
+        <Pie data={data} options={options} />
+      </div>
+    </div>
+  );
 };
 
 export default FavoriteGraph;
