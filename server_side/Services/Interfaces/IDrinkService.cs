@@ -10,8 +10,8 @@ namespace CoffeeShopApi.Services.Interfaces
         Task<Drink> GetDrinkByIdAsync(string id);
         Task<List<DrinkViewModel>> GetDrinksByTypeNameAsync(string typeName);
         Task<List<object>> GetMenuDataAsync();
-        Task<bool> AddDrinkAsync(CreateUpdateDrinkModel drink);
-        Task<bool> UpdateDrinkAsync(CreateUpdateDrinkModel model);
+        Task<Drink> AddDrinkAsync(CreateUpdateDrinkModel model);
+        Task<Drink> UpdateDrinkAsync(CreateUpdateDrinkModel model);
         Task<bool> DeleteDrinkAsync(string id);
         Task<bool> DeleteAllDrinksAsync();
     }

@@ -10,7 +10,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using CoffeeShopApi.Repositories.Interfaces;
-using CoffeeShopApi.Repositories.Implements;    // for .UseSqlServer()
+using CoffeeShopApi.Repositories.Implements;
+using System.Reflection;    // for .UseSqlServer()
 
 
 // $ dotnet add package Newtonsoft.Json --version 13.0.3
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDrinkTypeService, DrinkTypeService>();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
+builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -62,6 +64,10 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri("https://example.com/license"),
         }
     });
+    
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    
     // Configuring Swagger UI Authorization with Swagger
     #region Accepting Bearer Token:
     // tutorial: https://code-maze.com/swagger-authorization-aspnet-core
@@ -95,7 +101,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 #region DbContext & Identity Auth:
-var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
+var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
 builder.Services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
 

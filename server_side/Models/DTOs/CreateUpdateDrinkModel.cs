@@ -2,6 +2,7 @@ namespace CoffeeShopApi.Models.DTOs
 {
     using System.ComponentModel.DataAnnotations;
 
+
     public class CreateUpdateDrinkModel
     {
         // When creating a drink, you can omit the Id field, and when updating a drink,
@@ -20,6 +21,18 @@ namespace CoffeeShopApi.Models.DTOs
 
         [Required]
         public string DrinkTypeId { get; set; }
+
+        // Ingredients for the drink
+        public List<IngredientModel> Ingredients { get; set; }
     }
 
+    public class IngredientModel
+    {
+        [Required]
+        public string IngredientId { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int Quantity { get; set; }
+    }
 }
