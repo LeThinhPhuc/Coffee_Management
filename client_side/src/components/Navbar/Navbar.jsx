@@ -69,7 +69,7 @@ const Navbar = () => {
                                 <div className="flex space-x-4">
                                     <Link
                                         to="/home/order"
-                                        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
                                         Order
                                     </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
                                         Voucher
                                     </Link>
                                     <Link
-                                        to="/home/overview"
+                                        to="/home/static"
                                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                     >
                                         Overview

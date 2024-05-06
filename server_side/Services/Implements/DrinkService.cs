@@ -116,7 +116,7 @@ namespace CoffeeShopApi.Services.Implements
             return await _dbContext.Drinks.FindAsync(id);
         }
 
-        public async Task<bool> AddDrinkAsync(CreateUpdateDrinkModel model)
+        public async Task<Drink> AddDrinkAsync(CreateUpdateDrinkModel model)
         {
             var drink = new Drink
             {
@@ -126,13 +126,30 @@ namespace CoffeeShopApi.Services.Implements
                 DrinkTypeId = model.DrinkTypeId
             };
 
+            // Add the Drink entity to the database
             _dbContext.Drinks.Add(drink);
             await _dbContext.SaveChangesAsync();
 
-            return true;
+            // Add the ingredients to the Drink
+            if (model.Ingredients != null && model.Ingredients.Any())
+            {
+                foreach (var ingredient in model.Ingredients)
+                {
+                    var ingredientInDrink = new IngredientInDrink
+                    {
+                        DrinkId = drink.Id,
+                        IngredientId = ingredient.IngredientId,
+                        Quantity = ingredient.Quantity
+                    };
+                    _dbContext.IngredientsInDrinks.Add(ingredientInDrink);
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return drink;
         }
 
-        public async Task<bool> UpdateDrinkAsync(CreateUpdateDrinkModel model)
+        public async Task<Drink> UpdateDrinkAsync(CreateUpdateDrinkModel model)
         {
             var drink = await _dbContext.Drinks.FindAsync(model.Id);
 
@@ -141,16 +158,36 @@ namespace CoffeeShopApi.Services.Implements
                 throw new NotFoundException("Drink not found");
             }
 
-            // Actung ! must update enough required fields
+            // Update Drink entity
             drink.Name = model.Name;
             drink.Price = model.Price;
             drink.DrinkTypeId = model.DrinkTypeId;
             drink.ImagePath = model.ImagePath;
 
+            // Update ingredients
+            if (model.Ingredients != null && model.Ingredients.Any())
+            {
+                // Remove existing ingredients
+                _dbContext.IngredientsInDrinks.RemoveRange(_dbContext.IngredientsInDrinks.Where(i => i.DrinkId == model.Id));
+
+                // Add new ingredients
+                foreach (var ingredient in model.Ingredients)
+                {
+                    var ingredientInDrink = new IngredientInDrink
+                    {
+                        DrinkId = drink.Id,
+                        IngredientId = ingredient.IngredientId,
+                        Quantity = ingredient.Quantity
+                    };
+                    _dbContext.IngredientsInDrinks.Add(ingredientInDrink);
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
 
-            return true;
+            return drink;
         }
+
 
         public async Task<bool> DeleteDrinkAsync(string id)
         {

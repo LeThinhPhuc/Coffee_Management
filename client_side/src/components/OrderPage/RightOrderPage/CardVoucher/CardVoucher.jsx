@@ -19,11 +19,11 @@ const CardVoucher=({val, handleChose, checkModal})=>{
         <div>
         <h6
             class="block font-sans text-sm antialiased font-semibold leading-relaxed tracking-normal uppercase text-blue-gray-900">
-            {val.title}
+            {val.name}
         </h6>
         <h6
             class="block font-sans text-xs antialiased font-medium leading-relaxed tracking-normal uppercase text-blue-gray-900">
-            Discount <span>{val.discount}</span> %
+            Discount <span>{val.discountPercent}</span> %
         </h6>  </div>      
     </button>
     )

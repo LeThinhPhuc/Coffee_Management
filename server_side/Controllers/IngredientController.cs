@@ -1,22 +1,29 @@
-﻿using CoffeeShopApi.Models.DomainModels;
-using CoffeeShopApi.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CoffeeShopApi.Controllers
+﻿namespace CoffeeShopApi.Controllers
 {
+    using Models.DomainModels;
+    using Models.DTOs;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using CoffeeShopApi.Exceptions;
+
     [ApiController]
     [Route("api/[controller]")]
     public class IngredientsController : ControllerBase
     {
         private readonly IIngredientService _ingredientService;
-
-        public IngredientsController(IIngredientService ingredientService)
+        private readonly IUnitOfWork _unitOfWork;
+        public IngredientsController(IIngredientService ingredientService,
+            IUnitOfWork unitOfWork
+        )
         {
             _ingredientService = ingredientService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ingredient>>> GetAllIngredients()
+        public async Task<ActionResult> GetAllIngredients()
         {
             var ingredients = await _ingredientService.GetAllAsync();
             return Ok(ingredients);
@@ -34,34 +41,86 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> CreateIngredient(Ingredient ingredient)
+        public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
-            var createdIngredient = await _ingredientService.CreateAsync(ingredient);
-            return CreatedAtAction(nameof(GetIngredient), new { id = createdIngredient.Id }, createdIngredient);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = await _ingredientService.CreateAsync(model);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return Ok(new { succeeded = false, message = "Failed to add Ingredient!" });
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return Ok(new { succeeded = false, message = ex.Message });
+            }           
         }
 
+        // [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Ingredient>> UpdateIngredient(string id, Ingredient ingredient)
+        public async Task<ActionResult> UpdateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
-            if (id != ingredient.Id.ToString())
+            try
             {
-                return BadRequest();
-            }
+                // Check if the model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var updatedIngredient = await _ingredientService.UpdateAsync(id, ingredient);
-            if (updatedIngredient == null)
+                var result = await _ingredientService.UpdateAsync(model);
+                if (result != null)
+                {
+                    // return Ok(new { succeeded = true, message = "Updated" });
+                    return Ok(result);    // depends on client_side's requirement
+                }
+                return Ok(new { succeeded = false, message = "Failed to update Ingredient!" });
+            }
+            catch (NotFoundException)
             {
-                return NotFound();
+                return Ok(new { succeeded = false, message = "Ingredient not found!" });
             }
-
-            return Ok(updatedIngredient);
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(string id)
         {
-            await _ingredientService.DeleteAsync(id);
-            return NoContent();
+            // await _ingredientService.DeleteAsync(id);
+            // return NoContent();  // lacking info for FrontEnd team !
+
+            // more proper handling
+            try
+            {
+                var result = await _ingredientService.DeleteAsync(id);
+                if (result)
+                {
+                    return Ok(new { succeeded = true, message = "Deleted" });
+                }
+                return Ok(new { succeeded = false, message = "Failed to delete Ingredient!" });
+            }
+            catch (NotFoundException ex)
+            {
+                return Ok(new { succeeded = false, message = "Ingredient not found!" });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                //return StatusCode(500, "Server error"); // 500 Internal Server Error with a generic error message
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
         }
     }
 }

@@ -103,13 +103,16 @@ Could not create constraint or index. See previous errors.
 
             modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
 
+            // Removed due to errors affecting other models
             // Seed the "Admin" role
-            var adminRoleId = Guid.NewGuid().ToString();
+            // Achtung: the AspNetRole's Name column is required to be unique !!!
+            // var adminRoleId = Guid.NewGuid().ToString();
+            var adminRoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210";
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = adminRoleId,
                 Name = "Admin",
-                NormalizedName = "ADMIN"
+                NormalizedName = "ADMIN".ToUpper()
             });
 
             // Assign the "Admin" role to the admin user
@@ -159,8 +162,8 @@ Could not create constraint or index. See previous errors.
 
             var ingredients = new[]
             {
-                new Ingredient { Id = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1) },
-                new Ingredient { Id = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2) }
+                new Ingredient { Id = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1), Image = "" },
+                new Ingredient { Id = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2), Image = "" }
             };
             modelBuilder.Entity<Ingredient>().HasData(ingredients);
 
@@ -168,22 +171,22 @@ Could not create constraint or index. See previous errors.
             // Seed IngredientsInDrinks
             var ingredientsInDrinks = new[]
             {
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[0].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[0].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[1].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[1].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[2].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[2].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[3].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[3].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[4].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[4].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[5].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[5].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[6].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[6].Id, IngredientId = ingredient2Id, Quantity = 50 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[7].Id, IngredientId = ingredient1Id, Quantity = 100 },
-                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[7].Id, IngredientId = ingredient2Id, Quantity = 50 }
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[0].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[0].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[1].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[1].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[2].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[2].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[3].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[3].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[4].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[4].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[5].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[5].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[6].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[6].Id, IngredientId = ingredient2Id, Quantity = 5 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[7].Id, IngredientId = ingredient1Id, Quantity = 10 },
+                new IngredientInDrink { Id = Guid.NewGuid().ToString(), DrinkId = drinks[7].Id, IngredientId = ingredient2Id, Quantity = 5 }
             };
 
             modelBuilder.Entity<IngredientInDrink>().HasData(ingredientsInDrinks);
