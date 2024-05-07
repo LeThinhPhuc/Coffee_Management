@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using CoffeeShopApi.Repositories.Interfaces;
 using CoffeeShopApi.Repositories.Implements;
-using System.Reflection;    // for .UseSqlServer()
+using System.Reflection;
+using CoffeeShopApi.Services;    // for .UseSqlServer()
 
 
 // $ dotnet add package Newtonsoft.Json --version 13.0.3
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IAnalyticService, AnalyticService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
