@@ -92,11 +92,13 @@ namespace CoffeeShopApi.Repositories.Implements
 
         public async Task<OrderDTO> AddNewOrderAsync(OrderModelDTO newOrderDT0)
         {
-            var check = await context.Users.FirstOrDefaultAsync(u => u.Id == newOrderDT0.UserId);
+            var check = await context.Users
+                .FirstOrDefaultAsync(u => u.Id == newOrderDT0.UserId);
             if(check == null)
             {
                 return null;
             }
+
             string newOrderId = Guid.NewGuid().ToString();//tự động tạo 1 mã order mới 
             Order newOrder = new Order
             {

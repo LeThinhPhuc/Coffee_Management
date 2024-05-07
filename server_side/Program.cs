@@ -39,6 +39,8 @@ builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IRevenueService, RevenueService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
@@ -101,7 +103,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 #region DbContext & Identity Auth:
-var connectionString = builder.Configuration.GetConnectionString("DockerMSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
+var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
 builder.Services.AddDbContext<AppDbContext>(options =>
      options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
 
