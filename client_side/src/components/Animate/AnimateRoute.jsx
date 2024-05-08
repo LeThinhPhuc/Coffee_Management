@@ -9,10 +9,9 @@ import LoginSignup from "../Login_Signup/LoginSignup";
 import OrderPage from "../OrderPage/OrderPage";
 import ManageMenu from "../manage/manageMenu/ManageMenu";
 import ManageIngredient from "../manage/manageIngredient/ManageIngredient";
-import Table from "./../Statistic/Table/Table";
-import Discount from '../Discount/Discount'
 import Statistic from '../Statistic/Statistic';
 import MainPage from '../MainPage/MainPage';
+import Discount from '../Discount/Discount'
 const AnimateRoute = () => {
     const location = useLocation();
 
