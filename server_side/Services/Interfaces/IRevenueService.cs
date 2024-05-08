@@ -2,6 +2,8 @@
 {
     public interface IRevenueService
     {
-        Task<IEnumerable<object>> GetDailyRevenueInRageAsync(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<object>> GetDailyRevenueInRangeAsync(DateTime startDate, DateTime endDate);
+
+        Task<IEnumerable<object>> GetMonthlyRevenueByYearAsync(int year);
     }
 }

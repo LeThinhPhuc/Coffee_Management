@@ -24,7 +24,7 @@ namespace CoffeeShopApi.Controllers
                 }) ;
             }
 
-            var revenue = await revenueService.GetDailyRevenueInRageAsync(startDate, endDate);
+            var revenue = await revenueService.GetDailyRevenueInRangeAsync(startDate, endDate);
             
             if(revenue == null || revenue.Count() == 0)
             {
@@ -32,6 +32,21 @@ namespace CoffeeShopApi.Controllers
             }
 
             return Ok(revenue);
+        }
+
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetMonthlyRevenueByYear([FromQuery]int year)
+        {
+            var monthlyRevenue = await revenueService.GetMonthlyRevenueByYearAsync(year);
+
+            if (monthlyRevenue == null && monthlyRevenue.Count() == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(monthlyRevenue);
         }
     }
 }

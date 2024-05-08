@@ -2,6 +2,7 @@
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace CoffeeShopApi.Services.Implements
 {
@@ -13,26 +14,48 @@ namespace CoffeeShopApi.Services.Implements
         {
             this.context = context;
         }
-        public async Task<IEnumerable<object>> GetDailyRevenueInRageAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<object>> GetDailyRevenueInRangeAsync(DateTime startDate, DateTime endDate)
         {
             var dailyRevenue = await context.Orders
-                .Where(o => startDate.Date <= o.DateCreated.Date && o.DateCreated.Date <= endDate.Date)
-                .GroupBy(o => o.DateCreated.Date) // Group theo ngày, không cần phải group theo DateTime đầy đủ
+                .Where(o => startDate.Date <= o.OrderDate.Value.Date && o.OrderDate.Value.Date <= endDate.Date)
+                .GroupBy(o => o.OrderDate.Value.Date)
                 .Select(group => new
                 {
                     Date = group.Key,
-                    TotalRevenueOnDay = group.Sum(o => o.Total)
+                    revenue = group.Sum(o => o.Total) / 1000000.0
                 })
                 .ToListAsync();
 
-            if(dailyRevenue.Count == 0)
+            if (dailyRevenue.Count == 0)
             {
                 return null;
             }
 
-
             return dailyRevenue;
         }
+
+
+        public async Task<IEnumerable<object>> GetMonthlyRevenueByYearAsync(int year)
+        {
+            var monthlyRevenueByYear = await context.Orders
+                .Where(o => o.OrderDate.Value.Year == year)
+                .GroupBy(o => new { o.OrderDate.Value.Year, o.OrderDate.Value.Month })
+                .Select(group => new
+                {
+                    Year = group.Key.Year,
+                    Month = group.Key.Month,
+                    Revenue = group.Sum(o => o.Total) / 1000000.0
+                })
+                .ToListAsync();
+            
+            if (monthlyRevenueByYear == null  && monthlyRevenueByYear.Count == 0)
+            {
+                return null;
+            }
+
+            return monthlyRevenueByYear;
+        }
+
 
     }
 }
