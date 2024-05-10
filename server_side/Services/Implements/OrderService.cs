@@ -16,19 +16,41 @@ namespace CoffeeShopApi.Services.Implements
             _dbContext = dbContext;
         }
 
-        public async Task<List<Order>> GetAllOrdersAsync()
+        public async Task<List<object>> GetAllOrderDetailedsAsync()
         {
-            return await Task.FromResult(_dbContext.Orders.AsEnumerable().ToList());
+            // return await Task.FromResult(_dbContext.Orders.AsEnumerable().ToList());
+
+            
+            // retrieve all related data from DB
+            var query = _dbContext.Orders
+                // .Where(o => o.Id == orderId) // for single record retrieval
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Drink)
+                .Include(o => o.User)
+
+                // create customized return object (Anonymous obj)
+                .Select(o => new
+                {
+                    Id = o.Id,
+                    OrderDate = o.OrderDate,
+                    CreatedBy = o.User.FullName,
+                    Drinks = o.OrderItems.Select(oi => new
+                    {
+                        OrderId = oi.OrderId,
+                        Id = oi.Id,
+                        DrinkId = oi.Drink.Id,
+                        DrinkName = oi.Drink.Name,
+                        Price = oi.Drink.Price,
+                        Quantity = oi.Quantity,
+                    }).ToList(),
+                    Total = o.OrderItems.Sum(oi => oi.Quantity * oi.Drink.Price)
+                });
+
+            var detailedOrders = await query.ToListAsync();
+            return detailedOrders.Cast<object>().ToList();;
         }
 
-        /*
-        public async Task<Order> GetOrderByIdAsync(string id)
-        {
-            return await _unitOfWork.Orders.GetByIdAsync(id);
-        }
-        */
-
-        public async Task<Object?> GetDetailedOrderById(string orderId)
+        public async Task<object> GetDetailedOrderById(string orderId)
         {
             // retrieve all related data from DB
             var query = _dbContext.Orders

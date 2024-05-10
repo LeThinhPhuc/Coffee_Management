@@ -7,6 +7,7 @@ namespace CoffeeShopApi.Controllers
     using Services.Interfaces;
     using Repositories.Interfaces;
 
+
     [ApiController]
     [Route("api/[controller]")]
     public class AnalyticController : ControllerBase
@@ -22,7 +23,6 @@ namespace CoffeeShopApi.Controllers
         }
 
 
-        // GET api/Analytic/GetMonthlyRevenueStatus
         /// <summary>
         /// So sánh doanh thu tháng hiện tại với tháng trước về tăng/giảm (với isIncrease: cho biết so với tháng trước, doanh thu tháng vừa rồi có tăng hay không)
         /// </summary>
@@ -34,19 +34,17 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        // GET api/Analytic/GetTotalRevenuePast10Years
         /// <summary>
         /// Lấy tổng doanh thu trong 10 năm qua (toàn bộ hệ thống)
         /// </summary>
         /// <returns>Returns a double value</returns>
         [HttpGet("[action]")]
-        public async Task<ActionResult> GetTotalRevenuePast10Years()
+        public async Task<ActionResult> GetTotalRevenuePast10YearsEntireSystem()
         {
-            var result = await _service.GetTotalRevenuePast10Years();
+            var result = await _service.GetTotalRevenuePast10YearsWholeSystem();
             return Ok(result);
         }
 
-        // GET api/Analytic/GetTotalRevenuePast10YearsByUserId
         /// <summary>
         /// Lấy tổng doanh thu trong 10 năm qua (lọc theo Id chủ Shop)
         /// </summary>
@@ -58,6 +56,28 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Lấy tổng doanh thu trong tháng vừa qua theo tên loại đồ uống.
+        /// </summary>
+        /// <returns>Returns a List of object.</returns>
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetLastMonthRevenueByDrinkType()
+        {
+            var result = await _service.GetLastMonthRevenueByDrinkType();
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Lấy tổng doanh thu trong tháng hiện tại theo tên loại đồ uống.
+        /// </summary>
+        /// <returns>Returns a List of object.</returns>
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetCurrentMonthRevenueByDrinkType()
+        {
+            var result = await _service.GetCurrentMonthRevenueByDrinkType();
+            return Ok(result);
+        }
 
     }
 }

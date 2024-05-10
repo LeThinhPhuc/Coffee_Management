@@ -10,6 +10,27 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <!-- supressing compiler warnings -->
+  <PropertyGroup>
+    <!-- common compiler warnings sheet
+    CS0168: The variable 'x' is declared but never used
+    1591: XML comments warnings
+    8618: non-null compiler warnings
+    0414: unused variables compiler warnings
+    CS8604: Possible null reference argument for parameter ...
+    CS8603: Possible null reference return.
+    CS8602: Dereference of a possibly null reference.
+    CS8601: Possible null reference assignment.
+    CS8634: The type 'CoffeeShopApi.Models.DomainModels.Order?' cannot be used as type parameter 'TEntity' in the generic type or method 'DbContext.Remove<TEntity>(TEntity)'. Nullability of type argument 'CoffeeShopApi.Models.DomainModels.Order?' doesn't match 'class' constraint.
+    CS8625: Cannot convert null literal to non-nullable reference type. (AppDbContext.cs(100,62))
+    CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+    CS8620: Argument of type 'IIncludableQueryable<Order, List<OrderItem>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Order, IEnumerable<OrderItem>>' in 'IIncludableQueryable<Order, Drink?> EntityFrameworkQueryableExtensions.ThenInclude<Order, OrderItem, Drink?>(IIncludableQueryable<Order, IEnumerable<OrderItem>> source, Expression<Func<OrderItem, Drink?>> navigationPropertyPath)' due to differences in the nullability of reference types.
+    CS0114: 'AppDbContext.Users' hides inherited member 'IdentityUserContext<IdentityUser, string, IdentityUserClaim<string>, IdentityUserLogin<string>, IdentityUserToken<string>>.Users'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
+    -->
+
+    <NoWarn>0168,1591,1998,8618,0414,8601,8602,8603,8604,8620,8625,8634,0114</NoWarn>
+  </PropertyGroup>
+
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />

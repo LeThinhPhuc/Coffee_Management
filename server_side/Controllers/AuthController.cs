@@ -205,7 +205,11 @@ namespace CoffeeShopApi.Controllers
                 List<object> errors = new List<object>(14);
 
                 string userId = "";
-                Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+                // Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+                
+                // Fix warning: "Converting null literal or possible null value to non-nullable type.CS8600"
+                Claim? userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID");
+
                 if (userIdClaim != null && userIdClaim.Value != null)
                 {
                     userId = userIdClaim.Value;
@@ -244,7 +248,11 @@ namespace CoffeeShopApi.Controllers
                 List<object> errors = new List<object>(14);
 
                 string userId = "";
-                Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+                // Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+
+                // Fix warning: "Converting null literal or possible null value to non-nullable type.CS8600"
+                Claim? userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID");
+
                 if (userIdClaim != null && userIdClaim.Value != null)
                 {
                     userId = userIdClaim.Value;

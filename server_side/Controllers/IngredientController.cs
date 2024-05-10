@@ -111,7 +111,7 @@
                 }
                 return Ok(new { succeeded = false, message = "Failed to delete Ingredient!" });
             }
-            catch (NotFoundException ex)
+            catch (NotFoundException)
             {
                 return Ok(new { succeeded = false, message = "Ingredient not found!" });
             }

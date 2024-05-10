@@ -6,7 +6,7 @@ namespace CoffeeShopApi.Services.Interfaces
 
     public interface IOrderService
     {
-        Task<List<Order>> GetAllOrdersAsync();
+        Task<List<object>> GetAllOrderDetailedsAsync();
         // Task<Order> GetOrderByIdAsync(string id);
         Task<Object> GetDetailedOrderById(string id);
         Task<Order> CreateOrder(CreateUpdatOrderModel createOrderModel, string userId);

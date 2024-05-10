@@ -1,25 +1,43 @@
-﻿using CoffeeShopApi.DTOs;
-using CoffeeShopApi.PostModels;
-using CoffeeShopApi.Repositories.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Formats.Asn1;
-
-namespace CoffeeShopApi.Controllers
+﻿namespace CoffeeShopApi.Controllers
 {
+    using DTOs;
+    using PostModels;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+
     public class OrderController : BaseApiController
     {
         private IOrderRepository repo;
-        public OrderController(IOrderRepository repo)
+        private readonly IOrderService _orderService;    // add Tứng hay ho's methods for custom LinQ logic
+        public OrderController(IOrderRepository repo, IOrderService orderService)
         {
             this.repo = repo;
+            _orderService = orderService;
         }
 
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<OrderItemDTO>>> GetAllOrders()
         {
             var orders = await repo.GetAllOrdersAsync();
+            if (orders.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(orders);
+        }
+
+        /// <summary>
+        /// Retrive all order with detailed props
+        /// </summary>
+        /// <returns>Returns a List of OrderItemDTO</returns>
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<OrderItemDTO>>> GetAllOrdersDetailedAsync()
+        {
+            var orders = await _orderService.GetAllOrderDetailedsAsync();
             if (orders.Count() == 0)
             {
                 return NotFound();
@@ -70,6 +88,10 @@ namespace CoffeeShopApi.Controllers
         }
 
 
+        /// <summary>
+        /// Note: Total and Voucher discount calculated by ClientSide. => phải tự tính nếu dùng Swagger
+        /// </summary>
+        /// <returns>Returns an OrderDTO</returns>
         [HttpPost("[action]")]
         public async Task<ActionResult> AddOrder([FromBody] OrderModelDTO newOrderDT0)
         {
@@ -81,6 +103,53 @@ namespace CoffeeShopApi.Controllers
             }
             return BadRequest();
         }
+        #region example input data:
+        // {
+        //   "userId": "f2aff88c-1d4a-430b-bdc5-cb6358616a4e",
+        //   "total": 0,
+        //   "orderItems": [
+        //     {
+        //       "drinkId": "908d84ef-bec5-487b-804d-f19609bf3a2f",
+        //       "quantity": 2,
+        //       "note": "More milk please"
+        //     },
+        //     {
+        //       "drinkId": "a111e3b6-53ef-451a-943d-cf1174359aa0",
+        //       "quantity": 1,
+        //       "note": "Less sugar please"
+        //     }
+        //   ]
+        // }
+        #endregion
+
+        #region example response data:
+        // {
+        // "orderDate": "2024-05-09T16:48:57.311556+07:00",
+        // "total": 0,
+        // "user": {
+        //     "id": "f2aff88c-1d4a-430b-bdc5-cb6358616a4e",
+        //     "fullName": "Admin"
+        // },
+        // "orderItems": [
+        //     {
+        //     "orderId": "7d126800-3303-468a-b412-206f150b1dfc",
+        //     "quantity": 2,
+        //     "note": "More milk please",
+        //     "drink": null
+        //     },
+        //     {
+        //     "orderId": "7d126800-3303-468a-b412-206f150b1dfc",
+        //     "quantity": 1,
+        //     "note": "Less sugar please",
+        //     "drink": null
+        //     }
+        // ],
+        // "id": "7d126800-3303-468a-b412-206f150b1dfc",
+        // "dateCreated": "2024-05-09T16:48:57.311508",
+        // "dateModified": "2024-05-09T16:48:57.311554"
+        // }
+        #endregion
+
 
         //[HttpDelete("[action]")]
         //public async Task<ActionResult> DeleteItemsOfOrder()

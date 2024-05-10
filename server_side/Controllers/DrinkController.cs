@@ -146,7 +146,7 @@ namespace CoffeeShopApi.Controllers
                 }
                 return Ok(new { succeeded = false, message = "Failed to delete Drink!" });
             }
-            catch (NotFoundException ex)
+            catch (NotFoundException)
             {
                 return Ok(new { succeeded = false, message = "Drink not found!" });
             }
@@ -172,7 +172,7 @@ namespace CoffeeShopApi.Controllers
                 }
                 return Ok(new { succeeded = false, message = "Failed to delete All Drinks!" });
             }
-            catch (NotFoundException ex)
+            catch (NotFoundException)
             {
                 return Ok(new { succeeded = false, message = "No Drink found!" });
             }
