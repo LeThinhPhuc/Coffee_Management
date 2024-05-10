@@ -14,12 +14,18 @@ namespace CoffeeShopApi.Services
             _dbContext = dbContext;
         }
 
+        /* 
+        // Wrong
         public async Task<object> GetMonthlyRevenueStatus()
         {
             // Get the total revenue for the current month
             var currentDate = DateTime.UtcNow;
             var currentMonth = currentDate.Month;
             var currentYear = currentDate.Year;
+
+            Console.WriteLine("currentDate: "+ currentDate.ToString("dddd, dd/MM/yyyy - HH:mm"));
+            Console.WriteLine("currentMonth: "+ currentMonth.ToString());
+            
 
             // err: DateTime?' does not contain a definition for 'Month' and no accessible extension method 'Month' accepting a first argument of type 'DateTime?' 
             // var currentMonthRevenue = await _dbContext.Orders
@@ -34,6 +40,9 @@ namespace CoffeeShopApi.Services
             // Get the total revenue for the previous month
             var previousMonth = currentMonth == 1 ? 12 : currentMonth - 1;
             var previousYear = currentMonth == 1 ? currentYear - 1 : currentYear;
+
+            Console.WriteLine("previousMonth: "+ previousMonth.ToString());
+            Console.WriteLine("previousYear: "+ previousYear.ToString());
 
             var previousMonthRevenue = await _dbContext.Orders
                 .Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Month == previousMonth && o.OrderDate.Value.Year == previousYear)
@@ -60,6 +69,64 @@ namespace CoffeeShopApi.Services
                 percent
             };
         }
+        */
+
+
+        public async Task<object> GetMonthlyRevenueStatus()
+        {
+            // Get the date range for the before previous month (if now is May, takes April)
+            var startDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.AddMonths(-1).Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            // Console.WriteLine("startDate: " + startDate.ToString("dddd, dd/MM/yyyy - HH:mm"));
+            // Console.WriteLine("endDate: " + endDate.ToString("dddd, dd/MM/yyyy - HH:mm"));
+
+            // * terminal output:
+            // startDate: Friday, 01/03/2024 - 00:00
+            // endDate: Sunday, 31/03/2024 - 00:00
+
+
+            // Calculate the total revenue for the previous month
+            var totalRevenuePreviousMonth = await _dbContext.Orders
+                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+                .SumAsync(o => o.Total);
+
+            // Get the date range for the month before the previous month
+            var startDatePreviousMonth = startDate.AddMonths(-1);
+            var endDatePreviousMonth = endDate.AddMonths(-1);
+
+            // Console.WriteLine("startDatePreviousMonth: " + startDatePreviousMonth.ToString("dddd, dd/MM/yyyy - HH:mm"));
+            // Console.WriteLine("endDatePreviousMonth: " + endDatePreviousMonth.ToString("dddd, dd/MM/yyyy - HH:mm"));
+
+            // Calculate the total revenue for the month before the previous month
+            var totalRevenueMonthBeforePreviousMonth = await _dbContext.Orders
+                .Where(o => o.OrderDate >= startDatePreviousMonth && o.OrderDate <= endDatePreviousMonth)
+                .SumAsync(o => o.Total);
+
+            // Calculate whether the revenue increased compared to the previous month
+            var isIncrease = totalRevenuePreviousMonth > totalRevenueMonthBeforePreviousMonth;
+
+            // Calculate the percentage change
+            double percent = 0;
+            if (totalRevenueMonthBeforePreviousMonth != 0)
+            {
+                percent = Math.Round((totalRevenuePreviousMonth - totalRevenueMonthBeforePreviousMonth) / totalRevenueMonthBeforePreviousMonth * 100, 2);
+            }
+            else
+            {
+                // Set a default value indicating that the percentage change couldn't be calculated
+                percent = -1; // or any other suitable value
+            }
+
+            // Create the result object
+            var result = new
+            {
+                total = totalRevenuePreviousMonth / 1000000.0, // Convert to million VND
+                isIncrease,
+                percent
+            };
+
+            return result;
+        }
 
         public async Task<double> GetTotalRevenuePast10YearsWholeSystem()
         {
@@ -73,19 +140,6 @@ namespace CoffeeShopApi.Services
 
             return totalRevenue;
         }
-
-        // public async Task<double> GetTotalRevenuePast10YearsByUserId(string userId)
-        // {
-        //     // Get the date 10 years ago from now
-        //     var startDate = DateTime.UtcNow.AddYears(-10);
-
-        //     // Get the total revenue for the past 10 years with the specified userId
-        //     var totalRevenue = await _dbContext.Orders
-        //         .Where(o => o.UserId == userId && o.OrderDate.HasValue && o.OrderDate.Value >= startDate)
-        //         .SumAsync(o => o.Total);
-
-        //     return totalRevenue;
-        // }
 
 
         public async Task<object> GetTotalRevenuePast10YearsByUserId(string userId)

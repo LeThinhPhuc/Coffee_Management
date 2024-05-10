@@ -24,7 +24,7 @@ namespace CoffeeShopApi.Controllers
 
 
         /// <summary>
-        /// So sánh doanh thu tháng hiện tại với tháng trước về tăng/giảm (với isIncrease: cho biết so với tháng trước, doanh thu tháng vừa rồi có tăng hay không)
+        /// So sánh doanh thu tháng hiện tại với tháng trước về tăng/giảm (với isIncrease: cho biết so với tháng trước, doanh thu tháng vừa rồi có tăng hay không, không so sánh được thì trả về -1 nếu 1 trong 2 tháng không có doanh thu)
         /// </summary>
         /// <returns>Returns the list of Anonymous Object</returns>
         [HttpGet("[action]")]
