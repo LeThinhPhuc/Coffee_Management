@@ -124,7 +124,7 @@ namespace CoffeeShopApi.Controllers
                 }
                 return Ok(new { succeeded = false, message = "Failed to delete Voucher Code!" });
             }
-            catch (NotFoundException ex)
+            catch (NotFoundException)
             {
                 return Ok(new { succeeded = false, message = "Voucher Code not found!" });
             }
@@ -150,7 +150,7 @@ namespace CoffeeShopApi.Controllers
                 }
                 return Ok(new { succeeded = false, message = "Failed to delete All Voucher Codes!" });
             }
-            catch (NotFoundException ex)
+            catch (NotFoundException)
             {
                 return Ok(new { succeeded = false, message = "No Voucher Code found!" });
             }

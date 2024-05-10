@@ -5,7 +5,9 @@ namespace CoffeeShopApi.Services.Interfaces
     public interface IAnalyticService
     {
         Task<object> GetMonthlyRevenueStatus();
-        Task<double> GetTotalRevenuePast10Years();
-        Task<double> GetTotalRevenuePast10YearsByUserId(string userId);
+        Task<double> GetTotalRevenuePast10YearsWholeSystem();
+        Task<object> GetTotalRevenuePast10YearsByUserId(string userId);
+        Task<List<object>> GetLastMonthRevenueByDrinkType();
+        Task<List<object>> GetCurrentMonthRevenueByDrinkType();
     }
 }

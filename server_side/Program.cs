@@ -68,7 +68,8 @@ builder.Services.AddSwaggerGen(c =>
     });
     
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), includeControllerXmlComments: true);
+        
     
     // Configuring Swagger UI Authorization with Swagger
     #region Accepting Bearer Token:
