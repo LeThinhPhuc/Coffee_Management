@@ -57,7 +57,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         /// <summary>
-        /// Lấy tổng doanh thu trong tháng vừa qua theo tên loại đồ uống.
+        /// Lấy tổng doanh thu trong tháng vừa qua theo tên loại đồ uống. (trả mảng rỗng nếu không có data)
         /// </summary>
         /// <returns>Returns a List of object.</returns>
         [HttpGet("[action]")]
@@ -69,7 +69,7 @@ namespace CoffeeShopApi.Controllers
 
 
         /// <summary>
-        /// Lấy tổng doanh thu trong tháng hiện tại theo tên loại đồ uống.
+        /// Lấy tổng doanh thu trong tháng hiện tại theo tên loại đồ uống. (trả mảng rỗng nếu không có data)
         /// </summary>
         /// <returns>Returns a List of object.</returns>
         [HttpGet("[action]")]

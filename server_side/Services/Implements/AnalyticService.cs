@@ -181,8 +181,9 @@ namespace CoffeeShopApi.Services
             // Lấy tổng doanh thu trong tháng vừa qua theo tên loại đồ uống
             var monthlyRevenueByDrinkType = await _dbContext.OrderItems
                 .Include(oi => oi.Drink)
+                    .ThenInclude(d => d.DrinkType)  // join tiếp đến bảng liền kề (OrderItem ko liền kề vs DrinkType)
                 .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate)
-                .GroupBy(oi => oi.Drink.Name)
+                .GroupBy(oi => oi.Drink.DrinkType.Name)
                 .Select(g => new
                 {
                     Type = g.Key,
@@ -205,8 +206,9 @@ namespace CoffeeShopApi.Services
             // Lấy tổng doanh thu trong tháng hiện tại theo tên loại đồ uống
             var monthlyRevenueByDrinkType = await _dbContext.OrderItems
                 .Include(oi => oi.Drink)
+                    .ThenInclude(d => d.DrinkType)  // join tiếp đến bảng liền kề (OrderItem ko liền kề vs DrinkType)
                 .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate)
-                .GroupBy(oi => oi.Drink.Name)
+                .GroupBy(oi => oi.Drink.DrinkType.Name)
                 .Select(g => new
                 {
                     Type = g.Key,
