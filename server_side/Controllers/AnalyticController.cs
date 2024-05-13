@@ -78,6 +78,17 @@ namespace CoffeeShopApi.Controllers
             var result = await _service.GetCurrentMonthRevenueByDrinkType();
             return Ok(result);
         }
-
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetWeeklyRevenueStatus()
+        {
+            var result = await _service.GetWeeklyRevenueStatus();
+            return Ok(result);
+        }
+        [HttpGet("[action")]
+        public async Task<ActionResult> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
+        {
+            var result = await _service.GetDailyRevenueByDrinkTypeInRange(drinkType,startDate, endDate);
+            return Ok(result);
+        }
     }
 }

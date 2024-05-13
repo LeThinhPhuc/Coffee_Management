@@ -10,5 +10,6 @@ namespace CoffeeShopApi.Services.Interfaces
         Task<List<object>> GetLastMonthRevenueByDrinkType();
         Task<List<object>> GetCurrentMonthRevenueByDrinkType();
         Task<object> GetWeeklyRevenueStatus();
+        Task<List<object>> GetDailyRevenueByDrinkTypeInRange(string drinkType,DateTime startDate, DateTime endDate);
     }
 }

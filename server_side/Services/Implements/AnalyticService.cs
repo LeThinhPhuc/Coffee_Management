@@ -270,6 +270,38 @@ namespace CoffeeShopApi.Services
 
             return result;
         }
-       
+        public async Task<List<object>> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
+        {
+            // Check whether the input date range is valid, if not, throw the error
+            if (startDate >= endDate)
+            {
+                throw new ArgumentException("End date must be greater than start date.");
+            }
+
+            // Get daily revenue by drink type and date range
+            var dailyRevenueByDrinkType = await _dbContext.OrderItems
+                .Include(oi => oi.Drink)
+                    .ThenInclude(d => d.DrinkType)
+                .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate &&
+                             oi.Drink.DrinkType.Name == drinkType)  // Filter by drinkType
+                .GroupBy(oi => oi.Order.OrderDate.Value.Date) // Group by date only
+                .Select(g => new
+                {
+                    Date = g.Key.ToString("yyyy-MM-dd"), // Format date as string
+                    Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) / 1000000.0 // Convert to million VND
+                })
+                .OrderBy(item => item.Date) // Order by date
+                .ToListAsync(); // Ensure that ToListAsync is awaited
+
+            // Prepare the result in the specified format
+            var result = new List<object>
+            {
+                new { nameDrink = drinkType, total = dailyRevenueByDrinkType.Select(item => item.Total).ToList() }
+            };
+
+            return result;
+        }
+
+
+        }
     }
-}
