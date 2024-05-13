@@ -4,3 +4,5 @@ server_side/Migrations/20240419130040_InitWebDB.Designer.cs
 server_side/Migrations/AppDbContextModelSnapshot.cs
 server_side/Migrations/AppDbContextModelSnapshot.cs
 server_side/Migrations/AppDbContextModelSnapshot.cs
+server_side/.vs/CoffeeShopApi/DesignTimeBuild/.dtbcache.v2
+server_side/.vs/CoffeeShopApi/v17/.suo

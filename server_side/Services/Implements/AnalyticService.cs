@@ -218,6 +218,58 @@ namespace CoffeeShopApi.Services
 
             return monthlyRevenueByDrinkType.Cast<object>().ToList();
         }
+        public async Task<object> GetWeeklyRevenueStatus()
+        {
+            // Get the start and end dates for the current week
+            var currentDate = DateTime.UtcNow.Date;
+            var startDate = currentDate.AddDays(-(int)currentDate.DayOfWeek); // Start of the week (Sunday)
+            var endDate = startDate.AddDays(6); // End of the week (Saturday)
 
+            // If today is not the end of the week, consider the previous week for comparison
+            if (currentDate < endDate)
+            {
+                startDate = startDate.AddDays(-7);
+                endDate = endDate.AddDays(-7);
+            }
+
+            var totalRevenuePreviousMonth = await _dbContext.Orders
+                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+                .SumAsync(o => o.Total);
+
+            // Get the date range for the month before the previous month
+            var startDatePreviousMonth = startDate.AddMonths(-1);
+            var endDatePreviousMonth = endDate.AddMonths(-1);
+
+            // Calculate the total revenue for the month before the previous month
+            var totalRevenueMonthBeforePreviousMonth = await _dbContext.Orders
+                .Where(o => o.OrderDate >= startDatePreviousMonth && o.OrderDate <= endDatePreviousMonth)
+                .SumAsync(o => o.Total);
+
+            // Calculate whether the revenue increased compared to the previous month
+            var isIncrease = totalRevenuePreviousMonth > totalRevenueMonthBeforePreviousMonth;
+
+            // Calculate the percentage change
+            double percent = 0;
+            if (totalRevenueMonthBeforePreviousMonth != 0)
+            {
+                percent = Math.Round((totalRevenuePreviousMonth - totalRevenueMonthBeforePreviousMonth) / totalRevenueMonthBeforePreviousMonth * 100, 2);
+            }
+            else
+            {
+                // Set a default value indicating that the percentage change couldn't be calculated
+                percent = -1; // or any other suitable value
+            }
+
+            // Create the result object
+            var result = new
+            {
+                total = totalRevenuePreviousMonth / 1000000.0, // Convert to million VND
+                isIncrease,
+                percent
+            };
+
+            return result;
+        }
+       
     }
 }
