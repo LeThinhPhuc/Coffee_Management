@@ -21,6 +21,9 @@ namespace CoffeeShopApi.Models.DomainModels
         [JsonIgnore]
         public virtual ApplicationUser? Owner { get; set; }
 
+        // For awaiting approval
+        public bool IsApproved { get; set; } = false;
+
         // For suspension
         public bool IsSuspended { get; set; } = false;
         public DateTime? SuspensionEndDate { get; set; }
