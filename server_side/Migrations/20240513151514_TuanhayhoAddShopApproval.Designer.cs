@@ -4,6 +4,7 @@ using CoffeeShopApi.Models.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeShopApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513151514_TuanhayhoAddShopApproval")]
+    partial class TuanhayhoAddShopApproval
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,7 +326,6 @@ namespace CoffeeShopApi.Migrations
                             DateModified = new DateTime(2024, 5, 13, 22, 15, 13, 248, DateTimeKind.Unspecified).AddTicks(8940),
                             DrinkId = "31194bc3-10ab-40d1-be22-100969a5f78c",
                             IngredientId = "89e9a228-bf56-4489-992c-f8a17bd9fab8",
-
                             Quantity = 5
                         },
                         new

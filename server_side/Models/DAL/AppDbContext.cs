@@ -127,8 +127,8 @@ Could not create constraint or index. See previous errors.
             var shopId2 = Guid.NewGuid().ToString();
 
             modelBuilder.Entity<Shop>().HasData(
-                new Shop { Id = shopId1, Name = "Coffee House", OwnerId = adminUserId, Address = "123 Main St", Revenue = 0 },
-                new Shop { Id = shopId2, Name = "Tea Shop", OwnerId = adminUserId, Address = "456 Elm St", Revenue = 0 }
+                new Shop { Id = shopId1, Name = "Coffee House", IsApproved = true, OwnerId = adminUserId, Address = "123 Main St", Revenue = 0 },
+                new Shop { Id = shopId2, Name = "Tea Shop", IsApproved = true, OwnerId = adminUserId, Address = "456 Elm St", Revenue = 0 }
             );
 
             // Seed DrinkTypes

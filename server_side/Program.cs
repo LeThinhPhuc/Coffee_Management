@@ -41,6 +41,7 @@ builder.Services.AddScoped<IShopService, ShopService>();
 builder.Services.AddScoped<IVoucherCodeService, VoucherCodeService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IAnalyticService, AnalyticService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRevenueService, RevenueService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
