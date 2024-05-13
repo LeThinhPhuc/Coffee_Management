@@ -324,6 +324,7 @@ namespace CoffeeShopApi.Migrations
                             DateModified = new DateTime(2024, 5, 13, 22, 15, 13, 248, DateTimeKind.Unspecified).AddTicks(8940),
                             DrinkId = "31194bc3-10ab-40d1-be22-100969a5f78c",
                             IngredientId = "89e9a228-bf56-4489-992c-f8a17bd9fab8",
+
                             Quantity = 5
                         },
                         new
