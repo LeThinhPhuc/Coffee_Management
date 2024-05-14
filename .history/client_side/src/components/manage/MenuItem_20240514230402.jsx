@@ -25,8 +25,8 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState([]);
-    // console.log("propsItem");
-    // console.log(propsItem);
+    console.log("propsItem");
+    console.log(propsItem);
 
     useEffect(() => {
         setPropsItem(props.item);
