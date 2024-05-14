@@ -14,8 +14,6 @@ import {
 import { selectIngredients } from "../../redux/Reducer/ingredientSlice";
 import MenuModelDetail from "./MenuModelDetail";
 
-import { Select, Option } from "@material-tailwind/react";
-import { selectIngredients } from "../../redux/Reducer/ingredientSlice";
 const MenuModel = (props) => {
     // Helper function to format the date
     const formatDate = (dateString) => {
@@ -32,11 +30,10 @@ const MenuModel = (props) => {
     const now = formatDate(new Date().toISOString());
 
     const dispatch = useDispatch();
-    // console.log("props.item model");
-    console.log(props.item);
-    const ingredientsItem = useSelector(selectIngredients)
-    const [optionShow, setOptionShow] = useState(ingredientsItem)
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    // console.log("MENU MODELL");
+    // console.log(props.item);
+    // console.log(props.type);
+
     //* lấy các field trong item truyền từ Manage, để riêng vậy để handle event "onChange" -> thay đổi input:text
     const [name, setName] = useState(props.item.name || "");
     const [info, setInfo] = useState(props.item.info || props.item.amount);
@@ -244,12 +241,6 @@ const MenuModel = (props) => {
 
         props.handleCloseModel();
     };
-    const handleChange = (item) => {
-        console.log("nl vua chojn", item)
-        const arr = [...selectedOptions,item]
-        setSelectedOptions(arr)
-        console.log("nguyen lieu: ", selectedOptions)
-      };
 
     return (
         <div>
