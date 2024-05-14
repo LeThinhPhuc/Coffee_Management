@@ -6,6 +6,7 @@ namespace CoffeeShopApi.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Exceptions;
     using Repositories.Interfaces;
+    using System.Security.Claims;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -22,12 +23,36 @@ namespace CoffeeShopApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        // [Authorize]
+        /// <summary>
+        /// Retrieve list of VoucherCode (filtered by Bearer JWT -> ownerId)
+        /// </summary>
+        /// <returns>Returns the list of VoucherCode</returns>
         [HttpGet("getall")]
-        public async Task<ActionResult> GetAllDrinksAsync()
+        public async Task<ActionResult> GetAllVoucherCodesAsync()
         {
-            var result = await _voucherCodeService.GetAllVoucherCodesAsync();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+            
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                Console.WriteLine("userId:" + userId);
+
+                var result = await _voucherCodeService.GetAllVoucherCodesByShopOwnerIdAsync(userId);
+                return Ok(result);
+            }
+            #endregion
+            
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header."}); 
         }
+        
 
         [HttpGet("getbyid/{id}")]
         public async Task<ActionResult> getById(string id)

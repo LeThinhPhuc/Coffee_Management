@@ -29,6 +29,12 @@ namespace CoffeeShopApi.Services.Implements
                 .Include(s => s.VoucherCodes) // Include the VoucherCodes navigation property
                 .ToListAsync();
 
+
+            // Our database initial failure: Order should have ShopId relationship,
+            // or User should only own 1 Shop.!
+
+            // This did not calculate the total Revenue of each Shop record
+            /*
             // Map the Shop entities to ShopAdminViewModel
             var shopViewModels = shops.Select(s => new ShopAdminViewModel
             {
@@ -40,7 +46,7 @@ namespace CoffeeShopApi.Services.Implements
                 IsApproved = s.IsApproved,
                 IsSuspended = s.IsSuspended,
                 SuspensionEndDate = s.SuspensionEndDate,
-                Revenue = s.Revenue,
+                Revenue = s.Revenue,        // not calculated (= 0)
                 DrinkTypes = s.DrinkTypes?.Select(dt => new DrinkTypeViewModel
                 {
                     Id = dt.Id,
@@ -53,6 +59,49 @@ namespace CoffeeShopApi.Services.Implements
                     DiscountPercent = (double)vc.DiscountPercent    // explicit cast for nullable
                 }).ToList()
             }).ToList();
+            */
+
+
+            // Map the Shop entities to ShopAdminViewModel
+            var shopViewModels = new List<ShopAdminViewModel>();
+
+            foreach (var shop in shops)
+            {
+                // Calculate the revenue for the shop
+                var totalRevenue = await _dbContext.Orders
+                    // .Where(o => o.ShopId == shop.Id)
+                    .Where(o => o.UserId == shop.OwnerId)
+                    .SumAsync(o => o.Total);
+
+                // Create ShopAdminViewModel and add it to the list
+                var shopViewModel = new ShopAdminViewModel
+                {
+                    Id = shop.Id,
+                    Name = shop.Name,
+                    Address = shop.Address,
+                    OwnerId = shop.OwnerId,
+                    OwnerFullName = shop.Owner?.FullName,
+                    IsApproved = shop.IsApproved,
+                    IsSuspended = shop.IsSuspended,
+                    SuspensionEndDate = shop.SuspensionEndDate,
+                    FormattedDateCreated = shop.DateCreated.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                    FormattedDateModified = shop.DateModified.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                    Revenue = totalRevenue / 1000000.0, // Convert to million VND
+                    DrinkTypes = shop.DrinkTypes?.Select(dt => new DrinkTypeViewModel
+                    {
+                        Id = dt.Id,
+                        Name = dt.Name,
+                    }).ToList(),
+                    VoucherCodes = shop.VoucherCodes?.Select(vc => new MinimalVoucherCodeViewModel
+                    {
+                        Id = vc.Id,
+                        Code = vc.Name,
+                        DiscountPercent = (double)vc.DiscountPercent
+                    }).ToList()
+                };
+
+                shopViewModels.Add(shopViewModel);
+            }
 
             return shopViewModels;
         }

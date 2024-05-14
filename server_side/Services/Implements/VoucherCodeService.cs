@@ -8,6 +8,7 @@ namespace CoffeeShopApi.Services.Implements
     using System.Linq;
     using System.Threading.Tasks;
     using Exceptions;
+    using Microsoft.EntityFrameworkCore;
 
     public class VoucherCodeService : IVoucherCodeService
     {
@@ -21,6 +22,32 @@ namespace CoffeeShopApi.Services.Implements
         public async Task<List<VoucherCodeViewModel>> GetAllVoucherCodesAsync()
         {
             var voucherCodes = await Task.FromResult(_dbContext.VoucherCodes
+                .OrderByDescending(vc => vc.DateCreated)
+                .Select(vc => new VoucherCodeViewModel
+                {
+                    Id = vc.Id,
+                    Name = vc.Name,
+                    DiscountPercent = vc.DiscountPercent,
+                    ShopId = vc.ShopId,
+                    IsActive = vc.EndDate >= DateTime.Now,
+                    StartDate = vc.StartDate,
+                    EndDate = vc.EndDate,
+                    FormattedStartDate = vc.StartDate.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                    FormattedEndDate = vc.EndDate.ToString("dddd, dd/MM/yyyy - HH:mm"),
+                    DateCreated = vc.DateCreated,
+                    DateModified = vc.DateModified,
+                })
+                .ToList());
+
+            return voucherCodes;
+        }
+
+        public async Task<List<VoucherCodeViewModel>> GetAllVoucherCodesByShopOwnerIdAsync(string ownerId)
+        {
+            var voucherCodes = await Task.FromResult(_dbContext.VoucherCodes
+                .Include(vc => vc.Shop)
+                    .ThenInclude(s => s.Owner)
+                .Where(vc => vc.Shop.OwnerId == ownerId)    // filter by Shop -> Owner's Id
                 .OrderByDescending(vc => vc.DateCreated)
                 .Select(vc => new VoucherCodeViewModel
                 {

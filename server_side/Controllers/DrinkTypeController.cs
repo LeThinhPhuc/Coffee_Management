@@ -6,6 +6,9 @@ namespace CoffeeShopApi.Controllers
     using Models.DTOs;
     using Services.Interfaces;
     using Repositories.Interfaces;
+    using System.Security.Claims;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -21,11 +24,65 @@ namespace CoffeeShopApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("getall")]
+
+        /// <summary>
+        /// Retrieve list of DrinkType (filtered by Bearer JWT -> ownerId)
+        /// </summary>
+        /// <returns>Returns the list of DrinkType</returns>
+        [HttpGet("[action]")]
         public async Task<ActionResult> getall()
         {
-            var result = await _drinkTypeService.GetAllDrinkTypesAsync();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+            // JsonSerializerOptions options = new JsonSerializerOptions
+            // {
+            //     ReferenceHandler = ReferenceHandler.Preserve,   // avoid object cycle
+            //     WriteIndented = true,
+            //     // Optionally, you can set other options like PropertyNamingPolicy, etc.
+            // };
+
+            // print the pretty Json:
+            // string userClaimsJson = JsonSerializer.Serialize(userClaims, options);
+            // Console.WriteLine("userClaims:" + userClaimsJson);
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                Console.WriteLine("userId:" + userId);
+
+                var result = await _drinkTypeService.GetAllDrinkTypesByShopOwnerIdAsync(userId);
+                return Ok(result);
+            }
+
+            // if (string.IsNullOrEmpty(userId))
+            // {
+            //     Console.WriteLine("user id is null or empty!!");
+            //     return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header."});
+            // }
+
+            // get user's UserName:
+            // Claim userNameClaim = User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name); // ControllerBase.User
+            // if (userIdClaim != null && userIdClaim.Value != null)
+            // {
+            //     userId = userIdClaim.Value;
+            //     Console.WriteLine("userName:" + userId);
+            // }
+
+            // if (string.IsNullOrEmpty(userId))
+            // {
+            //     Console.WriteLine("userName is null or empty!!");
+            // }
+            #endregion
+
+
+            // var result = await _drinkTypeService.GetAllDrinkTypesAsync();
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header."}); 
         }
 
         [HttpGet("getbyid")]

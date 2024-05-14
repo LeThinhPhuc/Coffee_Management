@@ -178,7 +178,7 @@ namespace CoffeeShopApi.Services.Implements
             var accessTokenExpiresIn = accesstokenExpiration - DateTime.UtcNow;
 
             // Get the Bussiness associated with the user
-            var shop = await _context.Shops.FirstOrDefaultAsync(s => s.OwnerId == user.Id);
+            var shops = await _context.Shops.Where(s => s.OwnerId == user.Id).ToListAsync();
 
 
             // (LocalStorage way, no Cookie): return the user info together with accesstoken
@@ -210,7 +210,7 @@ namespace CoffeeShopApi.Services.Implements
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(accessToken),
                 // RefreshToken = refreshToken,
                 user = uservm,
-                Shop = shop, // Assign the retrieved shop to the Shop property
+                Shops = shops, // Assign the retrieved shop to the Shop property
                 Expiration = accesstokenValidTo,
                 ValidFor = $"{(int)accessTokenExpiresIn.TotalHours} hours, {(int)accessTokenExpiresIn.TotalMinutes % 60} minutes"
             };

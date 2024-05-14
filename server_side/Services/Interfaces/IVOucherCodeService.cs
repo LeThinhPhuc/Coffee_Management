@@ -5,6 +5,7 @@ namespace CoffeeShopApi.Services.Interfaces
 
     public interface IVoucherCodeService {
         Task<List<VoucherCodeViewModel>> GetAllVoucherCodesAsync();
+        Task<List<VoucherCodeViewModel>> GetAllVoucherCodesByShopOwnerIdAsync(string ownerId);
         Task<VoucherCodeViewModel> GetVoucherCodeByIdAsync(string id);
         Task<bool> AddVoucherCodeAsync(CreateUpdateVoucherCodeModel model);
         Task<bool> UpdateVoucherCodeAsync(CreateUpdateVoucherCodeModel model);
