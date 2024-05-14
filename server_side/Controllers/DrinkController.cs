@@ -6,6 +6,7 @@ namespace CoffeeShopApi.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Exceptions;
     using Repositories.Interfaces;
+    using System.Security.Claims;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -50,11 +51,35 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
+        // [Authorize]
+        /// <summary>
+        /// Retrieve list of Drink (filtered by Bearer JWT -> ownerId)
+        /// </summary>
+        /// <returns>Returns the list of Drink</returns>
         [HttpGet("getallgrouped")]
         public async Task<ActionResult> GetAllDrinksGrouped()
         {
-            var result = await _drinkService.GetMenuDataAsync();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+            
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                Console.WriteLine("userId:" + userId);
+
+                var result = await _drinkService.GetMenuDataByShopOwnerIdAsync(userId);
+                return Ok(result);
+            }
+            #endregion
+
+            // var result = await _drinkService.GetMenuDataAsync();
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header."}); 
         }
 
         // [Authorize]

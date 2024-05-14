@@ -47,6 +47,17 @@ namespace CoffeeShopApi.Services.Implements
             return listDrinksType;
         }
 
+        public async Task<List<DrinkType>> GetAllDrinkTypesByShopOwnerIdAsync(string ownerId)
+        {
+            var listDrinksType = await _dbContext.DrinkTypes
+                .Include(d => d.Shop)
+                .Where(d => d.Shop.OwnerId == ownerId)
+                .OrderByDescending(d => d.DateModified)
+                .ToListAsync();
+
+            return listDrinksType;
+        }
+
 
         public async Task<DrinkType> GetDrinkTypeByIdAsync(string id)
         {

@@ -111,6 +111,39 @@ namespace CoffeeShopApi.Services.Implements
             return menuData.Cast<object>().ToList();
         }
 
+        public async Task<List<object>> GetMenuDataByShopOwnerIdAsync(string ownerId)
+        {
+            var menuData = await _dbContext.Drinks                
+                .Include(d => d.DrinkType)
+                    .ThenInclude(s => s.Shop)
+                .Include(d => d.Ingredients)
+                    .ThenInclude(di => di.Ingredient)
+                .Where(d => d.DrinkType.Shop.OwnerId == ownerId)
+                .GroupBy(d => d.DrinkType.Name)
+                .Select(group => new
+                {
+                    Category = group.Key,
+                    Items = group.Select(d => new
+                    {
+                        Id = d.Id,
+                        Image = d.ImagePath,
+                        Name = d.Name,
+                        // Price = $"{d.Price}VNĐ",
+                        Price = d.Price,
+                        DrinkTypeId = d.DrinkTypeId,
+                        Ingredients = d.Ingredients
+                            .Select(di => new
+                            {
+                                IngredientName = di.Ingredient.Name,
+                                Quantity = di.Quantity
+                            }).ToList()
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return menuData.Cast<object>().ToList();
+        }
+
         public async Task<Drink> GetDrinkByIdAsync(string id)
         {
             return await _dbContext.Drinks.FindAsync(id);

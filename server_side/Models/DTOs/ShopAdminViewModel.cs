@@ -13,6 +13,8 @@ namespace CoffeeShopApi.Models.DTOs
         public bool IsSuspended { get; set; }
         public DateTime? SuspensionEndDate { get; set; }
         public double Revenue { get; set; }
+        public string? FormattedDateCreated { get; set; }
+        public string? FormattedDateModified { get; set; }
         public List<DrinkTypeViewModel>? DrinkTypes { get; set; }
         public List<MinimalVoucherCodeViewModel>? VoucherCodes { get; set; }
     }

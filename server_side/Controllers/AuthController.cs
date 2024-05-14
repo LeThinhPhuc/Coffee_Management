@@ -178,6 +178,11 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Login, có trả về List Shop của user (do 1 user có thể sở hữu nhiều Shop)
+        /// </summary>
+        /// <returns>Returns the AuthResult</returns>
         [HttpPost("loginef")]
         public async Task<ActionResult<AuthResult>> LoginAsyncEF([FromBody] LoginModel model)
         {
