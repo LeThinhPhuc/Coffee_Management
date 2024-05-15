@@ -19,6 +19,7 @@ const CustomMenuModel = (props) => {
 
     //* check để chỉnh sửa bên ingredient không đc sửa 3 field
     const isAdd = props.item.title.includes("Add item");
+    console.log(isAdd);
 
     //* Khi bấm xác nhận -> lấy các field trong input thêm vào object, chưa có -> thêm, có -> update
     const handleSubmit = () => {

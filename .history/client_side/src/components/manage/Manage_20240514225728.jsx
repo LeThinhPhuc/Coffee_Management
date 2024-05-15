@@ -50,19 +50,16 @@ const Manage = (props) => {
 
     //* icon trash trong MenuItem
     const handleDeleteItem = (id) => {
-        console.log(props.type);
-        console.log(id);
+        // console.log(`Deleted item at [${index}] of [${category}]`);
+        // console.log(id);
         switch (props.type) {
             case "menu":
-                console.log("menu");
                 dispatch(deleteDrink(id));
                 break;
             case "drinkType":
-                console.log("drink type");
                 dispatch(deleteDrinkType(id));
                 break;
             default:
-                console.log("ingredient");
                 dispatch(deleteIngredient(id));
                 break;
         }

@@ -10,8 +10,8 @@ import {
 
 //* Card
 const MenuItem = (props) => {
-    // console.log("MenuItem");
-    // console.log(props.item);
+    console.log("MenuItem");
+    console.log(props.item);
 
     //* định dạng lại date time
     function formatDate(dateString) {
@@ -25,8 +25,8 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState([]);
-    // console.log("propsItem");
-    // console.log(propsItem);
+    console.log("propsItem");
+    console.log(propsItem);
 
     useEffect(() => {
         setPropsItem(props.item);
