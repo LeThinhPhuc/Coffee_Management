@@ -158,6 +158,8 @@ MenuItem.propTypes = {
     item: PropTypes.object,
     handleShowModel: PropTypes.func,
     handleDeleteItem: PropTypes.func,
+    handleAddDrinkType: PropTypes.func,
+    handleAddDrink: PropTypes.func,
     handleAddIngredient: PropTypes.func,
     type: PropTypes.string,
 };

@@ -103,6 +103,12 @@ const Navbar = () => {
                                     >
                                         Types Of Drink
                                     </Link>
+                                    <Link
+                                        to="/home/drinktypes"
+                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                    >
+                                        DrinkTypes TuanHayHo
+                                    </Link>
                                     {/* <Link to="/home/order">
                                         <a
                                             className="text-gray-300 hover:bg-gray-700 focus:bg-gray-900 focus:text-white hover:text-white rounded-md px-3 py-2 text-sm font-medium"

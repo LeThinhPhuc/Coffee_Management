@@ -25,6 +25,7 @@ namespace CoffeeShopApi.Controllers
         }
 
 
+        [Authorize]
         /// <summary>
         /// Retrieve list of DrinkType (filtered by Bearer JWT -> ownerId)
         /// </summary>

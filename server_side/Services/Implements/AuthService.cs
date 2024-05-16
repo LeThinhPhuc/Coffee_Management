@@ -122,6 +122,11 @@ namespace CoffeeShopApi.Services.Implements
         {
             var user = await _userManager.FindByNameAsync(model.UserNameOrEmailOrPhoneNumber);
 
+            // if not found by username, then look for email:
+            if(user == null) {
+                user = await _userManager.FindByEmailAsync(model.UserNameOrEmailOrPhoneNumber);
+            }
+
             // debug print:
             if (user != null)
             {
