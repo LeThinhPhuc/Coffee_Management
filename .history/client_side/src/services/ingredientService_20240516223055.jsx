@@ -1,10 +1,8 @@
-// Coffee_Management/client_side/src/services/typeService.jsx
 import axios from "axios";
 
-// Get the shop ID from the first shop in the array of shops
 const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
-const typeService = {
+const ingredientService = {
     getAll: () => {
         return axios
             .create({
@@ -17,16 +15,12 @@ const typeService = {
                     "Access-Control-Allow-Origin": "https://localhost:5173",
                     "Access-Control-Allow-Methods":
                         "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    // pass token vào đây nè !!
-                    // "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzMWVlMWQ1ZC1jMjYyLTRjMDktOWI1ZC1mZTA5ZTMxNmQ4ZWUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMxZWUxZDVkLWMyNjItNGMwOS05YjVkLWZlMDllMzE2ZDhlZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzQ3MjcxNzgwLCJpc3MiOiJFTlRZS0VZQVBJIn0.tPuxjCQ73p5yfPh1iLu-xYqs7cgFlFK5HlFnBV4lvpU`,
-                    Authorization: `Bearer ${accessToken}`,
-
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .get("api/DrinkType/getall");
+            .get("api/Ingredients");
     },
-    addDrinkType: (typeData) => {
+    addIngredient: (ingredientData) => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -38,14 +32,12 @@ const typeService = {
                     "Access-Control-Allow-Origin": "https://localhost:5173",
                     "Access-Control-Allow-Methods":
                         "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    Authorization: `Bearer ${accessToken}`,
-
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .post("api/DrinkType/add", typeData);
+            .post("api/Ingredients", ingredientData);
     },
-    updateDrinkType: (typeData) => {
+    updateIngredient: (id, ingredientData) => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -57,14 +49,12 @@ const typeService = {
                     "Access-Control-Allow-Origin": "https://localhost:5173",
                     "Access-Control-Allow-Methods":
                         "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    Authorization: `Bearer ${accessToken}`,
-
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .put("api/DrinkType/update", typeData);
+            .put(`api/Ingredients/${id}`, ingredientData);
     },
-    deleteDrinkType: (id) => {
+    deleteIngredient: (id) => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -76,13 +66,10 @@ const typeService = {
                     "Access-Control-Allow-Origin": "https://localhost:5173",
                     "Access-Control-Allow-Methods":
                         "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    Authorization: `Bearer ${accessToken}`,
-
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .delete(`api/DrinkType/delete/${id}`);
+            .delete(`api/Ingredients/${id}`);
     },
 };
-
-export default typeService;
+export default ingredientService;

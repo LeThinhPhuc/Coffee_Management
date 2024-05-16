@@ -327,7 +327,7 @@ const MenuModel = (props) => {
                                     type="text"
                                     name="name"
                                     id="name"
-                                    value={name || ""}
+                                    value={name}
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                         focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
                                     //! Mỗi lần thay đổi input:text, re-render để cập nhật
@@ -360,7 +360,7 @@ const MenuModel = (props) => {
                                     type="text"
                                     name="price"
                                     id="price"
-                                    value={info || ""}
+                                    value={info}
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                         focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
                                     onChange={(e) => setInfo(e.target.value)}
@@ -380,7 +380,7 @@ const MenuModel = (props) => {
                                     <select
                                         id="drinkTypeId"
                                         name="drinkTypeId"
-                                        value={drinkTypeId || ""}
+                                        value={drinkTypeId}
                                         onChange={(e) =>
                                             setDrinkTypeId(e.target.value)
                                         }
@@ -413,7 +413,7 @@ const MenuModel = (props) => {
                                         <select
                                             id="ingredients"
                                             name="ingredients"
-                                            value={ingreSelected || ""}
+                                            value={ingreSelected}
                                             onChange={(e) =>
                                                 setIngreSelected(e.target.value)
                                             }
@@ -436,7 +436,7 @@ const MenuModel = (props) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            value={ingreAmount || ""}
+                                            value={ingreAmount}
                                             onChange={handleChangeIngreAmount}
                                             maxLength="4"
                                             className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight 

@@ -38,6 +38,8 @@ export const updateIngredient = (id, ingredientData) => {
                 id,
                 ingredientData
             );
+            console.log("UPDATE");
+            console.log(response.data);
 
             response.status == 200 && dispatch(fetchIngredients());
         } catch (error) {
@@ -51,6 +53,8 @@ export const deleteIngredient = (id) => {
         try {
             console.log(id);
             const response = await ingredientService.deleteIngredient(id);
+            console.log("delete");
+            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(fetchIngredients()); // do response trả về không có item đã thêm

@@ -6,7 +6,8 @@ import Manage from "../Manage";
 /*
 // TkMinh's code
 const ManageDrinkType = () => {
-    const shopId = "097e25ff-94f7-4845-a2b9-9e873474e785";
+    const { shops } = JSON.parse(localStorage.getItem("user"));
+    const shopId = shops[0].id;
     const drinkTypes = useSelector(selectTypes);
 
     const [data, setData] = useState([]);

@@ -23,7 +23,6 @@ namespace CoffeeShopApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize]
         [HttpGet("getall")]
         public async Task<ActionResult> GetAllDrinksAsync()
         {
@@ -31,7 +30,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getallbysystem")]
         public async Task<ActionResult> GetAllDrinksBySystemAsync()
         {
@@ -39,7 +37,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getbyid/{id}")]
         public async Task<ActionResult> getById(string id)
         {
@@ -47,7 +44,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getdrinksbytypename")]
         public async Task<ActionResult> GetDrinksByTypeName(string typeName)
         {

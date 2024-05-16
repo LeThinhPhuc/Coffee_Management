@@ -25,7 +25,6 @@ namespace CoffeeShopApi.Controllers
         }
 
 
-        [Authorize]
         /// <summary>
         /// Retrieve list of DrinkType (filtered by Bearer JWT -> ownerId)
         /// </summary>
@@ -94,7 +93,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         // Tạm thời ko rào vì FE Auth chưa hoàn thiện!
-        [Authorize]
+        // [Authorize]
         [HttpPost("add")]
         public async Task<ActionResult> AddDrinkTypeAsync([FromBody] CreateUpdateDrinkTypeModel model)
         {
@@ -114,7 +113,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut("update")]
         public async Task<ActionResult> UpdateDrinkTypeAsync([FromBody] CreateUpdateDrinkTypeModel model)
         {
@@ -145,7 +144,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         // NOTE: deleting a drinktype will also delete all its drinks !
-        [Authorize]
+        // [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteDrink(string id)
         {

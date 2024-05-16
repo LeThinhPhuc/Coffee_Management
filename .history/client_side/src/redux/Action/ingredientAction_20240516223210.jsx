@@ -1,5 +1,10 @@
 import ingredientService from "../../services/ingredientService";
-import { fetchIngredientData } from "../Reducer/ingredientSlice";
+import {
+    fetchIngredientData,
+    addIngredientData,
+    updateIngredientData,
+    deleteIngredientData,
+} from "../Reducer/ingredientSlice";
 
 export const fetchIngredients = () => {
     return async (dispatch) => {
@@ -22,8 +27,10 @@ export const addIngredient = (ingredientData) => {
             const response = await ingredientService.addIngredient(
                 ingredientData
             );
+            console.log("Add INGREDIENTS");
+            console.log(response);
 
-            response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
+            response.data.succeeded && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);
@@ -38,8 +45,10 @@ export const updateIngredient = (id, ingredientData) => {
                 id,
                 ingredientData
             );
+            console.log("UPDATE");
+            console.log(response.data);
 
-            response.status == 200 && dispatch(fetchIngredients());
+            response.data.succeeded && dispatch(fetchIngredients());
         } catch (error) {
             console.log(error);
         }
@@ -51,8 +60,10 @@ export const deleteIngredient = (id) => {
         try {
             console.log(id);
             const response = await ingredientService.deleteIngredient(id);
+            console.log("delete");
+            console.log(response);
 
-            response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
+            response.data.succeeded && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(fetchIngredients()); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);

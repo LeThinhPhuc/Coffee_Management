@@ -1,5 +1,11 @@
+import React from "react";
 import PropTypes from "prop-types";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+    faPen,
+    faTrash,
+    faCirclePlus,
+    faChampagneGlasses,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MenuModelDetail = (props) => {
