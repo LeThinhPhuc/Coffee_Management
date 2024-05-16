@@ -1,12 +1,13 @@
 // Coffee_Management/client_side/src/services/typeService.jsx
 import axios from "axios";
 
-// Get the shop ID from the first shop in the array of shops
-const { accessToken } = JSON.parse(localStorage.getItem("user"));
+// Get the user obj from the first shop in the array of shops
+const { user } = JSON.parse(localStorage.getItem("user"));
+console.log(user);
 
 
-const typeService = {
-    getAll: () => {
+const adminService = {
+    getAllShopsAsAdmin: () => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -18,16 +19,14 @@ const typeService = {
                     "Access-Control-Allow-Origin": "https://localhost:5173",
                     "Access-Control-Allow-Methods":
                         "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    // pass token vào đây nè !!
-                    // "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzMWVlMWQ1ZC1jMjYyLTRjMDktOWI1ZC1mZTA5ZTMxNmQ4ZWUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMxZWUxZDVkLWMyNjItNGMwOS05YjVkLWZlMDllMzE2ZDhlZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzQ3MjcxNzgwLCJpc3MiOiJFTlRZS0VZQVBJIn0.tPuxjCQ73p5yfPh1iLu-xYqs7cgFlFK5HlFnBV4lvpU`, 
-                    "Authorization": `Bearer ${accessToken}`, 
-
+                    // token hardcode
+                    "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzMWVlMWQ1ZC1jMjYyLTRjMDktOWI1ZC1mZTA5ZTMxNmQ4ZWUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMxZWUxZDVkLWMyNjItNGMwOS05YjVkLWZlMDllMzE2ZDhlZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzQ3MjcxNzgwLCJpc3MiOiJFTlRZS0VZQVBJIn0.tPuxjCQ73p5yfPh1iLu-xYqs7cgFlFK5HlFnBV4lvpU`,  // pass token vào đây nè !!
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .get("api/DrinkType/getall");
+            .get("api/Admin/ShopsListAdmin");
     },
-    addDrinkType: (typeData) => {
+    approveShop: (typeData) => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -42,7 +41,7 @@ const typeService = {
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .post("api/DrinkType/add", typeData);
+            .post("api/Admin/ApproveShop", typeData);
     },
     updateDrinkType: (typeData) => {
         return axios
@@ -80,4 +79,4 @@ const typeService = {
     },
 };
 
-export default typeService;
+export default adminService;
