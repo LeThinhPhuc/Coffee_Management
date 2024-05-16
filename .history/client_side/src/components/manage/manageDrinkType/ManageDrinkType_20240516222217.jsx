@@ -7,6 +7,8 @@ const ManageDrinkType = () => {
     const { shops } = JSON.parse(localStorage.getItem("user"));
     const shopId = shops[0].id;
     const drinkTypes = useSelector(selectTypes);
+    console.log("DrinkTypes");
+    console.log(drinkTypes);
 
     const [data, setData] = useState([]);
     useEffect(() => {

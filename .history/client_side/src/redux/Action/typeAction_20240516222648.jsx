@@ -24,7 +24,7 @@ export const addDrinkType = (drinkTypeData) => {
             // console.log("Add type");
             // console.log(response);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            response.data.succeeded && dispatch(fetchDrinkType());
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);
@@ -39,7 +39,7 @@ export const updateDrinkType = (drinkTypeData) => {
             // console.log("UPDATE");
             // console.log(response.data);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            response.data.succeeded && dispatch(fetchDrinkType());
         } catch (error) {
             console.log(error);
         }
@@ -54,7 +54,7 @@ export const deleteDrinkType = (id) => {
             // console.log("delete");
             // console.log(response);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            response.data.succeeded && dispatch(fetchDrinkType());
         } catch (error) {
             console.log(error);
         }

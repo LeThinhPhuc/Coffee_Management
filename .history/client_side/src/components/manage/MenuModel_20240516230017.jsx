@@ -31,7 +31,7 @@ const MenuModel = (props) => {
 
     const dispatch = useDispatch();
     // console.log("MENU MODELL");
-    // console.log(props.item);
+    console.log(props.item);
     // console.log(props.type);
 
     //* lấy các field trong item truyền từ Manage, để riêng vậy để handle event "onChange" -> thay đổi input:text

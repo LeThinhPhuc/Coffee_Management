@@ -38,7 +38,7 @@ const MenuModel = (props) => {
     const [name, setName] = useState(props.item.name || "");
     const [info, setInfo] = useState(props.item.info || props.item.amount);
     const [desc, setDesc] = useState(props.item.desc || "");
-    const [image, setImage] = useState(props.item.image || "");
+    const [image, setImage] = useState(props.item.image || null);
     const [entryDate, setEntryDate] = useState(now || "");
     const [expiryDate, setExpiryDate] = useState(
         formatDate(props.item.expiryDate) || ""
@@ -141,7 +141,7 @@ const MenuModel = (props) => {
             );
 
             setImage(response.data.url);
-            // console.log(response);
+            console.log(response);
         } catch (error) {
             console.error("Error uploading image:", error);
             throw error;
@@ -182,7 +182,7 @@ const MenuModel = (props) => {
                     //! Chổ này ingredient nè
                     ingredients: ingredients,
                 };
-                // console.log(drinkData);
+                console.log(drinkData);
                 dispatch(addDrink(drinkData));
             }
             //* Edit
@@ -327,7 +327,7 @@ const MenuModel = (props) => {
                                     type="text"
                                     name="name"
                                     id="name"
-                                    value={name || ""}
+                                    value={name}
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                         focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
                                     //! Mỗi lần thay đổi input:text, re-render để cập nhật
@@ -360,7 +360,7 @@ const MenuModel = (props) => {
                                     type="text"
                                     name="price"
                                     id="price"
-                                    value={info || ""}
+                                    value={info}
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                         focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
                                     onChange={(e) => setInfo(e.target.value)}
@@ -380,7 +380,7 @@ const MenuModel = (props) => {
                                     <select
                                         id="drinkTypeId"
                                         name="drinkTypeId"
-                                        value={drinkTypeId || ""}
+                                        value={drinkTypeId}
                                         onChange={(e) =>
                                             setDrinkTypeId(e.target.value)
                                         }
@@ -413,7 +413,7 @@ const MenuModel = (props) => {
                                         <select
                                             id="ingredients"
                                             name="ingredients"
-                                            value={ingreSelected || ""}
+                                            value={ingreSelected}
                                             onChange={(e) =>
                                                 setIngreSelected(e.target.value)
                                             }
@@ -436,7 +436,7 @@ const MenuModel = (props) => {
                                             type="text"
                                             name=""
                                             id=""
-                                            value={ingreAmount || ""}
+                                            value={ingreAmount}
                                             onChange={handleChangeIngreAmount}
                                             maxLength="4"
                                             className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight 

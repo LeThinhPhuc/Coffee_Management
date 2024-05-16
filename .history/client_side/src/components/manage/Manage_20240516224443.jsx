@@ -25,11 +25,11 @@ const Manage = (props) => {
 
     //* State với các field để hiển thị trong modal, type để check là Menu hay Ingredient
     const [item, setItem] = useState({
-        title: "",
-        image: "",
-        name: "",
-        info: "",
-        desc: "",
+        title: null,
+        image: null,
+        name: null,
+        info: null,
+        desc: null,
         type: props.type,
     });
 
@@ -94,10 +94,10 @@ const Manage = (props) => {
                         type="button"
                         onClick={() => {
                             setItem(() => ({
-                                image: "",
-                                name: "",
-                                info: "",
-                                desc: "",
+                                image: null,
+                                name: null,
+                                info: null,
+                                desc: null,
                                 type: props.type,
                                 ingredients: [],
                                 title: "Add item", //! set title cho model

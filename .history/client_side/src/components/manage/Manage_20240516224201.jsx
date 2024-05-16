@@ -3,7 +3,7 @@ import MenuItem from "./MenuItem";
 import MenuModel from "./MenuModel";
 import PropTypes from "prop-types";
 import "./styles.css";
-import { deleteDrink } from "../../redux/Action/drinkAction";
+import { deleteDrink, updateDrink } from "../../redux/Action/drinkAction";
 import { useDispatch } from "react-redux";
 import {
     deleteIngredient,
@@ -25,11 +25,11 @@ const Manage = (props) => {
 
     //* State với các field để hiển thị trong modal, type để check là Menu hay Ingredient
     const [item, setItem] = useState({
-        title: "",
-        image: "",
-        name: "",
-        info: "",
-        desc: "",
+        title: null,
+        image: null,
+        name: null,
+        info: null,
+        desc: null,
         type: props.type,
     });
 
@@ -49,7 +49,6 @@ const Manage = (props) => {
     };
 
     //* icon trash trong MenuItem
-    //! Chưa xong
     const handleDeleteItem = (id) => {
         console.log(props.type);
         console.log(id);
@@ -94,10 +93,10 @@ const Manage = (props) => {
                         type="button"
                         onClick={() => {
                             setItem(() => ({
-                                image: "",
-                                name: "",
-                                info: "",
-                                desc: "",
+                                image: null,
+                                name: null,
+                                info: null,
+                                desc: null,
                                 type: props.type,
                                 ingredients: [],
                                 title: "Add item", //! set title cho model

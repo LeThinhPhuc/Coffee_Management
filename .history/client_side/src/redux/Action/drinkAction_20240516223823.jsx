@@ -1,8 +1,11 @@
 // actions/DrinkActions.js
 import drinkService from "../../services/drinkService";
 import {
+    addDrinkSuccess,
     addDrinkFailure,
+    deleteDrinkSuccess,
     deleteDrinkFailure,
+    updateDrinkSuccess,
     updateDrinkFailure,
     fetchDrinksSuccess,
     fetchDrinksFailure,
@@ -29,6 +32,8 @@ export const addDrink = (drinkData) => {
         try {
             // Gửi yêu cầu POST để thêm drink-item
             const response = await drinkService.addDrink(drinkData);
+            console.log("Add drink");
+            console.log(response);
 
             response.status == 200 && dispatch(fetchDrinks());
         } catch (error) {
@@ -57,9 +62,13 @@ export const updateDrink = (drinkData) => {
         try {
             // Gửi yêu cầu PUT để cập nhật drink
             const response = await drinkService.updateDrink(drinkData);
+            // console.log("UPDATE");
+            // console.log(response.data);
 
             response.status == 200 && dispatch(fetchDrinks());
+            // dispatch(updateDrinkSuccess(response.data)); // do response trả về không có item đã thêm
         } catch (error) {
+            // Nếu gặp lỗi, dispatch action updateDrinkFailure với thông điệp lỗi
             dispatch(updateDrinkFailure(error.message));
         }
     };

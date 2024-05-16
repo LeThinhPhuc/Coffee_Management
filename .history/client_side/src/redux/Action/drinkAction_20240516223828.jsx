@@ -1,8 +1,11 @@
 // actions/DrinkActions.js
 import drinkService from "../../services/drinkService";
 import {
+    addDrinkSuccess,
     addDrinkFailure,
+    deleteDrinkSuccess,
     deleteDrinkFailure,
+    updateDrinkSuccess,
     updateDrinkFailure,
     fetchDrinksSuccess,
     fetchDrinksFailure,
@@ -29,6 +32,8 @@ export const addDrink = (drinkData) => {
         try {
             // Gửi yêu cầu POST để thêm drink-item
             const response = await drinkService.addDrink(drinkData);
+            console.log("Add drink");
+            console.log(response);
 
             response.status == 200 && dispatch(fetchDrinks());
         } catch (error) {

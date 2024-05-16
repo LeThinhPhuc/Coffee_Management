@@ -98,7 +98,7 @@
             }
         }
 
-        [Authorize] 
+[Authorize] 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(string id)
         {

@@ -93,7 +93,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         // Tạm thời ko rào vì FE Auth chưa hoàn thiện!
-        [Authorize]
+        // [Authorize]
         [HttpPost("add")]
         public async Task<ActionResult> AddDrinkTypeAsync([FromBody] CreateUpdateDrinkTypeModel model)
         {
@@ -113,7 +113,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut("update")]
         public async Task<ActionResult> UpdateDrinkTypeAsync([FromBody] CreateUpdateDrinkTypeModel model)
         {

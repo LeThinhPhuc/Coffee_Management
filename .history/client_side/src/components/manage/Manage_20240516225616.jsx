@@ -94,10 +94,10 @@ const Manage = (props) => {
                         type="button"
                         onClick={() => {
                             setItem(() => ({
-                                image: "",
-                                name: "",
-                                info: "",
-                                desc: "",
+                                image: null,
+                                name: null,
+                                info: null,
+                                desc: null,
                                 type: props.type,
                                 ingredients: [],
                                 title: "Add item", //! set title cho model

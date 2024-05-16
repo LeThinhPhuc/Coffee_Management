@@ -21,10 +21,12 @@ export const addDrinkType = (drinkTypeData) => {
         try {
             // Gửi yêu cầu POST để thêm drink-item
             const response = await typeService.addDrinkType(drinkTypeData);
+            console.log("Response");
+            console.log(response);
             // console.log("Add type");
             // console.log(response);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            dispatch(fetchDrinkType()); // do response trả về không có item đã thêm
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);
@@ -36,10 +38,12 @@ export const updateDrinkType = (drinkTypeData) => {
     return async (dispatch) => {
         try {
             const response = await typeService.updateDrinkType(drinkTypeData);
+            console.log("Response");
+            console.log(response);
             // console.log("UPDATE");
             // console.log(response.data);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            dispatch(fetchDrinkType());
         } catch (error) {
             console.log(error);
         }
@@ -51,10 +55,12 @@ export const deleteDrinkType = (id) => {
         try {
             // console.log(id);
             const response = await typeService.deleteDrinkType(id);
+            console.log("Response");
+            console.log(response);
             // console.log("delete");
             // console.log(response);
 
-            response.status == 200 && dispatch(fetchDrinkType());
+            dispatch(fetchDrinkType());
         } catch (error) {
             console.log(error);
         }

@@ -4,9 +4,12 @@ import { selectTypes } from "../../../redux/Reducer/typeSlice";
 import Manage from "../Manage";
 
 const ManageDrinkType = () => {
-    const { shops } = JSON.parse(localStorage.getItem("user"));
-    const shopId = shops[0].id;
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    const shopId = "097e25ff-94f7-4845-a2b9-9e873474e785";
     const drinkTypes = useSelector(selectTypes);
+    console.log("DrinkTypes");
+    console.log(drinkTypes);
 
     const [data, setData] = useState([]);
     useEffect(() => {
