@@ -3,7 +3,7 @@ namespace CoffeeShopApi.Services
     using Models.DAL;
     using Microsoft.EntityFrameworkCore;
     using Services.Interfaces;
-
+    using CoffeeShopApi.Models.DTOs;
 
     public class AnalyticService : IAnalyticService
     {
@@ -290,7 +290,7 @@ namespace CoffeeShopApi.Services
                     Date = g.Key.ToString("yyyy-MM-dd"), // Format date as string
                     Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) / 1000000.0 // Convert to million VND
                 })
-                .OrderBy(item => item.Date) // Order by date
+                // .OrderBy(item => item.Date) // Order by date
                 .ToListAsync(); // Ensure that ToListAsync is awaited
 
             // Prepare the result in the specified format
@@ -302,6 +302,67 @@ namespace CoffeeShopApi.Services
             return result;
         }
 
+        // Tuanhayho fixed version
+        public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
+        {
+            /*
+            var parsedStartDate = DateTime.Parse(startDate);
+            var parsedEndDate = DateTime.Parse(endDate);
+            Console.WriteLine("\nparsedStartDate: " + parsedStartDate + " parsedEndDate: " + parsedEndDate + "\n");
 
+            var query = await _dbContext.OrderItems
+                .Include(oi => oi.Drink)
+                .Include(oi => oi.Order)
+                .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper() && oi.Order.OrderDate >= parsedStartDate && oi.Order.OrderDate <= parsedEndDate)
+                .GroupBy(oi => oi.Drink.Name)
+                // .Select(g => g.Key)  // => [Latte, Capuchino]
+                
+                .ToListAsync();
+
+            return query;
+            */
+
+            // Define the expected format
+            string format = "yyyy-MM-dd";
+
+            // Parse the string to DateTime
+            DateTime parsedStartDate = DateTime.ParseExact(startDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            
+            
+
+            var query = await _dbContext.OrderItems
+                .Include(oi => oi.Drink)
+                .Include(oi => oi.Order)
+                .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper()
+                            && oi.Order.OrderDate >= parsedStartDate
+                            && oi.Order.OrderDate <= parsedEndDate)
+                .GroupBy(oi => new { oi.Drink.Name, Date = oi.Order.OrderDate })
+                .Select(g => new DrinkDailyRevenueViewModel
+                {
+                    NameDrink = g.Key.Name,
+                    Total = g.OrderBy(oi => oi.Order.OrderDate)
+                             .Select(oi => oi.Quantity * oi.Drink.Price / 1000000.0) // Convert to million VND
+                             .ToList()
+                })
+                .ToListAsync();
+
+            // Ensure all drink names are included, even if they have no orders within the date range
+            var drinkNames = await _dbContext.Drinks
+                .Where(d => d.DrinkType.Name.ToUpper() == drinkType.ToUpper())
+                .Select(d => d.Name)
+                .Distinct()
+                .ToListAsync();
+
+            // Fill in missing drink entries with empty totals
+            var result = drinkNames.Select(drinkName => new DrinkDailyRevenueViewModel
+            {
+                NameDrink = drinkName,
+                Total = query.FirstOrDefault(q => q.NameDrink == drinkName)?.Total ?? new List<double?>()
+            }).ToList();
+
+            return result;
         }
+
     }
+}
