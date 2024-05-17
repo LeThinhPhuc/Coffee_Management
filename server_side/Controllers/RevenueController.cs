@@ -13,10 +13,16 @@ namespace CoffeeShopApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> GetDailyRevenueInRange([FromQuery]DateTime startDate,DateTime endDate)
+        public async Task<ActionResult> GetDailyRevenueInRange([FromQuery]string startDate, string endDate)
         {
+            // Define the expected format
+            string format = "yyyy-MM-dd";
 
-            if(startDate.Date > endDate.Date)
+            // Parse the string to DateTime
+            DateTime parsedStartDate = DateTime.ParseExact(startDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            
+            if(parsedStartDate.Date > parsedEndDate.Date)
             {
                 return BadRequest(new
                 {
@@ -24,7 +30,7 @@ namespace CoffeeShopApi.Controllers
                 }) ;
             }
 
-            var revenue = await revenueService.GetDailyRevenueInRangeAsync(startDate, endDate);
+            var revenue = await revenueService.GetDailyRevenueInRangeAsync(parsedStartDate, parsedEndDate);
             
             if(revenue == null || revenue.Count() == 0)
             {

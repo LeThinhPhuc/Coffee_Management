@@ -16,6 +16,7 @@ namespace CoffeeShopApi.Services.Implements
         }
         public async Task<IEnumerable<object>> GetDailyRevenueInRangeAsync(DateTime startDate, DateTime endDate)
         {
+
             var dailyRevenue = await context.Orders
                 .Where(o => startDate.Date <= o.OrderDate.Value.Date && o.OrderDate.Value.Date <= endDate.Date)
                 .GroupBy(o => o.OrderDate.Value.Date)
