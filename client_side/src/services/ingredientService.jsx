@@ -1,6 +1,20 @@
 import axios from "axios";
 
-const { accessToken } = JSON.parse(localStorage.getItem("user"));
+// const { accessToken } = JSON.parse(localStorage.getItem("user"));
+
+let accessToken = null;
+
+const user = localStorage.getItem("user");
+if (user) {
+  try {
+    const parsedUser = JSON.parse(user);
+    if (parsedUser && parsedUser.accessToken) {
+      accessToken = parsedUser.accessToken;
+    }
+  } catch (error) {
+    console.error("Error parsing user from local storage:", error);
+  }
+}
 
 const ingredientService = {
     getAll: () => {
