@@ -104,12 +104,9 @@ const StatisticByType = () => {
     const weekValue = event.target.value;
     const value2 = getStartAndEndOfWeek(weekValue);
     setValue(value2);
-
-    //gọi hàm handle
-    console.log(value);
   };
   useEffect(() => {
-    console.log("useEffect: " + value);
+    console.log("useEffect: " + value.startDate);
   }, [value]);
   const getStartAndEndOfWeek = (weekValue) => {
     // Tách năm và tuần từ đầu vào

@@ -5,19 +5,23 @@ import orderSlice from "../Reducer/orderSlice";
 import typeSlice from "../Reducer/typeSlice";
 import ingredientSlice from "../Reducer/ingredientSlice";
 import voucherSlice from "../Reducer/voucherSlice";
+import statisticService from "../../services/statisticService";
+import statisticSlice from "../Reducer/statisticSlice";
 
 const store = configureStore({
-    reducer: {
-        drink: drinkSlice,
-        order: orderSlice,
-        type: typeSlice,
-        ingredient: ingredientSlice,
-        voucher: voucherSlice
-        // Đặt các reducer khác ở đây nếu cần
-    },
-    // Thêm middleware khác nếu cần
+  reducer: {
+    drink: drinkSlice,
+    order: orderSlice,
+    type: typeSlice,
+    ingredient: ingredientSlice,
+    voucher: voucherSlice,
+    statistic: statisticSlice,
 
-    // Thêm middleware khác nếu cần
+    // Đặt các reducer khác ở đây nếu cần
+  },
+  // Thêm middleware khác nếu cần
+
+  // Thêm middleware khác nếu cần
 });
 
 export default store;
