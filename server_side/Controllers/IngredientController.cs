@@ -119,6 +119,10 @@
             {
                 return Ok(new { succeeded = false, message = "Ingredient not found!" });
             }
+            catch (IngredientInUseException ex)
+            {
+                return Ok(new { succeeded = false, message = ex.Message });
+            }
             catch (Exception ex)
             {
                 // Log the exception or handle it accordingly

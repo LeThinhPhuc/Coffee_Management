@@ -130,23 +130,45 @@
         }
 
         // Minh won't be able to delete due to FK conflict with IngredientsInDrinks
-        /*
+        //*
         public async Task<bool> DeleteAsync(string id)
         {
-            var ingreToDelete = await _context.Ingredients.FindAsync(id);
+            // var ingreToDelete = await _context.Ingredients.FindAsync(id);
 
-            if (ingreToDelete == null)
+            // if (ingreToDelete == null)
+            // {
+            //     throw new NotFoundException("Ingredient not found by provided Id!");
+            // }
+
+            // _context.Ingredients.Remove(ingreToDelete);
+            // await _context.SaveChangesAsync();
+
+            // return true;
+            var ingredient = await _context.Ingredients
+                .Include(d => d.IngredientInDrinks)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (ingredient == null)
             {
-                throw new NotFoundException("Ingredient not found by provided Id!");
+                throw new NotFoundException("Ingredient not found!");
             }
 
-            _context.Ingredients.Remove(ingreToDelete);
+            if (ingredient.IngredientInDrinks.Any())
+            {
+                throw new IngredientInUseException("Ingredient in use with Drinks, cannot delete!");
+            }
+
+            // Now Remove the ingredient itself
+            _context.Ingredients.Remove(ingredient);
+
             await _context.SaveChangesAsync();
 
             return true;
         }
-        */
+        //*/
 
+        // Minh doesn't want this, so backed it up
+        /*
         public async Task<bool> DeleteAsync(string id)
         {
             var ingredient = await _context.Ingredients
@@ -168,5 +190,6 @@
 
             return true;
         }
+        */
     }
 }
