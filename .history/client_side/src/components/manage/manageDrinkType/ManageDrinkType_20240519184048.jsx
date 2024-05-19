@@ -10,15 +10,11 @@ const ManageDrinkType = () => {
     const drinkTypes = useSelector(selectTypes);
 
     const [data, setData] = useState([]);
-
     useEffect(() => {
-        console.log("shop id:", shopId); // Add this line for debugging
-        console.log("drinkTypes:", drinkTypes); // Add this line for debugging
-
         setData([
             {
                 category: "Category",
-                items: Array.isArray(drinkTypes) ? [...drinkTypes] : [], // Add a check here
+                items: [...drinkTypes],
             },
         ]);
     }, [drinkTypes]);

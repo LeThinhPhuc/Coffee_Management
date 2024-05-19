@@ -364,7 +364,7 @@ const MenuModel = (props) => {
                                     className="inline-block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                                         focus:outline-[#6f4436] focus:outline-none focus:shadow-outline"
                                     onChange={(e) => {
-                                        const newValue = e.target.value;
+                                        const newValue = event.target.value;
                                         if (/^\d*$/.test(newValue)) {
                                             setInfo(newValue);
                                         }

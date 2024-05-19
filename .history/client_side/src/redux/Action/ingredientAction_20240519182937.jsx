@@ -51,7 +51,6 @@ export const deleteIngredient = (id) => {
         try {
             console.log(id);
             const response = await ingredientService.deleteIngredient(id);
-            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(fetchIngredients()); // do response trả về không có item đã thêm

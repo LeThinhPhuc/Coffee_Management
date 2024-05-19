@@ -57,7 +57,7 @@ const MenuItem = (props) => {
     return (
         <div
             className="relative flex flex-col justify-start mx-auto p-[12px] gap-2 text-gray-700 bgr bg shadow-xl bg-clip-border rounded-xl 
-            w-[180px] h-[310px]"
+            w-[180px] h-[310px] overflow-hidden"
         >
             {/*//! Card-Image */}
             <div className="relative w-full h-[150px] min-h-[150px] max-h-[150px]  flex-1  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
@@ -73,7 +73,7 @@ const MenuItem = (props) => {
                 <h5
                     className={`${
                         propsItem.price && "min-h-[35px]"
-                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900 overflow-hidden
+                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900
                      `}
                 >
                     {propsItem.name}
