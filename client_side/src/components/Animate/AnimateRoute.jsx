@@ -14,6 +14,7 @@ import Statistic from "../Statistic/Statistic";
 import MainPage from "../MainPage/MainPage";
 import Discount from "../Discount/Discount";
 import ManageDrinkType from "../manage/manageDrinkType/ManageDrinkType";
+// import Voucher from "../Discount/TuanhayhoDemoVoucher";
 const AnimateRoute = () => {
     const location = useLocation();
 

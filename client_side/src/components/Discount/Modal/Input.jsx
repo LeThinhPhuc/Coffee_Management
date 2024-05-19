@@ -1,30 +1,36 @@
-import PropType from "prop-types";
+// Coffee_Management/client_side/src/components/Discount/Modal/Input.jsx
+import PropTypes from "prop-types";
 
-const Input = ({ id, label, type, placeholder, onChange, values }) => {
-  return (
-    <div className="mb-2">
-      <p className="mb-1 text-xs font-medium sm:text-sm tracking-wide text-gray-600">
-        {label}
-      </p>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        value={values}
-        className={`border-2 rounded-sm w-full hover:border-slate-400 active:border-nude px-2 leading-8`}
-        onChange={onChange}
-      />
-    </div>
-  );
-};
+const Input = ({ id, label, type, value, onChange, placeholder, disabled }) => (
+  <div className="flex flex-col mb-4">
+    <label htmlFor={id} className="mb-2 text-sm text-gray-600">
+      {label}
+    </label>
+    <input
+      id={id}
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      disabled={disabled}
+      className="p-2 border border-gray-300 rounded"
+    />
+  </div>
+);
 
 Input.propTypes = {
-  id: PropType.string,
-  label: PropType.string,
-  type: PropType.string,
-  placeholder: PropType.string,
-  onChange: PropType.func,
-  values: PropType.string,
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  placeholder: "",
+  disabled: false,
 };
 
 export default Input;
