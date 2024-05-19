@@ -73,7 +73,7 @@ const MenuItem = (props) => {
                 <h5
                     className={`${
                         propsItem.price && "min-h-[35px]"
-                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900 overflow-hidden
+                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900
                      `}
                 >
                     {propsItem.name}
