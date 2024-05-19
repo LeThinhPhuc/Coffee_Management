@@ -66,36 +66,48 @@ We thank the following people who contributed to this project:
           <b>Tuấn hay ho</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/LeThinhPhuc">
         <img src="https://github.com/LeThinhPhuc.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
           <b>LeThinhPhuc</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
        <a href="https://github.com/kauittt">
         <img src="https://github.com/kauittt.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
           <b>kauittt</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/dark-doraemon">
         <img src="https://github.com/dark-doraemon.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
           <b>dark-doraemon</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/thegaelis">
         <img src="https://github.com/thegaelis.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
           <b>thaihq</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/PhamTrieu0703">
         <img src="https://github.com/PhamTrieu0703.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
           <b>PhamTrieu0703</b>
         </sub>
       </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/thuhoa0810">
         <img src="https://github.com/thuhoa0810.png" width="100px;" alt="collaborator photo"/><br>
         <sub>
