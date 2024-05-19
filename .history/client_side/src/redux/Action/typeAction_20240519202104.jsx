@@ -26,6 +26,7 @@ export const fetchDrinkType = () => {
 
             dispatch(fetchDrinkTypeData(response.data));
         } catch (error) {
+            console.log(error);
             if (error.response && error.response.status === 401) {
                 dispatch(handleAuthError()); // Dispatch handleAuthError if 401 Unauthorized
             }
@@ -42,7 +43,6 @@ export const addDrinkType = (drinkTypeData) => {
             // console.log(response);
 
             response.status == 200 && dispatch(fetchDrinkType());
-            dispatch(fetchDrinks());
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);
@@ -74,7 +74,6 @@ export const deleteDrinkType = (id) => {
             // console.log(response);
 
             response.status == 200 && dispatch(fetchDrinkType());
-            dispatch(fetchDrinks());
         } catch (error) {
             console.log(error);
         }

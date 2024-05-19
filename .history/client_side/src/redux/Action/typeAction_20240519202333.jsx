@@ -26,6 +26,7 @@ export const fetchDrinkType = () => {
 
             dispatch(fetchDrinkTypeData(response.data));
         } catch (error) {
+            console.log(error);
             if (error.response && error.response.status === 401) {
                 dispatch(handleAuthError()); // Dispatch handleAuthError if 401 Unauthorized
             }

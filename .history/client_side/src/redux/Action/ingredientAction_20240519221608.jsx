@@ -43,7 +43,7 @@ export const updateIngredient = (id, ingredientData) => {
                 ingredientData
             );
 
-            // console.log(response);
+            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients());
         } catch (error) {

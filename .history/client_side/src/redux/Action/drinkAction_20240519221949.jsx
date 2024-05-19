@@ -13,7 +13,6 @@ export const fetchDrinks = () => {
         try {
             // Gọi API để lấy danh sách drinks
             const response = await drinkService.getAll();
-            console.log("fetchhhhh");
             // const data = await response.json();
 
             // Dispatch action fetchDrinksSuccess với dữ liệu drinks
