@@ -129,6 +129,8 @@
             return existingIngredient;
         }
 
+        // Minh won't be able to delete due to FK conflict with IngredientsInDrinks
+        /*
         public async Task<bool> DeleteAsync(string id)
         {
             var ingreToDelete = await _context.Ingredients.FindAsync(id);
@@ -139,6 +141,29 @@
             }
 
             _context.Ingredients.Remove(ingreToDelete);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+        */
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var ingredient = await _context.Ingredients
+                .Include(d => d.IngredientInDrinks)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (ingredient == null)
+            {
+                throw new NotFoundException("Ingredient not found!");
+            }
+
+            // First Remove all child many-to-many relationships
+            _context.IngredientsInDrinks.RemoveRange(ingredient.IngredientInDrinks);
+
+            // Now Remove the ingredient itself
+            _context.Ingredients.Remove(ingredient);
+
             await _context.SaveChangesAsync();
 
             return true;
