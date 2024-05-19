@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MenuItem from "./MenuItem";
 import MenuModel from "./MenuModel";
 import PropTypes from "prop-types";
@@ -13,10 +13,7 @@ import {
 import CustomMenuItem from "./manageDrinkType/CustomMenuItem";
 import CustomMenuModel from "./manageDrinkType/CustomMenuModel";
 import { addDrinkType, deleteDrinkType } from "../../redux/Action/typeAction";
-import {
-    resetError,
-    selectIngredientsError,
-} from "../../redux/Reducer/ingredientSlice";
+import { selectIngredientsError } from "../../redux/Reducer/ingredientSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -57,21 +54,6 @@ const Manage = (props) => {
 
     //* icon trash trong MenuItem
     const error = useSelector(selectIngredientsError);
-    // Show toast notification when there is an error
-    useEffect(() => {
-        if (error && props.type === "ingredient") {
-            toast.error(error, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            dispatch(resetError()); // Reset the error state after showing the toast
-        }
-    }, [error, props.type, dispatch]);
 
     const handleDeleteItem = (id) => {
         // console.log(props.type);
@@ -131,7 +113,6 @@ const Manage = (props) => {
 
     return (
         <div className="container mx-auto mt-20 p-[75px] pt-0  rounded-xl shadow-lg bg-clip-border">
-            <ToastContainer />
             {/*//! Button */}
             <div className="flex ml-[7px] gap-5 mt-4 mb-8">
                 <div className="">

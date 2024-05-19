@@ -72,6 +72,8 @@ const Manage = (props) => {
             dispatch(resetError()); // Reset the error state after showing the toast
         }
     }, [error, props.type, dispatch]);
+    console.log("Error");
+    console.log(error);
 
     const handleDeleteItem = (id) => {
         // console.log(props.type);

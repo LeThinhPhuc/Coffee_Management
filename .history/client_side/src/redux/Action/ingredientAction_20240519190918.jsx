@@ -1,8 +1,5 @@
 import ingredientService from "../../services/ingredientService";
-import {
-    deleteIngredientDataFail,
-    fetchIngredientData,
-} from "../Reducer/ingredientSlice";
+import { fetchIngredientData } from "../Reducer/ingredientSlice";
 
 export const fetchIngredients = () => {
     return async (dispatch) => {
@@ -25,7 +22,6 @@ export const addIngredient = (ingredientData) => {
             const response = await ingredientService.addIngredient(
                 ingredientData
             );
-            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
@@ -43,8 +39,6 @@ export const updateIngredient = (id, ingredientData) => {
                 ingredientData
             );
 
-            console.log(response);
-
             response.status == 200 && dispatch(fetchIngredients());
         } catch (error) {
             console.log(error);
@@ -55,15 +49,11 @@ export const updateIngredient = (id, ingredientData) => {
 export const deleteIngredient = (id) => {
     return async (dispatch) => {
         try {
-            // console.log(id);
+            console.log(id);
             const response = await ingredientService.deleteIngredient(id);
-            // console.log(response);
+            console.log(response);
 
-            if (response.data.succeeded) {
-                dispatch(fetchIngredients());
-            } else {
-                dispatch(deleteIngredientDataFail(response.data.message));
-            }
+            response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(fetchIngredients()); // do response trả về không có item đã thêm
         } catch (error) {
             console.log(error);

@@ -50,6 +50,7 @@ const ingredientSlice = createSlice({
         },
         deleteIngredientDataFail(state, action) {
             state.error = action.payload;
+            console.log(state.error);
         },
         resetError(state) {
             state.error = null;

@@ -57,7 +57,7 @@ export const deleteIngredient = (id) => {
         try {
             // console.log(id);
             const response = await ingredientService.deleteIngredient(id);
-            // console.log(response);
+            console.log(response);
 
             if (response.data.succeeded) {
                 dispatch(fetchIngredients());
