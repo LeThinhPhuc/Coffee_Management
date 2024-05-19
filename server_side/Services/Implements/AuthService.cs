@@ -122,12 +122,17 @@ namespace CoffeeShopApi.Services.Implements
         {
             var user = await _userManager.FindByNameAsync(model.UserNameOrEmailOrPhoneNumber);
 
-            //debug:
+            // if not found by username, then look for email:
+            if(user == null) {
+                user = await _userManager.FindByEmailAsync(model.UserNameOrEmailOrPhoneNumber);
+            }
+
+            // debug print:
             if (user != null)
             {
-                Console.WriteLine("User found: " + user.ToString());
+                // Console.WriteLine("User found: " + user.ToString());
                 var result = await _userManager.CheckPasswordAsync(user, model.Password);
-                Console.WriteLine("Pass result: " + result.ToString());
+                // Console.WriteLine("Pass compare result: " + result.ToString());
             }
             else
             {
@@ -136,6 +141,30 @@ namespace CoffeeShopApi.Services.Implements
 
                 // Print the JSON string
                 Console.WriteLine("User not found for the input model: " + json);
+            }
+
+            // Check whether his first Shop is approved or not
+            var firstShopOfUser = await _context.Shops
+                    .Where(s => s.OwnerId == user.Id)
+                    .FirstOrDefaultAsync();
+            
+            if (!firstShopOfUser.IsApproved) {
+                // prohibit login access if his Shop not approved
+                // these below code will slow down the respond time
+                List<object> errors = new List<object>
+                {
+                    // user's provided password doesnt match any record in DB
+                    new
+                    {
+                        code = "ShopAwaitingApproval",
+                        description = "Your bussiness is awaiting for Admin approval. Try again later!"
+                    }
+                };
+
+                return new AuthResult
+                {
+                    Errors = errors.ToArray()
+                };
             }
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
