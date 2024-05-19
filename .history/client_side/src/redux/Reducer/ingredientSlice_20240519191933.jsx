@@ -23,20 +23,23 @@ const initialState = {
     ingredients: [],
     error: null,
 };
+
 const ingredientSlice = createSlice({
     name: "ingredient",
     initialState,
     reducers: {
         fetchIngredientData(state, action) {
-            state.error = null;
+            // console.log(action.payload);
             state.ingredients = action.payload;
         },
         addIngredientData(state, action) {
             state.error = null;
+
             state.ingredients.push(action.payload);
         },
         updateIngredientData(state, action) {
             state.error = null;
+
             const { id, ingredientData } = action.payload;
             state.ingredients = state.ingredients.map((item) =>
                 item.id === id ? { ...item, ...ingredientData } : item
@@ -52,9 +55,6 @@ const ingredientSlice = createSlice({
             state.error = action.payload;
             console.log(state.error);
         },
-        resetError(state) {
-            state.error = null;
-        },
     },
 });
 
@@ -64,7 +64,6 @@ export const {
     updateIngredientData,
     fetchIngredientData,
     deleteIngredientDataFail,
-    resetError,
 } = ingredientSlice.actions;
 
 export const selectIngredients = (state) => state.ingredient.ingredients;

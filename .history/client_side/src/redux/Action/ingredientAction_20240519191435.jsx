@@ -25,7 +25,6 @@ export const addIngredient = (ingredientData) => {
             const response = await ingredientService.addIngredient(
                 ingredientData
             );
-            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
             // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
@@ -42,8 +41,6 @@ export const updateIngredient = (id, ingredientData) => {
                 id,
                 ingredientData
             );
-
-            console.log(response);
 
             response.status == 200 && dispatch(fetchIngredients());
         } catch (error) {

@@ -13,10 +13,7 @@ import {
 import CustomMenuItem from "./manageDrinkType/CustomMenuItem";
 import CustomMenuModel from "./manageDrinkType/CustomMenuModel";
 import { addDrinkType, deleteDrinkType } from "../../redux/Action/typeAction";
-import {
-    resetError,
-    selectIngredientsError,
-} from "../../redux/Reducer/ingredientSlice";
+import { selectIngredientsError } from "../../redux/Reducer/ingredientSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -69,9 +66,8 @@ const Manage = (props) => {
                 draggable: true,
                 progress: undefined,
             });
-            dispatch(resetError()); // Reset the error state after showing the toast
         }
-    }, [error, props.type, dispatch]);
+    }, [error, props.type]);
 
     const handleDeleteItem = (id) => {
         // console.log(props.type);
@@ -131,7 +127,6 @@ const Manage = (props) => {
 
     return (
         <div className="container mx-auto mt-20 p-[75px] pt-0  rounded-xl shadow-lg bg-clip-border">
-            <ToastContainer />
             {/*//! Button */}
             <div className="flex ml-[7px] gap-5 mt-4 mb-8">
                 <div className="">
