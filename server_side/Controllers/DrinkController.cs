@@ -23,7 +23,6 @@ namespace CoffeeShopApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize]
         [HttpGet("getall")]
         public async Task<ActionResult> GetAllDrinksAsync()
         {
@@ -31,7 +30,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getallbysystem")]
         public async Task<ActionResult> GetAllDrinksBySystemAsync()
         {
@@ -39,7 +37,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getbyid/{id}")]
         public async Task<ActionResult> getById(string id)
         {
@@ -47,7 +44,6 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("getdrinksbytypename")]
         public async Task<ActionResult> GetDrinksByTypeName(string typeName)
         {
@@ -55,7 +51,7 @@ namespace CoffeeShopApi.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        // [Authorize]
         /// <summary>
         /// Retrieve list of Drink (filtered by Bearer JWT -> ownerId)
         /// </summary>
@@ -86,7 +82,7 @@ namespace CoffeeShopApi.Controllers
             return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header."}); 
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost("add")]
         public async Task<ActionResult> AddDrinksAsync([FromBody] CreateUpdateDrinkModel model)
         {
@@ -131,7 +127,7 @@ namespace CoffeeShopApi.Controllers
             #endregion
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateDrink([FromBody]CreateUpdateDrinkModel model)
         {
@@ -162,7 +158,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteDrink(string id)
         {
@@ -187,7 +183,7 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("deleteall")]
         public async Task<IActionResult> DeleteAllDrinks()
         {

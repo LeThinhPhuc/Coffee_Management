@@ -1,4 +1,4 @@
-// Coffee_Management/client_side/src/redux/Store/store.jsx
+// store.js
 import { configureStore } from "@reduxjs/toolkit";
 import drinkSlice from "../Reducer/drinkSlice";
 import orderSlice from "../Reducer/orderSlice";
@@ -15,7 +15,6 @@ const store = configureStore({
     type: typeSlice,
     ingredient: ingredientSlice,
     voucher: voucherSlice,
-    //drinkTypes: drinkTypesReducer,
     statistic: statisticSlice,
 
     // Đặt các reducer khác ở đây nếu cần

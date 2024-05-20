@@ -25,7 +25,6 @@ const MenuItem = (props) => {
 
     //* Lấy Item được truyền vào, để có thể sửa.
     const [propsItem, setPropsItem] = useState([]);
-    // console.log("propsItem") ;
     // console.log(propsItem);
 
     useEffect(() => {
@@ -73,7 +72,7 @@ const MenuItem = (props) => {
                 <h5
                     className={`${
                         propsItem.price && "min-h-[35px]"
-                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900 overflow-hidden
+                    } block text-lg antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900
                      `}
                 >
                     {propsItem.name}
@@ -125,11 +124,11 @@ const MenuItem = (props) => {
                             ...propsItem,
                             title: "Edit item",
                             image: propsItem.image || propsItem.imagePath,
-                            name: propsItem.name || "",
+                            name: propsItem.name,
                             info: propsItem.info || propsItem.price,
-                            desc: propsItem.desc || "",
-                            ingredients: propsItem.ingredients || [],
-                            drinkTypeId: propsItem.drinkTypeId || "",
+                            desc: propsItem.desc,
+                            ingredients: propsItem.ingredients,
+                            drinkTypeId: propsItem.drinkTypeId,
                         }));
                         props.handleShowModel();
                     }}
@@ -159,8 +158,6 @@ MenuItem.propTypes = {
     item: PropTypes.object,
     handleShowModel: PropTypes.func,
     handleDeleteItem: PropTypes.func,
-    handleAddDrinkType: PropTypes.func,
-    handleAddDrink: PropTypes.func,
     handleAddIngredient: PropTypes.func,
     type: PropTypes.string,
 };

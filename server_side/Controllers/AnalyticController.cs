@@ -84,34 +84,11 @@ namespace CoffeeShopApi.Controllers
             var result = await _service.GetWeeklyRevenueStatus();
             return Ok(result);
         }
-
-        
         [HttpGet("[action]")]
         public async Task<ActionResult> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
         {
             var result = await _service.GetDailyRevenueByDrinkTypeInRange(drinkType,startDate, endDate);
             return Ok(result);
-        }
-
-
-
-        /// <summary>
-        /// (TuanhayhoFix) Lấy tổng doanh thu trong ngày của drink đó từ ngày startDate đến endDate. (trả mảng rỗng nếu không có data)
-        /// </summary>
-        /// <returns>Returns a List of DrinkDailyRevenueViewModel.</returns>
-        [HttpGet("[action]")]
-        public async Task<ActionResult> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
-        {
-            try
-            {
-                var drinkRevenues = await _service.GetDailyDrinkRevenueInRange(drinkType, startDate, endDate);
-                return Ok(drinkRevenues);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ex caught: " + ex);
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
         }
     }
 }

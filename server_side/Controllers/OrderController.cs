@@ -18,7 +18,6 @@
             _orderService = orderService;
         }
 
-        [Authorize]
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<OrderItemDTO>>> GetAllOrders()
         {
@@ -31,7 +30,6 @@
             return Ok(orders);
         }
 
-        [Authorize]
         /// <summary>
         /// Retrive all order with detailed props
         /// </summary>

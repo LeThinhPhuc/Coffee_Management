@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MenuItem from "./MenuItem";
 import MenuModel from "./MenuModel";
 import PropTypes from "prop-types";
 import "./styles.css";
-import { deleteDrink } from "../../redux/Action/drinkAction";
-import { useDispatch, useSelector } from "react-redux";
+import { deleteDrink, updateDrink } from "../../redux/Action/drinkAction";
+import { useDispatch } from "react-redux";
 import {
-    addIngredient,
     deleteIngredient,
     updateIngredient,
 } from "../../redux/Action/ingredientAction";
 import CustomMenuItem from "./manageDrinkType/CustomMenuItem";
 import CustomMenuModel from "./manageDrinkType/CustomMenuModel";
-import { addDrinkType, deleteDrinkType } from "../../redux/Action/typeAction";
-import {
-    resetError,
-    selectIngredientsError,
-} from "../../redux/Reducer/ingredientSlice";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { deleteDrinkType } from "../../redux/Action/typeAction";
 
 const Manage = (props) => {
     // console.log("DATA");
@@ -32,11 +25,11 @@ const Manage = (props) => {
 
     //* State với các field để hiển thị trong modal, type để check là Menu hay Ingredient
     const [item, setItem] = useState({
-        title: "",
-        image: "",
-        name: "",
-        info: "",
-        desc: "",
+        title: null,
+        image: null,
+        name: null,
+        info: null,
+        desc: null,
         type: props.type,
     });
 
@@ -56,37 +49,17 @@ const Manage = (props) => {
     };
 
     //* icon trash trong MenuItem
-    const error = useSelector(selectIngredientsError);
-    // Show toast notification when there is an error
-    useEffect(() => {
-        if (error && props.type === "ingredient") {
-            toast.error(error, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            dispatch(resetError()); // Reset the error state after showing the toast
-        }
-    }, [error, props.type, dispatch]);
-
     const handleDeleteItem = (id) => {
-        // console.log(props.type);
+        // console.log(`Deleted item at [${index}] of [${category}]`);
         // console.log(id);
         switch (props.type) {
             case "menu":
-                // console.log("menu");
                 dispatch(deleteDrink(id));
                 break;
             case "drinkType":
-                // console.log("drink type");
                 dispatch(deleteDrinkType(id));
                 break;
             default:
-                // console.log("ingredient");
                 dispatch(deleteIngredient(id));
                 break;
         }
@@ -103,35 +76,8 @@ const Manage = (props) => {
         dispatch(updateIngredient(item.id, ingredientData));
     };
 
-    // sao thiếu handle Addd Drink Drink>>>
-    const handleAddDrinkType = (item) => {
-        // const amount = item.amount + 10;
-        const drinkData = {
-            ...item,
-        };
-
-        dispatch(addDrinkType(drinkData));
-    };
-
-    const handleAddItem = (item) => {
-        // console.log(`Deleted item at [${index}] of [${category}]`);
-        console.log(item);
-        switch (props.type) {
-            case "menu":
-                dispatch(addDrink(item));
-                break;
-            case "drinkType":
-                dispatch(addDrinkType(item));
-                break;
-            default:
-                dispatch(addIngredient(item));
-                break;
-        }
-    };
-
     return (
         <div className="container mx-auto mt-20 p-[75px] pt-0  rounded-xl shadow-lg bg-clip-border">
-            <ToastContainer />
             {/*//! Button */}
             <div className="flex ml-[7px] gap-5 mt-4 mb-8">
                 <div className="">
@@ -144,10 +90,10 @@ const Manage = (props) => {
                         type="button"
                         onClick={() => {
                             setItem(() => ({
-                                image: "",
-                                name: "",
-                                info: "",
-                                desc: "",
+                                image: null,
+                                name: null,
+                                info: null,
+                                desc: null,
                                 type: props.type,
                                 ingredients: [],
                                 title: "Add item", //! set title cho model
@@ -173,7 +119,6 @@ const Manage = (props) => {
             </div>
 
             {/*//! Item */}
-
             {props.data &&
                 props.data.map((propsData, index) => {
                     return (
@@ -232,71 +177,6 @@ const Manage = (props) => {
                         </div>
                     );
                 })}
-
-            {/*
-            {Array.isArray(props.data) && props.data.length > 0 ? (
-                props.data.map((propsData, index) => (
-                    <div key={index} className="mb-[50px]">
-                        <h3 className="ml-[7px] mb-4 block text-3xl antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900">
-                            {propsData.category}
-                        </h3>
-
-                        <div className="gap-x-6 gap-y-10 grid grid-cols-6 rounded-xl">
-                            {propsData.items?.map((item, index) => {
-                                if (props.type != "drinkType") {
-                                    return (
-                                        <MenuItem
-                                            key={index}
-                                            id={index}
-                                            category={propsData.category}
-                                            isEditing={isEditing}
-                                            setItem={setItem}
-                                            item={item}
-                                            handleShowModel={
-                                                handleShowModel
-                                            }
-                                            handleDeleteItem={
-                                                handleDeleteItem
-                                            }
-                                            handleAddIngredient={
-                                                handleAddIngredient
-                                            }
-                                            type={props.type}
-                                        ></MenuItem>
-                                    );
-                                } else {
-                                    return (
-                                        <CustomMenuItem
-                                            key={index}
-                                            id={index}
-                                            category={propsData.category}
-                                            isEditing={isEditing}
-                                            setItem={setItem}
-                                            item={item}
-                                            handleShowModel={
-                                                handleShowModel
-                                            }
-                                            handleDeleteItem={
-                                                handleDeleteItem
-                                            }
-                                            handleAddIngredient={
-                                                handleAddIngredient
-                                            }
-                                            handleAddItem= {handleAddItem}
-                                            type={props.type}
-                                        ></CustomMenuItem>
-                                    );
-                                }
-                            })}
-                        </div>
-                    </div>
-                ))
-            ) : (
-                <p className="ml-[7px] text-3xl antialiased font-extrabold leading-snug tracking-normal text-blue-gray-900">
-                    No items available.
-                </p>
-            )}
-            */}
 
             {/*//! Model */}
             {showModal &&

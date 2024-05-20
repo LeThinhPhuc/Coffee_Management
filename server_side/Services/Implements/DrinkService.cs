@@ -113,7 +113,7 @@ namespace CoffeeShopApi.Services.Implements
 
         public async Task<List<object>> GetMenuDataByShopOwnerIdAsync(string ownerId)
         {
-            var menuData = await _dbContext.Drinks
+            var menuData = await _dbContext.Drinks                
                 .Include(d => d.DrinkType)
                     .ThenInclude(s => s.Shop)
                 .Include(d => d.Ingredients)
@@ -221,9 +221,7 @@ namespace CoffeeShopApi.Services.Implements
             return drink;
         }
 
-        
-        // Foregin key IngredientsInDrinks conflict when delete (happened for Minh)
-        /*
+
         public async Task<bool> DeleteDrinkAsync(string id)
         {
             var drink = await _dbContext.Drinks.FindAsync(id);
@@ -234,29 +232,6 @@ namespace CoffeeShopApi.Services.Implements
             }
 
             _dbContext.Drinks.Remove(drink);
-            await _dbContext.SaveChangesAsync();
-
-            return true;
-        }
-        */
-
-        public async Task<bool> DeleteDrinkAsync(string id)
-        {
-            var drink = await _dbContext.Drinks
-                .Include(d => d.Ingredients)
-                .FirstOrDefaultAsync(d => d.Id == id);
-
-            if (drink == null)
-            {
-                throw new NotFoundException("Drink not found");
-            }
-
-            // First Remove all child many-to-many relationships
-            _dbContext.IngredientsInDrinks.RemoveRange(drink.Ingredients);
-
-            // Now Remove the drink itself
-            _dbContext.Drinks.Remove(drink);
-
             await _dbContext.SaveChangesAsync();
 
             return true;
