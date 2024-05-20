@@ -1,3 +1,4 @@
+// Coffee_Management/client_side/src/components/Discount/SearchBar/SearchBar.jsx
 const SearchBar = () => {
   return (
     <input
