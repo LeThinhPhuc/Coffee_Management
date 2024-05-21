@@ -5,6 +5,6 @@ namespace CoffeeShopApi.Models.DTOs
     public class DrinkDailyRevenueViewModel
     {
         public string NameDrink { get; set; }
-        public List<double?> Total { get; set; }
+        public List<double> Total { get; set; }
     }
 }
