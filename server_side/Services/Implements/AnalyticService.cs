@@ -372,15 +372,25 @@ namespace CoffeeShopApi.Services
         //*
         public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
         {
+            var options = new System.Text.Json.JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
             // Define the expected format
             string format = "yyyy-MM-dd";
 
             // Parse the string to DateTime
             DateTime parsedStartDate = DateTime.ParseExact(startDate, format, System.Globalization.CultureInfo.InvariantCulture);
-            DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture);
+
+            // Faulty: this cause missing data if endDate is today's date.
+            // DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            
+            // Fix: adjusted parsedEndDate to include the entire end date by adding one day and subtracting one second.
+            DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture).AddDays(1).AddSeconds(-1);
 
             // Generate the list of dates within the range
-            var dateRange = Enumerable.Range(0, (parsedEndDate - parsedStartDate).Days + 1)
+            var dateRange = Enumerable.Range(0, (parsedEndDate.Date - parsedStartDate.Date).Days + 1)
                                     .Select(offset => parsedStartDate.AddDays(offset).Date)
                                     .ToList();
 
@@ -401,17 +411,22 @@ namespace CoffeeShopApi.Services
             Console.WriteLine("orderItems: ");
             foreach (var orderItem in orderItems)
             {
-                Console.WriteLine(orderItem);
+                string jsonString = System.Text.Json.JsonSerializer.Serialize(orderItem, options);
+                Console.WriteLine(jsonString);
             }
 
             // Group the order items by drink name and date
             var groupedOrderItems = orderItems
-                .GroupBy(oi => new { oi.Drink.Name, Date = oi.Order.OrderDate.GetValueOrDefault() })
+                // .GroupBy(oi => new { oi.Drink.Name, Date = oi.Order.OrderDate.GetValueOrDefault() })
+
+                // To ensure only the date part is considered during grouping.
+                .GroupBy(oi => new { oi.Drink.Name, Date = oi.Order.OrderDate.GetValueOrDefault().Date })
                 .Select(g => new
                 {
                     DrinkName = g.Key.Name,
                     Date = g.Key.Date,
-                    Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) / 1000000.0 // Convert to million VND
+                    // Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) / 1000000.0 // Convert to million VND
+                    Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) // Keep original VND due to Hoà's needs.
                 })
                 .ToList();
 
@@ -446,8 +461,14 @@ namespace CoffeeShopApi.Services
                     // return revenue ?? 0.0;
 
                     // * Fix: Ensure both dates are of the same type for comparison
+                    // * Remaining issue: did not combining all total of orders of the same date.
+                    // double? revenue = groupedOrderItems
+                    //     .FirstOrDefault(g => g.DrinkName == drinkName && g.Date.Date == date.Date)?.Total;
+
                     double? revenue = groupedOrderItems
-                        .FirstOrDefault(g => g.DrinkName == drinkName && g.Date.Date == date.Date)?.Total;
+                        .Where(g => g.DrinkName == drinkName && g.Date.Date == date.Date)
+                        .Sum(g => g.Total); // Combine totals for the same date
+                    
                     return revenue ?? 0.0;
 
                 }).ToList()
