@@ -270,6 +270,7 @@ namespace CoffeeShopApi.Services
 
             return result;
         }
+
         public async Task<List<object>> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
         {
             // Check whether the input date range is valid, if not, throw the error
@@ -302,25 +303,27 @@ namespace CoffeeShopApi.Services
             return result;
         }
 
-        // Tuanhayho fixed version
+        // Tuanhayho fixed (version 1)
+        // Bug/issue: not listing all revenue of all remaing dates within range, only returned the revenue of first date.
+        /*
         public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
         {
-            /*
-            var parsedStartDate = DateTime.Parse(startDate);
-            var parsedEndDate = DateTime.Parse(endDate);
-            Console.WriteLine("\nparsedStartDate: " + parsedStartDate + " parsedEndDate: " + parsedEndDate + "\n");
+            // * Debug:
+            // var parsedStartDate = DateTime.Parse(startDate);
+            // var parsedEndDate = DateTime.Parse(endDate);
+            // Console.WriteLine("\nparsedStartDate: " + parsedStartDate + " parsedEndDate: " + parsedEndDate + "\n");
 
-            var query = await _dbContext.OrderItems
-                .Include(oi => oi.Drink)
-                .Include(oi => oi.Order)
-                .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper() && oi.Order.OrderDate >= parsedStartDate && oi.Order.OrderDate <= parsedEndDate)
-                .GroupBy(oi => oi.Drink.Name)
-                // .Select(g => g.Key)  // => [Latte, Capuchino]
+            // var query = await _dbContext.OrderItems
+            //     .Include(oi => oi.Drink)
+            //     .Include(oi => oi.Order)
+            //     .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper() && oi.Order.OrderDate >= parsedStartDate && oi.Order.OrderDate <= parsedEndDate)
+            //     .GroupBy(oi => oi.Drink.Name)
+            //     // .Select(g => g.Key)  // => [Latte, Capuchino]
                 
-                .ToListAsync();
+            //     .ToListAsync();
 
-            return query;
-            */
+            // return query;
+            
 
             // Define the expected format
             string format = "yyyy-MM-dd";
@@ -363,6 +366,98 @@ namespace CoffeeShopApi.Services
 
             return result;
         }
+        */
+
+        // Tuanhayho version 2, attempting to resolve version 1 issue
+        //*
+        public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
+        {
+            // Define the expected format
+            string format = "yyyy-MM-dd";
+
+            // Parse the string to DateTime
+            DateTime parsedStartDate = DateTime.ParseExact(startDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            DateTime parsedEndDate = DateTime.ParseExact(endDate, format, System.Globalization.CultureInfo.InvariantCulture);
+
+            // Generate the list of dates within the range
+            var dateRange = Enumerable.Range(0, (parsedEndDate - parsedStartDate).Days + 1)
+                                    .Select(offset => parsedStartDate.AddDays(offset).Date)
+                                    .ToList();
+
+            foreach (var date in dateRange)
+            {
+                Console.WriteLine(date);
+            }
+
+            // Query the order items
+            var orderItems = await _dbContext.OrderItems
+                .Include(oi => oi.Drink)
+                .Include(oi => oi.Order)
+                .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper()
+                            && oi.Order.OrderDate >= parsedStartDate
+                            && oi.Order.OrderDate <= parsedEndDate)
+                .ToListAsync();
+
+            Console.WriteLine("orderItems: ");
+            foreach (var orderItem in orderItems)
+            {
+                Console.WriteLine(orderItem);
+            }
+
+            // Group the order items by drink name and date
+            var groupedOrderItems = orderItems
+                .GroupBy(oi => new { oi.Drink.Name, Date = oi.Order.OrderDate.GetValueOrDefault() })
+                .Select(g => new
+                {
+                    DrinkName = g.Key.Name,
+                    Date = g.Key.Date,
+                    Total = g.Sum(oi => oi.Quantity * oi.Drink.Price) / 1000000.0 // Convert to million VND
+                })
+                .ToList();
+
+            Console.WriteLine("groupedOrderItem: ");
+            foreach (var groupedOrderItem in groupedOrderItems)
+            {
+                Console.WriteLine(groupedOrderItem);
+            }
+
+            // Get all drink names for the specified drink type
+            var drinkNames = await _dbContext.Drinks
+                .Where(d => d.DrinkType.Name.ToUpper() == drinkType.ToUpper())
+                .Select(d => d.Name)
+                .Distinct()
+                .ToListAsync();
+
+            foreach (var drinkName in drinkNames)
+            {
+                Console.WriteLine(drinkName);
+            }
+
+            var result = drinkNames.Select(drinkName => new DrinkDailyRevenueViewModel
+            {
+                NameDrink = drinkName,
+                Total = dateRange.Select(date =>
+                {   
+                    // Now g.Date has type DateTime, it's matching with date which also has type DateTime
+
+                    // * Faulty: Wrong comparing leads to missing revenue (all returned 0.0)
+                    // double? revenue = groupedOrderItems
+                    //     .FirstOrDefault(g => g.DrinkName == drinkName && g.Date == date)?.Total;
+                    // return revenue ?? 0.0;
+
+                    // * Fix: Ensure both dates are of the same type for comparison
+                    double? revenue = groupedOrderItems
+                        .FirstOrDefault(g => g.DrinkName == drinkName && g.Date.Date == date.Date)?.Total;
+                    return revenue ?? 0.0;
+
+                }).ToList()
+            }).ToList();
+
+
+            return result;
+        }
+
+        //*/
 
     }
 }
