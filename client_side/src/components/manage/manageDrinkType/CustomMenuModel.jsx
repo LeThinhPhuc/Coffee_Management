@@ -18,7 +18,7 @@ const CustomMenuModel = (props) => {
     const [submitFail, setSubmitFail] = useState(false);
 
     //* check để chỉnh sửa bên ingredient không đc sửa 3 field
-    const isAdd = props.item.title.includes("Thêm đối tượng");
+    const isAdd = props.item.title.includes("Add item");
 
     //* Khi bấm xác nhận -> lấy các field trong input thêm vào object, chưa có -> thêm, có -> update
     const handleSubmit = () => {

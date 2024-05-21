@@ -14,7 +14,7 @@ const fakeData = [
 
 const FavoriteGraph = () => {
   const revenue = useSelector(lastMonthByType);
-  console.log(revenue);
+  //console.log(revenue);
   const data = {
     labels: revenue?.map((item) => item.type),
     datasets: [

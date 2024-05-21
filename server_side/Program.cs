@@ -108,8 +108,10 @@ builder.Services.AddSwaggerGen(c =>
 
 #region DbContext & Identity Auth:
 var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'MSSQLConnection' not found!");
-builder.Services.AddDbContext<AppDbContext>(options =>
-     options.UseSqlServer(connectionString)); // (Microsoft.EntityFrameworkCore.SqlServer)
+builder.Services.AddDbContext<AppDbContext>(options => {
+     options.UseSqlServer(connectionString); // (Microsoft.EntityFrameworkCore.SqlServer)
+     options.EnableSensitiveDataLogging(); // Enable sensitive data logging for detailed exception information
+});
 
 // to use 'AddDefaultIdentity': install package 'Microsoft.AspNetCore.Identity.UI' !!! NET 7
 builder.Services.AddDefaultIdentity<ApplicationUser>()

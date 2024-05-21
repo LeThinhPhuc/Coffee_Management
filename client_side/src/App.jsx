@@ -14,6 +14,7 @@ import {
 } from "./redux/Reducer/statisticSlice";
 import {
   fetchCurrentMonthByDrinkType,
+  fetchDailyDrinkInRange,
   fetchLastMonthByDrinkType,
   fetchMonthlyStatus,
   fetchWeeklyStatus,
@@ -32,6 +33,7 @@ function App() {
     dispatch(fetchWeeklyStatus());
     dispatch(fetchLastMonthByDrinkType());
     dispatch(fetchCurrentMonthByDrinkType());
+    dispatch(fetchDailyDrinkInRange());
   }, [dispatch]);
 
   return (

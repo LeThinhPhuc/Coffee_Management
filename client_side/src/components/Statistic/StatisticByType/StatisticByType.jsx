@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +11,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { dailyDrinkInRange } from "../../../redux/Reducer/statisticSlice";
+import { fetchDailyDrinkInRange } from "../../../redux/Action/statisticAction";
+import { selectTypes } from "../../../redux/Reducer/typeSlice";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -49,6 +53,17 @@ const fakeData = [
 ];
 
 const StatisticByType = () => {
+  const dispatch = useDispatch();
+  const dailyData = useSelector(dailyDrinkInRange);
+  const types = useSelector(selectTypes);
+
+  useEffect(() => {
+    const drinkType = menu;
+    const startDate = value.startDate;
+    const endDate = value.endDate;
+    dispatch(fetchDailyDrinkInRange(drinkType, startDate, endDate));
+  }, [dispatch]);
+  console.log(dailyData);
   // Cấu hình cho Line Chart
   const [labels, setLabels] = useState([]);
   const [dataset, setDataset] = useState([]);
@@ -87,8 +102,8 @@ const StatisticByType = () => {
   };
 
   // Dropdown
-  const menus = ["Juice", "Smoothie", "Tea", "Coffee"];
-  const [menu, setMenu] = useState();
+  const menus = types.map((type) => type.name);
+  const [menu, setMenu] = useState("Juice");
   const [showMenu, setShowMenu] = useState(false);
 
   // Chọn loại
@@ -96,9 +111,15 @@ const StatisticByType = () => {
     setShowMenu(!showMenu);
     setMenu(opt);
   };
+  useEffect(() => {
+    console.log("useEffect: " + menu);
+  }, [menu]);
 
   // Chọn tuần
-  const [value, setValue] = useState({ startDate: null, endDate: null });
+  const [value, setValue] = useState({
+    startDate: "2024-04-01",
+    endDate: "2024-05-30",
+  });
 
   const handleChangeWeek = (event) => {
     const weekValue = event.target.value;
@@ -106,7 +127,7 @@ const StatisticByType = () => {
     setValue(value2);
   };
   useEffect(() => {
-    console.log("useEffect: " + value.startDate);
+    console.log("useEffect: " + value.startDate + "->" + value.endDate);
   }, [value]);
   const getStartAndEndOfWeek = (weekValue) => {
     // Tách năm và tuần từ đầu vào
@@ -133,7 +154,7 @@ const StatisticByType = () => {
     const startD = startDate.toISOString().split("T")[0];
     const endD = endDate.toISOString().split("T")[0];
 
-    return { startD, endD };
+    return { startDate: startD, endDate: endD };
   };
   return (
     <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 row-span-4  ">
@@ -181,16 +202,15 @@ const StatisticByType = () => {
             >
               <div className="py-1" role="none">
                 {menus.map((m) => (
-                  <a
+                  <button
                     key={m}
-                    href="#"
                     className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                     role="menuitem"
                     tabIndex="-1"
                     onClick={() => handleClickMenu(m)}
                   >
                     {m}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>

@@ -22,6 +22,7 @@
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> GetAllIngredients()
         {
@@ -29,6 +30,7 @@
             return Ok(ingredients);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Ingredient>> GetIngredient(string id)
         {
@@ -40,6 +42,7 @@
             return Ok(ingredient);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
@@ -64,7 +67,7 @@
             }           
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
@@ -95,6 +98,7 @@
             }
         }
 
+        [Authorize] 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(string id)
         {

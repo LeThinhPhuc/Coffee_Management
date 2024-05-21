@@ -1,9 +1,7 @@
 import ingredientService from "../../services/ingredientService";
 import {
+  deleteIngredientDataFail,
   fetchIngredientData,
-  addIngredientData,
-  updateIngredientData,
-  deleteIngredientData,
 } from "../Reducer/ingredientSlice";
 
 export const fetchIngredients = () => {
@@ -25,9 +23,9 @@ export const addIngredient = (ingredientData) => {
     try {
       // Gửi yêu cầu POST để thêm drink-item
       const response = await ingredientService.addIngredient(ingredientData);
-      // console.log(response);
+      console.log(response);
 
-      dispatch(fetchIngredients()); // do response trả về không có item đã thêm
+      response.status == 200 && dispatch(fetchIngredients()); // do response trả về không có item đã thêm
       // dispatch(addIngredientData(response.data)); // do response trả về không có item đã thêm
     } catch (error) {
       console.log(error);
@@ -42,10 +40,8 @@ export const updateIngredient = (id, ingredientData) => {
         id,
         ingredientData
       );
-      console.log("UPDATE");
-      console.log(response.data);
 
-      // console.log(response);
+      console.log(response);
 
       response.status == 200 && dispatch(fetchIngredients());
     } catch (error) {
@@ -57,12 +53,15 @@ export const updateIngredient = (id, ingredientData) => {
 export const deleteIngredient = (id) => {
   return async (dispatch) => {
     try {
-      console.log(id);
+      // console.log(id);
       const response = await ingredientService.deleteIngredient(id);
-      console.log("delete");
-      console.log(response);
+      // console.log(response);
 
-      dispatch(fetchIngredients()); // do response trả về không có item đã thêm
+      if (response.data.succeeded) {
+        dispatch(fetchIngredients());
+      } else {
+        dispatch(deleteIngredientDataFail(response.data.message));
+      }
       // dispatch(fetchIngredients()); // do response trả về không có item đã thêm
     } catch (error) {
       console.log(error);

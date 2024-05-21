@@ -8,11 +8,7 @@ import {
 const Status = () => {
   const monthlyRevenue = useSelector(statusbymonth);
   const weeklyRevenue = useSelector(statusbyweek);
-  // const weeklyRevenue = {
-  //   total: 24.7,
-  //   isIncrease: true,
-  //   percent: 49,
-  // };
+
   if (!monthlyRevenue) {
     return <div>Loading...</div>;
   }

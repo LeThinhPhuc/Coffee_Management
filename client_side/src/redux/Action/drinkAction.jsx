@@ -1,11 +1,8 @@
 // actions/DrinkActions.js
 import drinkService from "../../services/drinkService";
 import {
-  addDrinkSuccess,
   addDrinkFailure,
-  deleteDrinkSuccess,
   deleteDrinkFailure,
-  updateDrinkSuccess,
   updateDrinkFailure,
   fetchDrinksSuccess,
   fetchDrinksFailure,
@@ -16,7 +13,6 @@ export const fetchDrinks = () => {
     try {
       // Gọi API để lấy danh sách drinks
       const response = await drinkService.getAll();
-      console.log("fetchhhhh");
       // const data = await response.json();
 
       // Dispatch action fetchDrinksSuccess với dữ liệu drinks
@@ -33,12 +29,8 @@ export const addDrink = (drinkData) => {
     try {
       // Gửi yêu cầu POST để thêm drink-item
       const response = await drinkService.addDrink(drinkData);
-      // console.log("Add drink");
-      // console.log(response);
 
-      dispatch(fetchDrinks());
-      // await dispatch(fetchDrinks());
-      // dispatch(addDrinkSuccess(response.data)); // do response trả về không có item đã thêm
+      response.status == 200 && dispatch(fetchDrinks());
     } catch (error) {
       dispatch(addDrinkFailure(error.message));
     }
@@ -53,11 +45,8 @@ export const deleteDrink = (drinkId) => {
       // console.log("delete drink");
       // console.log(response);
 
-      dispatch(fetchDrinks());
-      // dispatch(deleteDrinkSuccess(drinkId));
-      // dispatch(deleteDrinkSuccess(drinkId)); // do response trả về không có item đã thêm
+      response.status == 200 && dispatch(fetchDrinks());
     } catch (error) {
-      // Nếu gặp lỗi, dispatch action deleteDrinkFailure với thông điệp lỗi
       dispatch(deleteDrinkFailure(error.message));
     }
   };
@@ -68,13 +57,9 @@ export const updateDrink = (drinkData) => {
     try {
       // Gửi yêu cầu PUT để cập nhật drink
       const response = await drinkService.updateDrink(drinkData);
-      // console.log("UPDATE");
-      // console.log(response.data);
 
-      dispatch(fetchDrinks());
-      // dispatch(updateDrinkSuccess(response.data)); // do response trả về không có item đã thêm
+      response.status == 200 && dispatch(fetchDrinks());
     } catch (error) {
-      // Nếu gặp lỗi, dispatch action updateDrinkFailure với thông điệp lỗi
       dispatch(updateDrinkFailure(error.message));
     }
   };
