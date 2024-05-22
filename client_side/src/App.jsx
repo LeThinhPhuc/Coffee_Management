@@ -18,12 +18,20 @@ import {
   fetchWeeklyStatus,
 } from "./redux/Action/statisticAction";
 import AdminPage from "./components/AdminPage/AdminPage";
+import { fetchShops } from "./redux/Action/shopAction";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if(localStorage.getItem("user")){
+      if(JSON.parse(localStorage.getItem("user")).user.roles[0]=="Admin"){
+        console.log(JSON.parse(localStorage.getItem("user")).user.roles[0])
+        alert("day la admin")
+        dispatch(fetchShops())
+        
+      }else{
+        alert("day khong la admin")
         dispatch(fetchDrinks());
         dispatch(fetchDrinkType());
         dispatch(fetchOrders());
@@ -36,6 +44,8 @@ function App() {
         dispatch(fetchDailyDrinkInRange());
         dispatch(fetchDailyInRange());
         dispatch(fetchMonthlyByYear());
+      }
+    
     }
    
   }, [dispatch]);
@@ -43,7 +53,8 @@ function App() {
   return (
     <AppProvider>
       <Router>
-        <AnimateRoute />
+        {/* <AnimateRoute /> */}
+        <AdminPage/>
       </Router>
     </AppProvider>
   );

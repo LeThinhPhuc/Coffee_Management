@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const LoginSignup = () => {
     const navigate = useNavigate();
-    const [action, setAction] = useState("Sign Up");
+    const [action, setAction] = useState("Login");
     const [userNameOrEmailOrPhoneNumber, setUserNameOrEmailOrPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
 
