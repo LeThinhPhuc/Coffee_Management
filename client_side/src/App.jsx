@@ -23,18 +23,21 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDrinks());
-    dispatch(fetchDrinkType());
-    dispatch(fetchOrders());
-    dispatch(fetchIngredients());
-    dispatch(fetchVouchers());
-    dispatch(fetchMonthlyStatus());
-    dispatch(fetchWeeklyStatus());
-    dispatch(fetchLastMonthByDrinkType());
-    dispatch(fetchCurrentMonthByDrinkType());
-    dispatch(fetchDailyDrinkInRange());
-    dispatch(fetchDailyInRange());
-    dispatch(fetchMonthlyByYear());
+    if(localStorage.getItem("user")){
+        dispatch(fetchDrinks());
+        dispatch(fetchDrinkType());
+        dispatch(fetchOrders());
+        dispatch(fetchIngredients());
+        dispatch(fetchVouchers());
+        dispatch(fetchMonthlyStatus());
+        dispatch(fetchWeeklyStatus());
+        dispatch(fetchLastMonthByDrinkType());
+        dispatch(fetchCurrentMonthByDrinkType());
+        dispatch(fetchDailyDrinkInRange());
+        dispatch(fetchDailyInRange());
+        dispatch(fetchMonthlyByYear());
+    }
+   
   }, [dispatch]);
 
   return (
