@@ -26,12 +26,9 @@ function App() {
   useEffect(() => {
     if(localStorage.getItem("user")){
       if(JSON.parse(localStorage.getItem("user")).user.roles[0]=="Admin"){
-        console.log(JSON.parse(localStorage.getItem("user")).user.roles[0])
-        alert("day la admin")
         dispatch(fetchShops())
         
       }else{
-        alert("day khong la admin")
         dispatch(fetchDrinks());
         dispatch(fetchDrinkType());
         dispatch(fetchOrders());
@@ -53,8 +50,8 @@ function App() {
   return (
     <AppProvider>
       <Router>
-        {/* <AnimateRoute /> */}
-        <AdminPage/>
+        <AnimateRoute />
+        {/* <AdminPage/> */}
       </Router>
     </AppProvider>
   );

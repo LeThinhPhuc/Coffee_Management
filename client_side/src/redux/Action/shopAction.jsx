@@ -38,11 +38,10 @@ export const approveShop = (idShop) => {
   };
 };
 
-export const updateShop = (idShop) => {
+export const suspenseShop = (idShop) => {
   return async (dispatch) => {
     try {
-      const response = await drinkService.updateDrink(idShop);
-
+      const response = await adminService.suspenseShop(idShop)
       response.status == 200 && dispatch(fetchShops());
     } catch (error) {
       dispatch(updateShopFailure(error.message));
