@@ -4,10 +4,13 @@ import Input from "./Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState, useEffect } from "react";
-
+let shopId
 // Get the shop ID from the first shop in the array of shops
-const { shops } = JSON.parse(localStorage.getItem("user"));
-const shopId = shops[0].id;
+if(localStorage.getItem("user") ){
+  const { shops } = JSON.parse(localStorage.getItem("user"));
+  shopId = shops[0].id;
+}
+
 
 const Modal = ({
   item,

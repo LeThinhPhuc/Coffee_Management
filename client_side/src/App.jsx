@@ -17,6 +17,7 @@ import {
   fetchMonthlyStatus,
   fetchWeeklyStatus,
 } from "./redux/Action/statisticAction";
+import AdminPage from "./components/AdminPage/AdminPage";
 
 function App() {
   const dispatch = useDispatch();
