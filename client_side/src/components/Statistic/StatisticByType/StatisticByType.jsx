@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +11,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { dailyDrinkInRange } from "../../../redux/Reducer/statisticSlice";
+import { fetchDailyDrinkInRange } from "../../../redux/Action/statisticAction";
+import { selectTypes } from "../../../redux/Reducer/typeSlice";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -30,28 +34,32 @@ const options = {
       display: false,
       text: "Thống kê doanh thu",
     },
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value) {
+            return value + "k VND"; // Thêm đơn vị VND
+          },
+        },
+      },
+    },
   },
 };
 
-const fakeData = [
-  {
-    nameDrink: "Strawberry Banana Smoothie",
-    total: [22, 33, 19, 80, 30, 66, 42],
-  },
-  {
-    nameDrink: "Mango Pineapple Smoothie",
-    total: [72, 53, 79, 30, 50, 61, 70],
-  },
-  {
-    nameDrink: "Pie Mango Smoothie",
-    total: [12, 23, 49, 70, 80, 40, 50],
-  },
-];
-
 const StatisticByType = () => {
-  // Cấu hình cho Line Chart
-  const [labels, setLabels] = useState([]);
-  const [dataset, setDataset] = useState([]);
+  const dispatch = useDispatch();
+  const dailyData = useSelector(dailyDrinkInRange);
+  const types = useSelector(selectTypes);
+  // Dropdown
+  const menus = types.map((type) => type.name);
+  const [menu, setMenu] = useState("Juice");
+  const [showMenu, setShowMenu] = useState(false);
+  // Ngày bắt đầu & Ngày kết thúc
+  const [value, setValue] = useState({
+    startDate: "2024-05-20",
+    endDate: "2024-05-26",
+  });
+
   const color = [
     "rgba(52, 99, 132, 0.5)",
     "rgba(255, 99, 132, 0.5)",
@@ -67,29 +75,14 @@ const StatisticByType = () => {
       "Thứ Bảy",
       "Chủ Nhật",
     ],
-    // datasets: [
-    //   {
-    //     label: fakeData[0].nameDrink,
-    //     data: fakeData[0].total,
-    //     backgroundColor: "rgba(52, 99, 132, 0.5)",
-    //   },
-    //   {
-    //     label: fakeData[1].nameDrink,
-    //     data: fakeData[1].total,
-    //     backgroundColor: "rgba(255, 99, 132, 0.5)",
-    //   },
-    // ],
-    datasets: fakeData.map((item, index) => ({
-      label: item.nameDrink,
-      data: item.total,
-      backgroundColor: color[index],
-    })),
+    datasets: dailyData
+      ? dailyData.map((item, index) => ({
+          label: item.nameDrink,
+          data: item.total,
+          backgroundColor: color[index],
+        }))
+      : [],
   };
-
-  // Dropdown
-  const menus = ["Juice", "Smoothie", "Tea", "Coffee"];
-  const [menu, setMenu] = useState();
-  const [showMenu, setShowMenu] = useState(false);
 
   // Chọn loại
   const handleClickMenu = (opt) => {
@@ -98,19 +91,19 @@ const StatisticByType = () => {
   };
 
   // Chọn tuần
-  const [value, setValue] = useState({ startDate: null, endDate: null });
-
   const handleChangeWeek = (event) => {
     const weekValue = event.target.value;
     const value2 = getStartAndEndOfWeek(weekValue);
     setValue(value2);
-
-    //gọi hàm handle
-    console.log(value);
   };
+
+  // getAPI khi giá trị thay đổi
   useEffect(() => {
-    console.log("useEffect: " + value);
-  }, [value]);
+    if (menu && value.startDate && value.endDate)
+      dispatch(fetchDailyDrinkInRange(menu, value.startDate, value.endDate));
+  }, [dispatch, menu, value]);
+  console.log(dailyData);
+
   const getStartAndEndOfWeek = (weekValue) => {
     // Tách năm và tuần từ đầu vào
     const [year, weekNumber] = weekValue.split("-W").map(Number);
@@ -136,7 +129,7 @@ const StatisticByType = () => {
     const startD = startDate.toISOString().split("T")[0];
     const endD = endDate.toISOString().split("T")[0];
 
-    return { startD, endD };
+    return { startDate: startD, endDate: endD };
   };
   return (
     <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 row-span-4  ">
@@ -158,7 +151,7 @@ const StatisticByType = () => {
               aria-haspopup="true"
               onClick={() => setShowMenu(!showMenu)}
             >
-              Loại
+              Juice
               <svg
                 className="-mr-1 h-5 w-5 text-gray-400"
                 viewBox="0 0 20 20"
@@ -184,16 +177,15 @@ const StatisticByType = () => {
             >
               <div className="py-1" role="none">
                 {menus.map((m) => (
-                  <a
+                  <button
                     key={m}
-                    href="#"
                     className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
                     role="menuitem"
                     tabIndex="-1"
                     onClick={() => handleClickMenu(m)}
                   >
                     {m}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>

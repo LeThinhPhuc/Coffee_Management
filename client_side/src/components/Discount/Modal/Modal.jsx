@@ -129,11 +129,12 @@ const Modal = ({
                 value={formik.values.discountPercent}
                 onChange={formik.handleChange}
               ></Input>
-              {formik.errors.discountPercent && formik.touched.discountPercent && (
-                <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                  {formik.errors.discountPercent}
-                </span>
-              )}
+              {formik.errors.discountPercent &&
+                formik.touched.discountPercent && (
+                  <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                    {formik.errors.discountPercent}
+                  </span>
+                )}
             </div>
             <div className="flex flex-col mb-4">
               <Input

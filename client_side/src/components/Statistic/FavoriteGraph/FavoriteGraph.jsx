@@ -1,6 +1,7 @@
+import { useSelector } from "react-redux";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
+import { lastMonthByType } from "../../../redux/Reducer/statisticSlice";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const fakeData = [
@@ -12,12 +13,14 @@ const fakeData = [
 ];
 
 const FavoriteGraph = () => {
+  const revenue = useSelector(lastMonthByType);
+  //console.log(revenue);
   const data = {
-    labels: fakeData.map((item) => item.type),
+    labels: revenue?.map((item) => item.type),
     datasets: [
       {
         label: "# of Votes",
-        data: fakeData.map((item) => item.total),
+        data: revenue?.map((item) => item.total),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
