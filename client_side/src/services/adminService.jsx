@@ -36,7 +36,7 @@ const adminService = {
             })
             .get("api/Admin/ShopsListAdmin");
     },
-    approveShop: (typeData) => {
+    approveShop: (shopId) => {
         return axios
             .create({
                 baseURL: "http://localhost:5146/",
@@ -52,7 +52,7 @@ const adminService = {
                     Accept: "application/x-www-form-urlencoded, text/plain",
                 },
             })
-            .post("api/Admin/ApproveShop", typeData);
+            .get(`api/Admin/ApproveShop?shopId=${shopId}`);
     }
     
 };
