@@ -5,6 +5,8 @@ import {
   fetchLastMonthRevenueByDrinkType,
   fetchCurrentMonthRevenueByDrinkType,
   fetchDailyDrinkRevenueInRange,
+  fetchDailyRevenueInRange,
+  fetchMonthlyRevenueByYear,
 } from "../Reducer/statisticSlice";
 
 export const fetchMonthlyStatus = () => {
@@ -72,10 +74,32 @@ export const fetchDailyDrinkInRange = (drinkType, startDate, endDate) => {
         startDate,
         endDate
       );
-      // console.log("Statistic");
-      // console.log(response.data);
-
       dispatch(fetchDailyDrinkRevenueInRange(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchDailyInRange = (startDate, endDate) => {
+  return async (dispatch) => {
+    try {
+      const response = await statisticService.getDailyRevenueInRange(
+        startDate,
+        endDate
+      );
+      dispatch(fetchDailyRevenueInRange(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchMonthlyByYear = (year) => {
+  return async (dispatch) => {
+    try {
+      const response = await statisticService.getMonthlyRevenueByYear(year);
+      dispatch(fetchMonthlyRevenueByYear(response.data));
     } catch (error) {
       console.log(error);
     }

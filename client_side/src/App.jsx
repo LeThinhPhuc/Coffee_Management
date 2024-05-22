@@ -9,13 +9,11 @@ import { fetchOrders } from "./redux/Action/orderAction";
 import { fetchIngredients } from "./redux/Action/ingredientAction";
 import { fetchVouchers } from "./redux/Action/voucherAction";
 import {
-  fetchLastMonthRevenueByDrinkType,
-  fetchMonthlyRevenueStatus,
-} from "./redux/Reducer/statisticSlice";
-import {
   fetchCurrentMonthByDrinkType,
   fetchDailyDrinkInRange,
+  fetchDailyInRange,
   fetchLastMonthByDrinkType,
+  fetchMonthlyByYear,
   fetchMonthlyStatus,
   fetchWeeklyStatus,
 } from "./redux/Action/statisticAction";
@@ -34,6 +32,8 @@ function App() {
     dispatch(fetchLastMonthByDrinkType());
     dispatch(fetchCurrentMonthByDrinkType());
     dispatch(fetchDailyDrinkInRange());
+    dispatch(fetchDailyInRange());
+    dispatch(fetchMonthlyByYear());
   }, [dispatch]);
 
   return (

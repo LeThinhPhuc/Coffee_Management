@@ -10,7 +10,16 @@ import {
 } from "chart.js";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Bar } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import {
+  dailyInRange,
+  monthsByYear,
+} from "../../../redux/Reducer/statisticSlice";
+import {
+  fetchDailyInRange,
+  fetchMonthlyByYear,
+} from "../../../redux/Action/statisticAction";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -29,236 +38,90 @@ const options = {
     },
     title: {
       display: false,
-      text: "Thống kê doanh thu",
     },
   },
 };
-const fakeDatabyYear = [
-  {
-    month: "January",
-    total: 85,
-  },
-  {
-    month: "February",
-    total: 82,
-  },
-  {
-    month: "March",
-    total: 25,
-  },
-  {
-    month: "April",
-    total: 25,
-  },
-  {
-    month: 5,
-    total: 25,
-  },
-  {
-    month: 6,
-    total: 25,
-  },
-  {
-    month: 7,
-    total: 25,
-  },
-  {
-    month: 8,
-    total: 25,
-  },
-  {
-    month: 9,
-    total: 25,
-  },
-  {
-    month: 10,
-    total: 25,
-  },
-  {
-    month: 11,
-    total: 25,
-  },
-  {
-    month: 12,
-    total: 25,
-  },
-];
-
-const fakeData = [
-  {
-    orderDate: "2024-4-20",
-    total: 5.5,
-  },
-  {
-    orderDate: "2024-4-21",
-    total: 4.9,
-  },
-  {
-    orderDate: "2024-4-22",
-    total: 7.2,
-  },
-  {
-    orderDate: "2024-4-23",
-    total: 10,
-  },
-  {
-    orderDate: "2024-4-24",
-    total: 7.4,
-  },
-  {
-    orderDate: "2024-4-25",
-    total: 5.1,
-  },
-  {
-    orderDate: "2024-4-26",
-    total: 7.8,
-  },
-  {
-    orderDate: "2024-4-27",
-    total: 6.9,
-  },
-  {
-    orderDate: "2024-4-28",
-    total: 7.1,
-  },
-  {
-    orderDate: "2024-4-29",
-    total: 3.9,
-  },
-  {
-    orderDate: "2024-4-30",
-    total: 8.3,
-  },
-  {
-    orderDate: "2024-5-1",
-    total: 9.2,
-  },
-  {
-    orderDate: "2024-5-2",
-    total: 10.5,
-  },
-  {
-    orderDate: "2024-5-3",
-    total: 13,
-  },
-
-  {
-    orderDate: "2024-4-23",
-    total: 10,
-  },
-  {
-    orderDate: "2024-4-24",
-    total: 7.4,
-  },
-  {
-    orderDate: "2024-4-25",
-    total: 5.1,
-  },
-  {
-    orderDate: "2024-4-26",
-    total: 7.8,
-  },
-  {
-    orderDate: "2024-4-27",
-    total: 6.9,
-  },
-  {
-    orderDate: "2024-4-28",
-    total: 7.1,
-  },
-  {
-    orderDate: "2024-4-29",
-    total: 3.9,
-  },
-  {
-    orderDate: "2024-4-30",
-    total: 8.3,
-  },
-  {
-    orderDate: "2024-5-1",
-    total: 9.2,
-  },
-  {
-    orderDate: "2024-5-2",
-    total: 10.5,
-  },
-  {
-    orderDate: "2024-5-3",
-    total: 13,
-  },
-];
 
 const RevenueGraph = () => {
-  // Cấu hình cho Line Chart
-  const [labels, setLabels] = useState([]);
-  const [dataset, setDataset] = useState([]);
-
-  useEffect(() => {
-    const orderDates = fakeData.map((item) => item.orderDate);
-    const totals = fakeData.map((item) => item.total);
-    setLabels(orderDates);
-    setDataset(totals);
-  }, []);
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "Doanh thu",
-        data: dataset,
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  };
-
-  // Date Range Piker
+  const dispatch = useDispatch();
+  const dailyRange = useSelector(dailyInRange);
+  const monthRevenue = useSelector(monthsByYear);
+  // startDate & endDate
   const [value, setValue] = useState({
-    startDate: null,
-    endDate: null,
+    startDate: "2024-05-01",
+    endDate: "2024-05-30",
   });
-
-  const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue);
-    setValue(newValue);
-  };
-
+  const [year, setYear] = useState();
   // Khai báo các Option thống kê theo tuần, tháng, năm
   const menus = ["Tuần", "Tháng", "Năm", "Custom"];
   const [menu, setMenu] = useState();
   const [showMenu, setShowMenu] = useState(false);
 
+  const data = {
+    labels:
+      menu == "Năm"
+        ? monthRevenue
+          ? monthRevenue.map((item) => item.month)
+          : []
+        : dailyRange
+        ? dailyRange.map((item) => item.date.split("T")[0])
+        : [],
+    datasets: [
+      {
+        label: "Doanh thu",
+        data:
+          menu == "Năm"
+            ? monthRevenue
+              ? monthRevenue.map((item) => item.revenue)
+              : []
+            : dailyRange
+            ? dailyRange.map((item) => item.revenue)
+            : [],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+
+  useEffect(() => {
+    console.log(`${value.startDate} to ${value.endDate}`);
+    if (value.startDate && value.endDate) {
+      dispatch(fetchDailyInRange(value.startDate, value.endDate))
+        .then(() => console.log(dailyRange))
+        .catch((error) => console.error("Error fetching data:", error));
+    }
+  }, [dispatch, value]);
+
+  useEffect(() => {
+    console.log(year);
+    if (year) {
+      dispatch(fetchMonthlyByYear(year))
+        .then(() => console.log(monthRevenue))
+        .catch((error) => console.error("Error fetching data:", error));
+    }
+  }, [dispatch, year]);
+
+  // Custom Date Range
+  const handleValueChange = (newValue) => {
+    setValue(newValue);
+  };
+
   // Chọn dropdown opstions
   const handleClickMenu = (opt) => {
     setShowMenu(!showMenu);
     setMenu(opt);
+    // chọn Year thì chart sẽ tự động fetchMonthlyByYear
+    if (opt === "Năm") {
+      setYear(2024);
+      dispatch(fetchMonthlyByYear(2024)).catch((error) =>
+        console.error("Error fetching data:", error)
+      );
+    }
   };
-
-  // Hiện doanh thu theo tháng
-  const handleChangeMonth = (event) => {
-    // Lấy khoảng thời gian trong tháng
-    // ngày đầu tiên của tháng
-    const startDate = `${event.target.value}-01`;
-
-    // Tạo ngày đầu tiên của tháng tiếp theo, sau đó lùi lại một ngày
-    const end = new Date(startDate);
-    end.setMonth(end.getMonth() + 1);
-    end.setDate(end.getDate() - 1);
-    const endDate = end.toISOString().split("T")[0];
-
-    setValue({ startDate, endDate });
-    setDataByDateRange(startDate, endDate);
-  };
+  // Xử lý giá trị ngày khi chọn week
   const handleChangeWeek = (event) => {
     const weekValue = event.target.value;
     const value2 = getStartAndEndOfWeek(weekValue);
     setValue(value2);
-    setDataByDateRange(value2[0], value2[1]);
-    console.log(value);
-  };
-  const handleChangeYear = (event) => {
-    const months = fakeDatabyYear.map((item) => item.month);
-    const totals = fakeDatabyYear.map((item) => item.total);
-    setLabels(months);
-    setDataset(totals);
   };
   const getStartAndEndOfWeek = (weekValue) => {
     // Tách năm và tuần từ đầu vào
@@ -282,13 +145,30 @@ const RevenueGraph = () => {
     const endDate = new Date(startDate);
     endDate.setDate(startDate.getDate() + 6);
 
-    return { startDate, endDate };
+    const startD = startDate.toISOString().split("T")[0];
+    const endD = endDate.toISOString().split("T")[0];
+
+    return { startDate: startD, endDate: endD };
   };
-  // Chart thay đổi khi value thay đổi
-  const setDataByDateRange = (start, end) => {
-    setLabels([...labels]);
-    setDataset([...dataset]);
+
+  // Lấy startDate & endDate của tháng
+  const handleChangeMonth = (event) => {
+    // ngày đầu tiên của tháng
+    const startDate = `${event.target.value}-01`;
+
+    // Tạo ngày đầu tiên của tháng tiếp theo, sau đó lùi lại một ngày
+    const end = new Date(startDate);
+    end.setMonth(end.getMonth() + 1);
+    end.setDate(end.getDate() - 1);
+    const endDate = end.toISOString().split("T")[0];
+
+    setValue({ startDate, endDate });
   };
+
+  const handleChangeYear = (event) => {
+    setYear(event.target.value);
+  };
+
   return (
     <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 col-span-2">
       <div className="flex justify-between mb-2">
@@ -309,7 +189,7 @@ const RevenueGraph = () => {
                 type="number"
                 onChange={handleChangeYear}
                 placeholder="2024"
-                min={2023}
+                min={2020}
                 max={2025}
                 className="px-2"
               />

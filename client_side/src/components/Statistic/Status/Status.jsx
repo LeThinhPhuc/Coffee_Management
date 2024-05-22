@@ -18,11 +18,17 @@ const Status = () => {
         <div className="mr-10">
           <div className="flex items-center">
             <div className="text-3xl font-bold text-gray-800 mr-2">
-              {weeklyRevenue?.total} Tr
+              {weeklyRevenue?.total} M
             </div>
             {weeklyRevenue?.isIncrease && (
               <div className="text-sm font-medium text-green-500">
-                +{weeklyRevenue?.percent}%
+                +
+                {weeklyRevenue.percent === -1 ? (
+                  <span>100</span>
+                ) : (
+                  <span>{weekyRevenue.percent}</span>
+                )}
+                %
               </div>
             )}
             {!weeklyRevenue?.isIncrease && (
@@ -42,16 +48,22 @@ const Status = () => {
         <div className="mr-5">
           <div className="flex items-center">
             <div className="text-3xl font-bold text-gray-800 mr-2">
-              {monthlyRevenue?.total} Tr
+              {monthlyRevenue?.total} M
             </div>
             {monthlyRevenue.isIncrease && (
               <div className="text-sm font-medium text-green-500">
-                +{monthlyRevenue.percent}%
+                +
+                {monthlyRevenue.percent === -1 ? (
+                  <span>100</span>
+                ) : (
+                  <span>{monthlyRevenue.percent}</span>
+                )}
+                %
               </div>
             )}
             {!monthlyRevenue.isIncrease && (
               <div className="text-sm font-medium text-red-500">
-                -{monthlyRevenue.percent}%
+                {monthlyRevenue.percent}%
               </div>
             )}
           </div>
