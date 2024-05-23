@@ -6,6 +6,7 @@ namespace CoffeeShopApi.Services.Interfaces
     {
         Task<List<ShopAdminViewModel>> GetAllShops();
         Task<bool> ApproveShopAsync(string shopId);
+        Task<SuspenseResult> SuspenseShopAsync(string shopId);
         
     }
 }

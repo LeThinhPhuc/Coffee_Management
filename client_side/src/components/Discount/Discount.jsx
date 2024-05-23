@@ -37,7 +37,6 @@ const Discount = ({
   };
 
   const handleAdd = async (newDiscount) => {
-    // Call addVoucher action which should handle the API call to add the voucher
     addVoucher(newDiscount)
       .then(() => {
         setShowModal(false);
@@ -49,7 +48,6 @@ const Discount = ({
   };
 
   const handleUpdate = (updatedDiscount) => {
-    // Call addVoucher action which should handle the API call to add the voucher
     updateVoucher(updatedDiscount)
       .then(() => {
         setShowModal(false);
@@ -58,11 +56,15 @@ const Discount = ({
       .catch((error) => {
         console.error("Error updating voucher:", error);
       });
-    setShowModal(false);
   };
 
   const handleDelete = (id) => {
     deleteVoucher(id);
+  };
+
+  const handleDetail = (discount) => {
+    setCurrentDiscount(discount);
+    setShowModal(true);
   };
 
   return (
@@ -82,9 +84,7 @@ const Discount = ({
           <Card
             key={discount.id}
             item={discount}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            handleUpdate={handleUpdate}
+            handleDetail={handleDetail}
             handleDelete={handleDelete}
           />
         ))}
