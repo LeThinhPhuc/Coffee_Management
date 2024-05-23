@@ -16,6 +16,7 @@ import ManageDrinkType from "../manage/manageDrinkType/ManageDrinkType";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 import AdminRoute from "../../PrivateRoute/AdminRoute";
 import AdminPage from "../AdminPage/AdminPage";
+import Profile from "../Profile/Profile";
 // import Voucher from "../Discount/TuanhayhoDemoVoucher";
 const AnimateRoute = () => {
     const location = useLocation();
@@ -27,6 +28,7 @@ const AnimateRoute = () => {
                 <Route exact path="/home/order" element={<PrivateRoute component={OrderPage}/>} />
                 <Route exact path="/home/drink" element={<PrivateRoute component={ManageMenu}/>} />
                 <Route exact path="/home/voucher" element={<PrivateRoute component={Discount}/>} />
+                <Route exact path="/home/profile" element={<PrivateRoute component={Profile}/>} />
                 <Route
                     exact
                     path="/home/ingredient"
