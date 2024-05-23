@@ -89,8 +89,16 @@ const Discount = ({
           />
         ))}
       </div>
+      
       {setCurrentDiscount ? (
-        <Modal setCurrentDiscount={setCurrentDiscount} />
+        <Modal
+        item={currentDiscount}
+        visible={showModal}
+        onClose={handleClose}
+        handleAdd={handleAdd}
+        handleUpdate={handleUpdate}
+        setCurrentDiscount={setCurrentDiscount}
+      />
       ) : (
         <p>Loading...</p> // Placeholder while fetching or if not logged in
       )}
