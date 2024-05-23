@@ -2,6 +2,7 @@
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 using System.Text.RegularExpressions;
 
 namespace CoffeeShopApi.Services.Implements
@@ -121,6 +122,7 @@ namespace CoffeeShopApi.Services.Implements
                         Revenue = revenueGroup.FirstOrDefault()?.Revenue ?? 0.0
                     })
                 .ToList();
+
 
             return result;
         }
