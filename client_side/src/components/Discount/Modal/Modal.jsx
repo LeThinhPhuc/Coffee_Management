@@ -38,10 +38,8 @@ const Modal = ({
       if (item) {
         handleUpdate({ ...values, id: item.id });
         setCurrentDiscount("");
-        window.alert("Updated Discount");
       } else {
         handleAdd(values);
-        // window.alert("Added Discount");
       }
     },
   });
@@ -75,7 +73,7 @@ const Modal = ({
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="mt-6 px-7 text-sm">
-            <div className="flex flex-col mb-4">
+          <div className="flex flex-col mb-4">
               <Input
                 id="name"
                 label="Discount Code"
@@ -84,11 +82,9 @@ const Modal = ({
                 value={formik.values.name}
                 onChange={formik.handleChange}
               />
-              {formik.errors.name && formik.touched.name && (
-                <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                  {formik.errors.name}
-                </span>
-              )}
+              {formik.errors.name && formik.touched.name ? (
+                <p className="mt-2 text-xs text-red-500">{formik.errors.name}</p>
+              ) : null}
             </div>
             <div className="flex lg:space-x-9 space-x-4">
               <div className="flex flex-col mb-4">
@@ -150,9 +146,9 @@ const Modal = ({
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-dark-nude rounded-full h-[40px] w-[100px] text-center font-bold mt-5 hover:bg-nude hover:text-white"
+              className="bg-dark-nude text-white rounded-md py-2 h-[40px] w-1/3 text-center font-bold mt-5 hover:bg-nude hover:text-white"
             >
-              Save
+              {item ? "Update Discount" : "Create Discount"}
             </button>
           </div>
         </form>

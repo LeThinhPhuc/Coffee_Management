@@ -8,7 +8,6 @@ import {
 import LoginSignup from "../Login_Signup/LoginSignup";
 import OrderPage from "../OrderPage/OrderPage";
 import ManageMenu from "../manage/manageMenu/ManageMenu";
-import DrinkTypes from "../manage/manageDrinkType/DrinkType";
 import ManageIngredient from "../manage/manageIngredient/ManageIngredient";
 import Statistic from "../Statistic/Statistic";
 import MainPage from "../MainPage/MainPage";
@@ -32,7 +31,6 @@ const AnimateRoute = () => {
                 />
                 <Route exact path="/home/static" element={<Statistic />} />
                 <Route exact path="/home/type" element={<ManageDrinkType />} />
-                <Route exact path="/home/drinktypes" element={<DrinkTypes />} />
                 <Route
                     path="*"
                     element={
