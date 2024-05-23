@@ -6,7 +6,6 @@ namespace CoffeeShopApi.Controllers
     using Services.Interfaces;
     using Repositories.Interfaces;
 
-    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
@@ -23,7 +22,7 @@ namespace CoffeeShopApi.Controllers
 
 
         /// <summary>
-        /// [Admin] Retrieve lists of Shop as an Admin
+        /// Retrieve lists of Shop as an Admin
         /// </summary>
         /// <returns>Returns the list of ShopViewModel</returns>
         [HttpGet("[action]")]
@@ -34,7 +33,7 @@ namespace CoffeeShopApi.Controllers
         }
 
         /// <summary>
-        /// [Admin] Approve a shop
+        /// Approve a shop
         /// </summary>
         /// <returns>Returns the success/failure result</returns>
         [HttpGet("[action]")]
@@ -48,7 +47,7 @@ namespace CoffeeShopApi.Controllers
                 {
                     return Ok(new { succeeded = true, message = "Successfully approved shop!" });
                 }
-                return Ok(new { succeeded = false, message = "Failed to approve shop!" });
+                return Ok(new { succeeded = false, message = "Failed to approve drink!" });
             }
             catch (NotFoundException)
             {
@@ -61,24 +60,6 @@ namespace CoffeeShopApi.Controllers
             }
         }
 
-        /// <summary>
-        /// [Admin] Suspense/unsuspense a shop
-        /// </summary>
-        /// <returns>Returns the success/failure + suspension status result</returns>
-        [HttpGet("[action]")]
-        public async Task<ActionResult> SuspenseShop(string shopId)
-        {
-            try
-            {
-                var result = await _adminService.SuspenseShopAsync(shopId);
-                
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                await _unitOfWork.RollbackAsync();
-                return Ok(new { succeeded = false, message = ex.Message });
-            }
-        }
+        
     }
 }

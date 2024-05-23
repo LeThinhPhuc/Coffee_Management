@@ -86,28 +86,7 @@ export const updateVoucher = (data) => {
   return async (dispatch) => {
     try {
       const response = await VoucherService.updateVoucherCode(data);
-      if (response.data.succeeded) {
-        dispatch(updateVoucherSuccess(response.data));
-        toast.success(response.data.message, {
-          position: "top-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error(response.data.message, {
-          position: "top-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
+      dispatch(updateVoucherSuccess(response.data));
     } catch (error) {
       dispatch(voucherFailure(error.message));
     }

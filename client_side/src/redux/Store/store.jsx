@@ -7,7 +7,6 @@ import ingredientSlice from "../Reducer/ingredientSlice";
 import voucherSlice from "../Reducer/voucherSlice";
 import statisticService from "../../services/statisticService";
 import statisticSlice from "../Reducer/statisticSlice";
-import shopSlice from "../Reducer/shopSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,7 +17,6 @@ const store = configureStore({
     voucher: voucherSlice,
     //drinkTypes: drinkTypesReducer,
     statistic: statisticSlice,
-    shop: shopSlice
 
     // Đặt các reducer khác ở đây nếu cần
   },

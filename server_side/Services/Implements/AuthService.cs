@@ -166,24 +166,6 @@ namespace CoffeeShopApi.Services.Implements
                     Errors = errors.ToArray()
                 };
             }
-            if (firstShopOfUser.IsSuspended) {
-                // prohibit login access if his Shop not approved
-                // these below code will slow down the respond time
-                List<object> errors = new List<object>
-                {
-                    // user's provided password doesnt match any record in DB
-                    new
-                    {
-                        code = "ShopSuspended",
-                        description = "Your bussiness is suspended. You're now unable to access your account!"
-                    }
-                };
-
-                return new AuthResult
-                {
-                    Errors = errors.ToArray()
-                };
-            }
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
             {

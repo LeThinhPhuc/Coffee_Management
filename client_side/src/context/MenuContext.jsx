@@ -24,6 +24,7 @@ export const AppProvider = ({ children }) => {
     const clearSelected = () =>{
         setSelectedDrink([]);
     }
+   
     return (
         <MenuContext.Provider
             value={{
@@ -36,7 +37,7 @@ export const AppProvider = ({ children }) => {
                 checkModalVoucher:checkModalVoucher,
                 setModalVoucher:setModalVoucher,
                 voucherValue:voucherValue,
-                setVoucherValue:setVoucherValue,
+                setVoucherValue:setVoucherValue
             }}
         >
             {children}

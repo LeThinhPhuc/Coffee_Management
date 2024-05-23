@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const LoginSignup = () => {
     const navigate = useNavigate();
-    const [action, setAction] = useState("Login");
+    const [action, setAction] = useState("Sign Up");
     const [userNameOrEmailOrPhoneNumber, setUserNameOrEmailOrPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
 
@@ -40,12 +40,7 @@ const LoginSignup = () => {
             const response = await LoginService.doLogin(account);
             if (response.data.succeeded) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                if(response?.data?.user?.roles[0]=="Admin"){
-                    navigate("/admin")
-                }else if(response?.data?.user?.roles[0]=="Member"){
-                    navigate("/home/order");
-                }
-                
+                navigate("/home/order");
             } else {
                 response.data.errors.forEach(error => {
                     toast.error(error.description, {
@@ -113,12 +108,9 @@ const LoginSignup = () => {
     };
 
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Admin") {
-            navigate("/admin");
-
-        }else if(JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Member"){
+        const jwtToken = localStorage.getItem("user");
+        if (jwtToken) {
             navigate("/home/order");
-
         }
     }, [navigate]);
 
