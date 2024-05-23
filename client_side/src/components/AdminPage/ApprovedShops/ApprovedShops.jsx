@@ -42,9 +42,28 @@ const ApprovedShops = () => {
     };
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-[80px]">
             <ToastContainer />
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" className="px-6 py-3 text-xl">
+                            This Is Approved Shops
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                           
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                           
+                        </th>
+                    </tr>
+                </thead>
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
@@ -60,7 +79,7 @@ const ApprovedShops = () => {
                             Date created
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Action
+                            Suspend
                         </th>
                     </tr>
                 </thead>
@@ -89,7 +108,7 @@ const ApprovedShops = () => {
                                         onChange={() => openModal(item.id, item.isSuspended)}
                                     />
                                     <div className={`relative w-14 h-7 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 ${item.isSuspended ? 'bg-red-600' : 'bg-gray-200'} peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 ${item.isSuspended ?  'after:start-[calc(100%-1.65rem)]': 'after:start-[calc(100%-4.8rem)]' } after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600`}></div>
-                                    <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Large toggle</span>
+                                    {/* <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Large toggle</span> */}
                                 </label>
                             </td>
                         </tr>

@@ -5,7 +5,7 @@ const PrivateRoute = (props) =>{
     
     const {component: Component} = props;
     const isLoggedIn = localStorage.getItem("user");
-    if(isLoggedIn) return <Component/>
+    if(isLoggedIn&&JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Member") return <Component/>
     else{
         toast.success('Login is required !', {
             position: "top-left",

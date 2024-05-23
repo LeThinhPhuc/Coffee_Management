@@ -113,9 +113,12 @@ const LoginSignup = () => {
     };
 
     useEffect(() => {
-        const jwtToken = localStorage.getItem("user");
-        if (jwtToken) {
+        if (JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Admin") {
+            navigate("/admin");
+
+        }else if(JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Member"){
             navigate("/home/order");
+
         }
     }, [navigate]);
 
