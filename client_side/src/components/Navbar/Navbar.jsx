@@ -219,7 +219,7 @@ const Navbar = () => {
                                     aria-labelledby="user-menu-button"
                                     tabIndex="-1"
                                 >
-                                    <a
+                                    {/* <a
                                         href="#"
                                         className="block px-4 py-2 text-sm text-gray-700"
                                         role="menuitem"
@@ -227,7 +227,13 @@ const Navbar = () => {
                                         id="user-menu-item-0"
                                     >
                                         Your Profile
-                                    </a>
+                                    </a> */}
+                                    <Link
+                                        to="/home/profile"
+                                        className="block px-4 py-2 text-sm text-gray-700"
+                                    >
+                                        Your Profile
+                                    </Link>
                                     <a
                                         href="#"
                                         className="block px-4 py-2 text-sm text-gray-700"
