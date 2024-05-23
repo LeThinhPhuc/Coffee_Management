@@ -40,7 +40,12 @@ const LoginSignup = () => {
             const response = await LoginService.doLogin(account);
             if (response.data.succeeded) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                navigate("/home/order");
+                if(response?.data?.user?.roles[0]=="Admin"){
+                    navigate("/admin")
+                }else if(response?.data?.user?.roles[0]=="Member"){
+                    navigate("/home/order");
+                }
+                
             } else {
                 response.data.errors.forEach(error => {
                     toast.error(error.description, {
@@ -108,9 +113,12 @@ const LoginSignup = () => {
     };
 
     useEffect(() => {
-        const jwtToken = localStorage.getItem("user");
-        if (jwtToken) {
+        if (JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Admin") {
+            navigate("/admin");
+
+        }else if(JSON.parse(localStorage.getItem("user"))?.user?.roles[0]=="Member"){
             navigate("/home/order");
+
         }
     }, [navigate]);
 

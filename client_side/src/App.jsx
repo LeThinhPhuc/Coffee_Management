@@ -17,44 +17,47 @@ import {
   fetchMonthlyStatus,
   fetchWeeklyStatus,
 } from "./redux/Action/statisticAction";
-import AdminPage from "./components/AdminPage/AdminPage";
 import { fetchShops } from "./redux/Action/shopAction";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(localStorage.getItem("user")){
-      if(JSON.parse(localStorage.getItem("user")).user.roles[0]=="Admin"){
-        console.log(JSON.parse(localStorage.getItem("user")).user.roles[0])
-        alert("day la admin")
-        dispatch(fetchShops())
-        
-      }else{
-        alert("day khong la admin")
-        dispatch(fetchDrinks());
-        dispatch(fetchDrinkType());
-        dispatch(fetchOrders());
-        dispatch(fetchIngredients());
-        dispatch(fetchVouchers());
-        dispatch(fetchMonthlyStatus());
-        dispatch(fetchWeeklyStatus());
-        dispatch(fetchLastMonthByDrinkType());
-        dispatch(fetchCurrentMonthByDrinkType());
-        dispatch(fetchDailyDrinkInRange());
-        dispatch(fetchDailyInRange());
-        dispatch(fetchMonthlyByYear());
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      try {
+        const user = JSON.parse(userString);
+        if (user?.user?.roles?.[0] === "Admin") {
+          console.log("Fetching data for Admin");
+          dispatch(fetchShops());
+        } else {
+          console.log("Fetching data for non-Admin");
+          dispatch(fetchDrinks());
+          dispatch(fetchDrinkType());
+          dispatch(fetchOrders());
+          dispatch(fetchIngredients());
+          dispatch(fetchVouchers());
+          dispatch(fetchMonthlyStatus());
+          dispatch(fetchWeeklyStatus());
+          dispatch(fetchLastMonthByDrinkType());
+          dispatch(fetchCurrentMonthByDrinkType());
+          dispatch(fetchDailyDrinkInRange());
+          dispatch(fetchDailyInRange());
+          dispatch(fetchMonthlyByYear());
+        }
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
       }
-    
+    } else {
+      console.log("No user found in localStorage");
     }
-   
   }, [dispatch]);
 
   return (
     <AppProvider>
       <Router>
-        {/* <AnimateRoute /> */}
-        <AdminPage/>
+        <AnimateRoute />
+        {/* <AdminPage/> */}
       </Router>
     </AppProvider>
   );
