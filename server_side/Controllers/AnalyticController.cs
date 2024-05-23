@@ -102,6 +102,9 @@ namespace CoffeeShopApi.Controllers
         {
             try
             {
+                if(string.IsNullOrEmpty(drinkType) || string.IsNullOrEmpty(startDate) || string.IsNullOrEmpty(endDate)) {
+                    return BadRequest("Please provide enough drinkType, startDate & endDate !!");
+                }
                 var drinkRevenues = await _service.GetDailyDrinkRevenueInRange(drinkType, startDate, endDate);
                 return Ok(drinkRevenues);
             }

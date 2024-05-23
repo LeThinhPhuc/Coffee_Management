@@ -3,13 +3,26 @@ import PropTypes from "prop-types";
 import Input from "./Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState, useEffect } from "react";
-let shopId
+import { useEffect } from "react";
+
+// ***    ERROR if no item "user" in Local Storage    **
 // Get the shop ID from the first shop in the array of shops
-if(localStorage.getItem("user") ){
-  const { shops } = JSON.parse(localStorage.getItem("user"));
-  shopId = shops[0].id;
-}
+// const { shops } = JSON.parse(localStorage.getItem("user"));
+// const shopId = shops[0].id;
+
+// FIX case null/undefined of not logged in (no "user" item in Local Storage)
+let shopId = null;
+
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.shops && user.shops.length > 0) {
+      shopId = user.shops[0].id;
+    } else {
+      console.warn('No shops available for the user');
+    }
+  } catch (error) {
+    console.warn('User data is not available in localStorage or malformed', error);
+  }
 
 
 const Modal = ({

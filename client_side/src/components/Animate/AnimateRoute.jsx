@@ -32,11 +32,10 @@ const AnimateRoute = () => {
                     path="/home/ingredient"
                     element={<PrivateRoute component={ManageIngredient}/>}
                 />
+
                 <Route exact path="/home/static" element={<PrivateRoute component={Statistic}/>} />
                 <Route exact path="/home/type" element={<PrivateRoute component={ManageDrinkType}/>} />
-                <Route exact path="/home/drinktypes" element={<PrivateRoute component={DrinkTypes}/>} />
                 
-
                 <Route
                     path="*"
                     element={
