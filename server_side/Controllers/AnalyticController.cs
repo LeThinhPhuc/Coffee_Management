@@ -6,8 +6,9 @@ namespace CoffeeShopApi.Controllers
     using Models.DTOs;
     using Services.Interfaces;
     using Repositories.Interfaces;
+    using System.Security.Claims;
 
-
+    [Authorize] // 25-05-2024 đến lúc này rồi auth rào lại hết
     [ApiController]
     [Route("api/[controller]")]
     public class AnalyticController : ControllerBase
@@ -30,8 +31,27 @@ namespace CoffeeShopApi.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult> GetMonthlyRevenueStatus()
         {
-            var result = await _service.GetMonthlyRevenueStatus();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                Console.WriteLine("userId:" + userId);
+
+                var result = await _service.GetMonthlyRevenueStatus(userId);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
         /// <summary>
@@ -52,8 +72,27 @@ namespace CoffeeShopApi.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult> GetTotalRevenuePast10YearsByUserId(string ownerId)
         {
-            var result = await _service.GetTotalRevenuePast10YearsByUserId(ownerId);
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                 var result = await _service.GetTotalRevenuePast10YearsByUserId(ownerId);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
         /// <summary>
@@ -63,8 +102,27 @@ namespace CoffeeShopApi.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult> GetLastMonthRevenueByDrinkType()
         {
-            var result = await _service.GetLastMonthRevenueByDrinkType();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                var result = await _service.GetLastMonthRevenueByDrinkType(userId);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
 
@@ -75,20 +133,79 @@ namespace CoffeeShopApi.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult> GetCurrentMonthRevenueByDrinkType()
         {
-            var result = await _service.GetCurrentMonthRevenueByDrinkType();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                var result = await _service.GetCurrentMonthRevenueByDrinkType(userId);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
+
         [HttpGet("[action]")]
         public async Task<ActionResult> GetWeeklyRevenueStatus()
         {
-            var result = await _service.GetWeeklyRevenueStatus();
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                var result = await _service.GetWeeklyRevenueStatus(userId);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
+
         [HttpGet("[action]")]
         public async Task<ActionResult> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
         {
-            var result = await _service.GetDailyRevenueByDrinkTypeInRange(drinkType,startDate, endDate);
-            return Ok(result);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                var result = await _service.GetDailyRevenueByDrinkTypeInRange(userId, drinkType, startDate, endDate);
+                return Ok(result);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
 
@@ -102,11 +219,31 @@ namespace CoffeeShopApi.Controllers
         {
             try
             {
-                if(string.IsNullOrEmpty(drinkType) || string.IsNullOrEmpty(startDate) || string.IsNullOrEmpty(endDate)) {
-                    return BadRequest("Please provide enough drinkType, startDate & endDate !!");
+                #region retrieve User claim principles from Bearer JWT
+                string userId = "";
+
+                // get the User claims first
+                var userClaims = User?.Claims;
+
+                // get User's Id from claims
+                Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+                if (userIdClaim != null && userIdClaim.Value != null)
+                {
+                    userId = userIdClaim.Value;
+                    // Console.WriteLine("userId:" + userId);
+
+                    if (string.IsNullOrEmpty(drinkType) || string.IsNullOrEmpty(startDate) || string.IsNullOrEmpty(endDate))
+                    {
+                        return BadRequest("Please provide enough drinkType, startDate & endDate !!");
+                    }
+                    var drinkRevenues = await _service.GetDailyDrinkRevenueInRange(userId, drinkType, startDate, endDate);
+                    return Ok(drinkRevenues);
                 }
-                var drinkRevenues = await _service.GetDailyDrinkRevenueInRange(drinkType, startDate, endDate);
-                return Ok(drinkRevenues);
+                #endregion
+
+                // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+                Console.WriteLine("user id is null or empty!!");
+                return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
             }
             catch (Exception ex)
             {
