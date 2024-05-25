@@ -45,7 +45,7 @@ const Profile = () => {
             <strong>Email:</strong> {user.email || "N/A"}
           </p>
           <p className="text-gray-700">
-            <strong>Date Joined:</strong> {user.dateJoined || "N/A"}
+            <strong>Date Joined:</strong> {shop?.dateCreated?.slice(0,10) || "N/A"}
           </p>
           <p className="text-gray-700">
             <strong>Roles:</strong> {user.roles.join(", ")}
@@ -80,7 +80,7 @@ const Profile = () => {
               )}
             </p>
             <p className="text-gray-700">
-              <strong>Date Created:</strong> {shop.dateCreated || "N/A"}
+              <strong>Date Created:</strong> {shop?.dateCreated?.slice(0,10) || "N/A"}
             </p>
           </div>
         </div>

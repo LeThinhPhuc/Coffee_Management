@@ -5,6 +5,7 @@ import { selectShops } from "../../../redux/Reducer/shopSlice";
 import { approveShop, suspenseShop } from "../../../redux/Action/shopAction"; // Ensure you import the approveShop action
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReactPaginate from "react-paginate";
 
 const ApprovedShops = () => {
     const dispatch = useDispatch();
@@ -39,6 +40,18 @@ const ApprovedShops = () => {
             });
             closeModal();
         }
+    };
+
+    const [itemOffset, setItemOffset] = useState(0);
+    const endOffset = itemOffset + 5;
+    const currentEmployees = shops?.filter((item) => item?.isApproved)?.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(shops?.filter((item) => item?.isApproved)?.length / 5);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * 5) % shops?.filter((item) => item?.isApproved)?.length;
+  
+      setItemOffset(newOffset);
     };
 
     return (
@@ -84,7 +97,7 @@ const ApprovedShops = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {shops?.filter((item) => item?.isApproved)?.map((item) => (
+                    {currentEmployees.map((item) => (
                         <tr key={item.id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {item?.name}
@@ -115,6 +128,39 @@ const ApprovedShops = () => {
                     ))}
                 </tbody>
             </table>
+            <nav
+              className="dark:bg-slate-800 dark:text-white dark:border-white  flex items-center justify-between py-2 pt-1 pl-2"
+              aria-label="Table navigation"
+            >
+              <span className="dark:bg-slate-800 dark:text-white dark:border-white  text-xs font-normal text-gray-500 dark:text-gray-400">
+                Showing{" "}
+                <span className="dark:bg-slate-800 dark:text-white dark:border-white  font-semibold text-gray-900 dark:text-white">
+                  {endOffset >= shops?.filter((item) => item?.isApproved)?.length
+                    ? `${itemOffset + 1}-${shops?.filter((item) => item?.isApproved)?.length}`
+                    : `${itemOffset + 1}-${endOffset}`}
+                </span>{" "}
+                of{" "}
+                <span className="dark:bg-slate-800 dark:text-white dark:border-white  font-semibold text-gray-900 dark:text-white">
+                  {shops?.filter((item) => item?.isApproved)?.length}
+                </span>
+              </span>
+
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3} // Điều chỉnh giá trị này để tăng khoảng cách giữa các số trang
+                pageCount={pageCount}
+                previousLabel="<"
+                marginPagesDisplayed={5}
+                renderOnZeroPageCount={null}
+                className="dark:bg-slate-800 dark:text-white dark:border-white inline-flex items-center -space-x-px"
+                pageLinkClassName="dark:bg-slate-800 dark:text-white dark:border-white px-2 py-2 text-xs text-gray-500 bg-white border-gray-300 hover:bg-slate-100 hover:rounded-full dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                nextLinkClassName="dark:bg-slate-800 dark:text-white dark:border-white px-2 py-2 text-xs text-gray-500 bg-white border-gray-300 hover:bg-slate-100 hover:rounded-full dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                previousLinkClassName="dark:bg-slate-800 dark:text-white dark:border-white px-2 py-2 text-xs text-gray-500 bg-white border-gray-300 hover:bg-slate-100 hover:rounded-full dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                activeLinkClassName="dark:bg-slate-800 dark:text-white dark:border-white px-2 py-2 text-xs text-gray-800 bg-white font-bold"
+              />
+            </nav>
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}

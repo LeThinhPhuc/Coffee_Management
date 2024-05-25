@@ -50,7 +50,7 @@ const MenuModel = (props) => {
         props.item.drinkTypeId || ""
     );
     const types = useSelector(selectTypes);
-    if (drinkTypeId == "") setDrinkTypeId(types[0].id);
+    if (drinkTypeId == "") setDrinkTypeId(types[0]?.id);
 
     //* from drink select ingredients
     const ingredients = useSelector(selectIngredients); //* data từ db
