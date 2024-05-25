@@ -31,21 +31,21 @@
             //         .AsEnumerable());
 
             var ingredients = await _context.Ingredients
-                // Include IngredientInDrinks relationship
-                .Include(i => i.IngredientInDrinks)
-                    // Include Drink relationship
-                    .ThenInclude(iid => iid.Drink)
-                        // Include DrinkType relationship
-                        .ThenInclude(d => d.DrinkType)
-                            // Include Shop relationship
-                            .ThenInclude(dt => dt.Shop)
-                                // Include Owner relationship
-                                .ThenInclude(s => s.Owner)
-                // Convert to IEnumerable for further filtering
-                // .AsEnumerable()
-                // .ToListAsync()
-                // Filter by userId
-                .Where(i => i.IngredientInDrinks.Any(iid => iid.Drink.DrinkType.Shop.Owner.Id == userId))
+                // // Include IngredientInDrinks relationship
+                // .Include(i => i.IngredientInDrinks)
+                //     // Include Drink relationship
+                //     .ThenInclude(iid => iid.Drink)
+                //         // Include DrinkType relationship
+                //         .ThenInclude(d => d.DrinkType)
+                //             // Include Shop relationship
+                //             .ThenInclude(dt => dt.Shop)
+                //                 // Include Owner relationship
+                //                 .ThenInclude(s => s.Owner)
+                // // Convert to IEnumerable for further filtering
+                // // .AsEnumerable()
+                // // .ToListAsync()
+                // // Filter by userId
+                // .Where(i => i.IngredientInDrinks.Any(iid => iid.Drink.DrinkType.Shop.Owner.Id == userId))
                 .ToListAsync();
 
             // string southEastAsiaZoneId = "SE Asia Standard Time";

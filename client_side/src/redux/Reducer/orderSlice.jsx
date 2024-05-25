@@ -15,6 +15,9 @@ const orderSlice = createSlice({
             console.log("order da co: ", state.orders)
             state.error = null;
         },
+        addOrderFailure(state, action) {
+            state.error = action.payload;
+        },
         fetchOrderSuccess(state, action) {
             state.orders = action.payload;
             state.error = null;
@@ -26,7 +29,9 @@ const orderSlice = createSlice({
 
 export const {
     addOrderSuccess,
+    addOrderFailure,
     fetchOrderSuccess
 } = orderSlice.actions;
 export const selectOrders = state => state.order.orders;
+export const orderError = state => state.error;
 export default orderSlice.reducer;

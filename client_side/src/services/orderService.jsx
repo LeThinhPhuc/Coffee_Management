@@ -53,6 +53,7 @@ const orderService = {
             "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
             "Access-Control-Allow-Origin": "https://localhost:5173",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Authorization": `Bearer ${accessToken}`,
             Accept: "application/x-www-form-urlencoded, text/plain",
         },
     }).post('api/Order/AddOrder', data)
