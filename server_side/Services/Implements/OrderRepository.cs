@@ -4,6 +4,7 @@ using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.PostModels;
 using CoffeeShopApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Options;
@@ -58,7 +59,9 @@ namespace CoffeeShopApi.Repositories.Implements
         public async Task<OrderDTO> GetOrderByIdAsync(string id)
         {
             var orders = await context.Orders.Include(o => o.User)
-                .Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Drink)
+                .FirstOrDefaultAsync(o => o.Id == id);
 
             var orderToReturn = mapper.Map<OrderDTO>(orders);
 
@@ -68,7 +71,9 @@ namespace CoffeeShopApi.Repositories.Implements
         public async Task<OrderDTO> GetOrdersByUserIdAsync(string userId)
         {
             var orders = await context.Orders.Include(o => o.User)
-                .Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.UserId == userId);
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Drink)
+                .FirstOrDefaultAsync(o => o.UserId == userId);
 
             var orderToReturn = mapper.Map<OrderDTO>(orders);
 
@@ -133,7 +138,43 @@ namespace CoffeeShopApi.Repositories.Implements
             return new OrderDTO { Id = orderChanges.Id };
         }
 
+        public async Task<IEnumerable<object>> GetOrdersByShopIdAsync(string shopId)
+        {
+            var shop = await context
+                .Shops
+                .Include(s => s.Owner)
+                .ThenInclude( o => o.Orders)
+                .ThenInclude(o => o.OrderItems)
+                .ThenInclude( oi => oi.Drink)
+                .FirstOrDefaultAsync(s => s.Id == shopId);
+
+            if(shop == null)
+            {
+                return null;
+            }
+
+            var ordersOfShop = shop.Owner.Orders.Select(o =>new 
+            {
+                OrderId = o.Id,
+                Total = o.Total,
+                Items = o.OrderItems.Select(oi => new
+                {
+                    ItemId = oi.Id,
+                    Quanity = oi.Quantity,
+                    Note = oi.Note,
+                    Drink = new
+                    {
+                        DrinkId = oi.Drink.Id,
+                        Name = oi.Drink.Name,   
+                        Price = oi.Drink.Price
+                    }
+                })
+            });
 
 
+            return ordersOfShop;
+
+
+    }
     }
 }

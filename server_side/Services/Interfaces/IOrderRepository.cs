@@ -13,6 +13,8 @@ namespace CoffeeShopApi.Repositories.Interfaces
 
         Task<bool> DeleteOrderAsync(string id);
 
+        Task<IEnumerable<object>> GetOrdersByShopIdAsync(string shopId);
+
         Task<OrderDTO> AddNewOrderAsync(OrderModelDTO newOrderDTO);
 
         Task<OrderDTO> UpdateOrderAsync(OrderDTO orderChanges);

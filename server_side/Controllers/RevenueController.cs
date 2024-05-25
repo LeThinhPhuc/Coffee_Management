@@ -16,7 +16,7 @@ namespace CoffeeShopApi.Controllers
         public async Task<ActionResult> GetDailyRevenueInRange([FromQuery]string startDate, string endDate)
         {
             // Define the expected format
-            string format = "yyyy-M-d";
+            string format = "yyyy-MM-dd";
 
             // Parse the string to DateTime
             DateTime parsedStartDate = DateTime.ParseExact(startDate, format, System.Globalization.CultureInfo.InvariantCulture);

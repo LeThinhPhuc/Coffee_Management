@@ -73,6 +73,19 @@
             return Ok(orders);
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetOrderByShopId([FromQuery] string shopId)
+        {
+            var order = await repo.GetOrdersByShopIdAsync(shopId);
+
+            if(order == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(order);
+        }
+
 
 
         [HttpDelete("[action]")]
@@ -88,6 +101,7 @@
                 return NotFound();
             }
         }
+
 
 
         /// <summary>
