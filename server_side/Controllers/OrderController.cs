@@ -117,7 +117,10 @@
             {
                 return CreatedAtAction(nameof(AddOrder), newOrder);
             }
-            return BadRequest();
+            return BadRequest(new
+            {
+                Message = "Có thể không đủ nguyên liệu"
+            });;
         }
         #region example input data:
         // {
