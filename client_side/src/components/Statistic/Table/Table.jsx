@@ -1,38 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchOrders } from "../../../redux/Action/orderAction";
 import { Pagination } from "./Pagination";
 import { useSelector, useDispatch } from 'react-redux'
 import ordeSlice from "../../../redux/Reducer/orderSlice";
 import selectOrders from "../../../redux/Reducer/orderSlice";
+import { ListItem } from "@material-tailwind/react";
 const Table = () => {
 
     const dispatch = useDispatch();
     const orders = useSelector((state) => state.order.orders)
-    console.log(orders)
-   
 
-    let billArr = [
-        {
-            id: 1,
-            date: new Date(2024, 3, 2), // tháng 4 phải khai báo là tháng 3 vì tính từ 0
-            items: [
-                { name: "Bạc Xỉu", quantity: 1, price: 35000 },
-                { name: "Cappuchino", quantity: 1, price: 69000 },
-                { name: "Trà Sen Vàng", quantity: 1, price: 49000 },
-            ],
-            total: 153000,
-        },
-        {
-            id: 2,
-            date: new Date(2024, 3, 2),
-            items: [
-                { name: "Trà Thạch Vải", quantity: 1, price: 49000 },
-                { name: "Freeze Trà Xanh", quantity: 1, price: 65000 },
-                { name: "PhinDi Kem Sữa", quantity: 1, price: 39000 },
-            ],
-            total: 143000,
-        },
-    ];
+    // Hàm định dạng ngày thành dd-mm-yyyy
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    const itemsPerPage = 3;//số phần tử trên 1 trang (thay đổi số item 1 trang ở đầy nè)
+
+    const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại, mặc định là 1
+    const totalOrders = orders.length; // Tổng số orders
+    const totalPages = Math.ceil(totalOrders / itemsPerPage); // Số trang
+
+    const startIndex = (currentPage - 1) * itemsPerPage; //ví trí bắt đầu cắt (ví dụ lấy phần tử ở trang 5 thì trừ tổng item ở 4 trang trước)
+    const endIndex = startIndex + itemsPerPage; //vị trí cuối
+
+    const currentOrders = orders.slice(startIndex, endIndex);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
     return (
         <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 xl:col-span-2">
             <div className="mb-4 flex items-center justify-between">
@@ -79,13 +80,13 @@ const Table = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white">
-                                    {billArr.map((bill) => (
-                                        <tr key={bill.id}>
+                                    {currentOrders?.map((bill) => (
+                                        <tr key={bill.orderId}>
                                             <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                                {bill.id}
+                                                {bill.orderId}
                                             </td>
                                             <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                                {bill.date.toLocaleDateString("en-GB")}
+                                                {formatDate(bill.orderDate)}
                                             </td>
                                             <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
                                                 {bill.total} VNĐ
@@ -106,7 +107,9 @@ const Table = () => {
                     </div>
                 </div>
                 <div className="my-3 flex justify-center ">
-                    <Pagination />
+                    <Pagination totalPages={totalPages}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange} />
                 </div>
             </div>
         </div>

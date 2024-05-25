@@ -211,6 +211,7 @@ namespace CoffeeShopApi.Repositories.Implements
             {
                 OrderId = o.Id,
                 Total = o.Total,
+                OrderDate = o.OrderDate,
                 Items = o.OrderItems.Select(oi => new
                 {
                     ItemId = oi.Id,
