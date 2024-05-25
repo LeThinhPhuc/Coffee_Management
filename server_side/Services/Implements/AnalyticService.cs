@@ -72,7 +72,7 @@ namespace CoffeeShopApi.Services
         */
 
 
-        public async Task<object> GetMonthlyRevenueStatus()
+        public async Task<object> GetMonthlyRevenueStatus(string userId)
         {
             // Get the date range for the before previous month (if now is May, takes April)
             var startDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.AddMonths(-1).Month, 1);
@@ -87,7 +87,9 @@ namespace CoffeeShopApi.Services
 
             // Calculate the total revenue for the previous month
             var totalRevenuePreviousMonth = await _dbContext.Orders
-                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate
+                        // filter by userId (assuming eacher user only has 1 Shop)
+                        && o.UserId == userId)
                 .SumAsync(o => o.Total);
 
             // Get the date range for the month before the previous month
@@ -99,7 +101,9 @@ namespace CoffeeShopApi.Services
 
             // Calculate the total revenue for the month before the previous month
             var totalRevenueMonthBeforePreviousMonth = await _dbContext.Orders
-                .Where(o => o.OrderDate >= startDatePreviousMonth && o.OrderDate <= endDatePreviousMonth)
+                .Where(o => o.OrderDate >= startDatePreviousMonth && o.OrderDate <= endDatePreviousMonth
+                        // filter by userId (assuming eacher user only has 1 Shop)
+                        && o.UserId == userId)
                 .SumAsync(o => o.Total);
 
             // Calculate whether the revenue increased compared to the previous month
@@ -164,7 +168,7 @@ namespace CoffeeShopApi.Services
         }
 
 
-        public async Task<List<object>> GetLastMonthRevenueByDrinkType()
+        public async Task<List<object>> GetLastMonthRevenueByDrinkType(string userId)
         {
             // Lấy ngày đầu của tháng trước
             var startDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.AddMonths(-1).Month, 1);
@@ -182,7 +186,9 @@ namespace CoffeeShopApi.Services
             var monthlyRevenueByDrinkType = await _dbContext.OrderItems
                 .Include(oi => oi.Drink)
                     .ThenInclude(d => d.DrinkType)  // join tiếp đến bảng liền kề (OrderItem ko liền kề vs DrinkType)
-                .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate)
+                .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate
+                    // filter by userId (assuming eacher user only has 1 Shop)
+                    && oi.Order.UserId == userId)
                 .GroupBy(oi => oi.Drink.DrinkType.Name)
                 .Select(g => new
                 {
@@ -195,19 +201,21 @@ namespace CoffeeShopApi.Services
         }
 
 
-        public async Task<List<object>> GetCurrentMonthRevenueByDrinkType()
+        public async Task<List<object>> GetCurrentMonthRevenueByDrinkType(string userId)
         {
             // Lấy ngày đầu của tháng hiện tại
             var startDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
 
             // Lấy ngày cuối của tháng hiện tại
-            var endDate = DateTime.UtcNow;
+            var endDate = startDate.AddMonths(1).AddDays(-1);
 
             // Lấy tổng doanh thu trong tháng hiện tại theo tên loại đồ uống
             var monthlyRevenueByDrinkType = await _dbContext.OrderItems
                 .Include(oi => oi.Drink)
                     .ThenInclude(d => d.DrinkType)  // join tiếp đến bảng liền kề (OrderItem ko liền kề vs DrinkType)
-                .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate)
+                .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate
+                    // filter by userId (assuming eacher user only has 1 Shop)
+                    && oi.Order.UserId == userId)
                 .GroupBy(oi => oi.Drink.DrinkType.Name)
                 .Select(g => new
                 {
@@ -218,7 +226,8 @@ namespace CoffeeShopApi.Services
 
             return monthlyRevenueByDrinkType.Cast<object>().ToList();
         }
-        public async Task<object> GetWeeklyRevenueStatus()
+
+        public async Task<object> GetWeeklyRevenueStatus(string userId)
         {
             // Get the start and end dates for the current week
             var currentDate = DateTime.UtcNow.Date;
@@ -233,7 +242,9 @@ namespace CoffeeShopApi.Services
             }
 
             var totalRevenuePreviousMonth = await _dbContext.Orders
-                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate)
+                .Where(o => o.OrderDate >= startDate && o.OrderDate <= endDate
+                    // filter by userId (assuming eacher user only has 1 Shop)
+                    && o.UserId == userId)
                 .SumAsync(o => o.Total);
 
             // Get the date range for the month before the previous month
@@ -271,7 +282,7 @@ namespace CoffeeShopApi.Services
             return result;
         }
 
-        public async Task<List<object>> GetDailyRevenueByDrinkTypeInRange(string drinkType, DateTime startDate, DateTime endDate)
+        public async Task<List<object>> GetDailyRevenueByDrinkTypeInRange(string userId, string drinkType, DateTime startDate, DateTime endDate)
         {
             // Check whether the input date range is valid, if not, throw the error
             if (startDate >= endDate)
@@ -284,7 +295,10 @@ namespace CoffeeShopApi.Services
                 .Include(oi => oi.Drink)
                     .ThenInclude(d => d.DrinkType)
                 .Where(oi => oi.Order.OrderDate >= startDate && oi.Order.OrderDate <= endDate &&
-                             oi.Drink.DrinkType.Name == drinkType)  // Filter by drinkType
+                            // Filter by drinkType
+                            oi.Drink.DrinkType.Name == drinkType
+                            // filter by userId (assuming eacher user only has 1 Shop)
+                            && oi.Order.UserId == userId)  
                 .GroupBy(oi => oi.Order.OrderDate.Value.Date) // Group by date only
                 .Select(g => new
                 {
@@ -370,7 +384,7 @@ namespace CoffeeShopApi.Services
 
         // Tuanhayho version 2, attempting to resolve version 1 issue
         //*
-        public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string drinkType, string startDate, string endDate)
+        public async Task<List<DrinkDailyRevenueViewModel>> GetDailyDrinkRevenueInRange(string userId, string drinkType, string startDate, string endDate)
         {
             var options = new System.Text.Json.JsonSerializerOptions
             {
@@ -394,26 +408,31 @@ namespace CoffeeShopApi.Services
                                     .Select(offset => parsedStartDate.AddDays(offset).Date)
                                     .ToList();
 
-            foreach (var date in dateRange)
-            {
-                Console.WriteLine(date);
-            }
+            // foreach (var date in dateRange)
+            // {
+            //     Console.WriteLine(date);
+            // }
 
             // Query the order items
             var orderItems = await _dbContext.OrderItems
                 .Include(oi => oi.Drink)
                 .Include(oi => oi.Order)
-                .Where(oi => oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper()
-                            && oi.Order.OrderDate >= parsedStartDate
-                            && oi.Order.OrderDate <= parsedEndDate)
+                .Where(
+                        // filter by userId (assuming eacher user only has 1 Shop)
+                        oi => oi.Order.UserId == userId
+                        && oi.Drink.DrinkType.Name.ToUpper() == drinkType.ToUpper()
+                        && oi.Order.OrderDate >= parsedStartDate
+                        && oi.Order.OrderDate <= parsedEndDate
+                )
                 .ToListAsync();
 
-            Console.WriteLine("orderItems: ");
-            foreach (var orderItem in orderItems)
-            {
-                string jsonString = System.Text.Json.JsonSerializer.Serialize(orderItem, options);
-                Console.WriteLine(jsonString);
-            }
+            // debug
+            // Console.WriteLine("orderItems: ");
+            // foreach (var orderItem in orderItems)
+            // {
+            //     string jsonString = System.Text.Json.JsonSerializer.Serialize(orderItem, options);
+            //     Console.WriteLine(jsonString);
+            // }
 
             // Group the order items by drink name and date
             var groupedOrderItems = orderItems
@@ -430,11 +449,12 @@ namespace CoffeeShopApi.Services
                 })
                 .ToList();
 
-            Console.WriteLine("groupedOrderItem: ");
-            foreach (var groupedOrderItem in groupedOrderItems)
-            {
-                Console.WriteLine(groupedOrderItem);
-            }
+            // debug
+            // Console.WriteLine("groupedOrderItem: ");
+            // foreach (var groupedOrderItem in groupedOrderItems)
+            // {
+            //     Console.WriteLine(groupedOrderItem);
+            // }
 
             // Get all drink names for the specified drink type
             var drinkNames = await _dbContext.Drinks
@@ -443,10 +463,11 @@ namespace CoffeeShopApi.Services
                 .Distinct()
                 .ToListAsync();
 
-            foreach (var drinkName in drinkNames)
-            {
-                Console.WriteLine(drinkName);
-            }
+            // debug
+            // foreach (var drinkName in drinkNames)
+            // {
+            //     Console.WriteLine(drinkName);
+            // }
 
             var result = drinkNames.Select(drinkName => new DrinkDailyRevenueViewModel
             {

@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using CoffeeShopApi.Exceptions;
+    using System.Security.Claims;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -26,8 +27,27 @@
         [HttpGet]
         public async Task<ActionResult> GetAllIngredients()
         {
-            var ingredients = await _ingredientService.GetAllAsync();
-            return Ok(ingredients);
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
+
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
+            {
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                var ingredients = await _ingredientService.GetAllByUserIdAsync(userId);
+                return Ok(ingredients);
+            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
         [Authorize]
@@ -64,7 +84,7 @@
             {
                 await _unitOfWork.RollbackAsync();
                 return Ok(new { succeeded = false, message = ex.Message });
-            }           
+            }
         }
 
         [Authorize]
@@ -98,7 +118,7 @@
             }
         }
 
-        [Authorize] 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(string id)
         {

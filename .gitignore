@@ -6,3 +6,7 @@ server_side/Migrations/AppDbContextModelSnapshot.cs
 server_side/Migrations/AppDbContextModelSnapshot.cs
 server_side/.vs/CoffeeShopApi/DesignTimeBuild/.dtbcache.v2
 server_side/.vs/CoffeeShopApi/v17/.suo
+
+# macOS .DS_Store file
+.DS_Store
+server_side/.DS_Store

@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models.DTOs;
     using Exceptions;
+    using System.Security.Principal;
 
     public class IngredientService : IIngredientService
     {
@@ -16,9 +17,36 @@
             _context = context;
         }
 
-        public async Task<List<IngredientViewModel>> GetAllAsync()
+        // sai lầm cần rút kinh nghiệm: Phải bind relationship Ingredient -> Shop or User
+        public async Task<List<IngredientViewModel>> GetAllByUserIdAsync(string userId)
         {
-            var ingredients = await Task.FromResult(_context.Ingredients.AsEnumerable());
+            // var ingredients = await Task.FromResult(_context.Ingredients
+            //         // No relationship with Shop or Owner, damn!!!, 5-tables query !
+            //         .Include(i => i.IngredientInDrinks)
+            //             .ThenInclude(iid => iid.Drink)
+            //                 .ThenInclude(d => d.DrinkType)
+            //                     .ThenInclude(dt => dt.Shop)
+            //                         .ThenInclude(s => s.Owner)
+            //         .Where(i => i....)
+            //         .AsEnumerable());
+
+            var ingredients = await _context.Ingredients
+                // Include IngredientInDrinks relationship
+                .Include(i => i.IngredientInDrinks)
+                    // Include Drink relationship
+                    .ThenInclude(iid => iid.Drink)
+                        // Include DrinkType relationship
+                        .ThenInclude(d => d.DrinkType)
+                            // Include Shop relationship
+                            .ThenInclude(dt => dt.Shop)
+                                // Include Owner relationship
+                                .ThenInclude(s => s.Owner)
+                // Convert to IEnumerable for further filtering
+                // .AsEnumerable()
+                // .ToListAsync()
+                // Filter by userId
+                .Where(i => i.IngredientInDrinks.Any(iid => iid.Drink.DrinkType.Shop.Owner.Id == userId))
+                .ToListAsync();
 
             // string southEastAsiaZoneId = "SE Asia Standard Time";
 

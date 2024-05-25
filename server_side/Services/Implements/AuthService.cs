@@ -136,11 +136,28 @@ namespace CoffeeShopApi.Services.Implements
             }
             else
             {
+                // reaching down here means "Login failed " !!
                 // Serialize the object to JSON format
                 string json = JsonConvert.SerializeObject(model);
 
                 // Print the JSON string
                 Console.WriteLine("User not found for the input model: " + json);
+
+                List<object> errors = new List<object>
+                {
+                    // user's provided password doesnt match any record in DB
+                    new
+                    {
+                        code = "UserNotRegistered",
+                        description = "No user found by the provided userName!"
+                    }
+                };
+
+                return new AuthResult
+                {
+                    Errors = errors.ToArray()
+                    //Errors = new[] { "Incorrect username or password!" }
+                };
             }
 
             // Check whether his first Shop is approved or not

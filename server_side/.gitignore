@@ -364,3 +364,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# macOS .DS_Store file
+.DS_Store
+
+Migrations
+Migrations/
+Migrations/AppDbContextModelSnapshot.cs
