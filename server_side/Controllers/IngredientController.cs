@@ -66,25 +66,44 @@
         [HttpPost]
         public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] CreateUpdateIngredientModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            #region retrieve User claim principles from Bearer JWT
+            string userId = "";
 
-            try
+            // get the User claims first
+            var userClaims = User?.Claims;
+
+            // get User's Id from claims
+            Claim userIdClaim = User?.Claims.FirstOrDefault(c => c.Type == "UserID"); // ControllerBase.User
+            if (userIdClaim != null && userIdClaim.Value != null)
             {
-                var result = await _ingredientService.CreateAsync(model);
-                if (result != null)
+                userId = userIdClaim.Value;
+                // Console.WriteLine("userId:" + userId);
+
+                if (!ModelState.IsValid)
                 {
-                    return Ok(result);
+                    return BadRequest(ModelState);
                 }
-                return Ok(new { succeeded = false, message = "Failed to add Ingredient!" });
+
+                try
+                {
+                    var result = await _ingredientService.CreateAsync(model, userId);
+                    if (result != null)
+                    {
+                        return Ok(result);
+                    }
+                    return Ok(new { succeeded = false, message = "Failed to add Ingredient!" });
+                }
+                catch (Exception ex)
+                {
+                    await _unitOfWork.RollbackAsync();
+                    return Ok(new { succeeded = false, message = ex.Message });
+                }
             }
-            catch (Exception ex)
-            {
-                await _unitOfWork.RollbackAsync();
-                return Ok(new { succeeded = false, message = ex.Message });
-            }
+            #endregion
+
+            // Reaching down here means 401 Unauthenticated (Can use [Authorize])
+            Console.WriteLine("user id is null or empty!!");
+            return Ok(new { succeeded = false, message = "Please login and send Bearer token through Authorization header." });
         }
 
         [Authorize]

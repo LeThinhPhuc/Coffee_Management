@@ -126,6 +126,7 @@ Could not create constraint or index. See previous errors.
             var shopId1 = Guid.NewGuid().ToString();
             // var shopId2 = Guid.NewGuid().ToString();
 
+            // seed a shop for user Admin
             modelBuilder.Entity<Shop>().HasData(
                 new Shop { Id = shopId1, Name = "Coffee House", IsApproved = true, OwnerId = adminUserId, Address = "123 Main St", Revenue = 0 }
                 // new Shop { Id = shopId2, Name = "Tea Shop", IsApproved = true, OwnerId = adminUserId, Address = "456 Elm St", Revenue = 0 }
@@ -162,8 +163,8 @@ Could not create constraint or index. See previous errors.
 
             var ingredients = new[]
             {
-                new Ingredient { Id = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1), Image = "" },
-                new Ingredient { Id = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2), Image = "" }
+                new Ingredient { Id = ingredient1Id, Name = "Milk", Amount = 5, ExpiryDate = DateTime.Now.AddMonths(1), Image = "", ShopId = shopId1 },
+                new Ingredient { Id = ingredient2Id, Name = "Sugar", Amount = 10, ExpiryDate = DateTime.Now.AddMonths(2), Image = "", ShopId = shopId1 }
             };
             modelBuilder.Entity<Ingredient>().HasData(ingredients);
 

@@ -21,6 +21,12 @@ namespace CoffeeShopApi.Models.DomainModels
 
         public string? Image { get; set; }
 
+        // 2 properties for binding to Shop (1 Shop - n Ingredient)
+        public string ShopId { get; set; }
+        
+        [JsonIgnore]
+        public Shop Shop { get; set; }
+
         // 1 property for binding to IngredientInDrink (1 Ingredient - n IngredientInDrink)
         [JsonIgnore]
         public List<IngredientInDrink>? IngredientInDrinks { get; set; }
