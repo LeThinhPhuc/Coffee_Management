@@ -4,14 +4,6 @@ import { Pie } from "react-chartjs-2";
 import { lastMonthByType } from "../../../redux/Reducer/statisticSlice";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const fakeData = [
-  { type: "Tea", total: 30 },
-  { type: "Coffe", total: 26 },
-  { type: "Juice", total: 15 },
-  { type: "Smoothie", total: 14 },
-  { type: "Teaa", total: 20 },
-];
-
 const FavoriteGraph = () => {
   const revenue = useSelector(lastMonthByType);
   //console.log(revenue);

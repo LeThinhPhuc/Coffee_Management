@@ -17,8 +17,8 @@ const Status = () => {
       <div className="flex items-center py-2">
         <div className="mr-10">
           <div className="flex items-center">
-            <div className="text-3xl font-bold text-gray-800 mr-2">
-              {weeklyRevenue?.total} M
+            <div className="text-2xl font-bold text-gray-800 mr-2">
+              {weeklyRevenue?.total.toFixed(2)} M
             </div>
             {weeklyRevenue?.isIncrease && (
               <div className="text-sm font-medium text-green-500">
@@ -26,14 +26,14 @@ const Status = () => {
                 {weeklyRevenue.percent === -1 ? (
                   <span>100</span>
                 ) : (
-                  <span>{weekyRevenue.percent}</span>
+                  <span>{weeklyRevenue.percent}</span>
                 )}
                 %
               </div>
             )}
             {!weeklyRevenue?.isIncrease && (
               <div className="text-sm font-medium text-red-500">
-                -{weeklyRevenue?.percent}%
+                {weeklyRevenue?.percent}%
               </div>
             )}
           </div>
@@ -47,8 +47,8 @@ const Status = () => {
       <div className="flex items-center py-2">
         <div className="mr-5">
           <div className="flex items-center">
-            <div className="text-3xl font-bold text-gray-800 mr-2">
-              {monthlyRevenue?.total} M
+            <div className="text-2xl font-bold text-gray-800 mr-2">
+              {monthlyRevenue?.total.toFixed(2)} M
             </div>
             {monthlyRevenue.isIncrease && (
               <div className="text-sm font-medium text-green-500">
