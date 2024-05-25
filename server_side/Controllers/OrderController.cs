@@ -73,6 +73,19 @@
             return Ok(orders);
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetOrderByShopId([FromQuery] string shopId)
+        {
+            var order = await repo.GetOrdersByShopIdAsync(shopId);
+
+            if(order == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(order);
+        }
+
 
 
         [HttpDelete("[action]")]
@@ -90,6 +103,7 @@
         }
 
 
+
         /// <summary>
         /// Note: Total and Voucher discount calculated by ClientSide. => phải tự tính nếu dùng Swagger
         /// </summary>
@@ -103,7 +117,10 @@
             {
                 return CreatedAtAction(nameof(AddOrder), newOrder);
             }
-            return BadRequest();
+            return BadRequest(new
+            {
+                Message = "Có thể không đủ nguyên liệu"
+            });;
         }
         #region example input data:
         // {
