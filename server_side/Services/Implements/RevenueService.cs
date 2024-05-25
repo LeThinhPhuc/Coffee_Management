@@ -35,7 +35,7 @@ namespace CoffeeShopApi.Services.Implements
 
         //    return dailyRevenue;
         //}
-        public async Task<IEnumerable<object>> GetDailyRevenueInRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<object>> GetDailyRevenueInRangeAsync(DateTime startDate, DateTime endDate, string userId)
         {
             // Generate all dates within the range
             var allDates = Enumerable.Range(0, (endDate - startDate).Days + 1)
@@ -44,7 +44,7 @@ namespace CoffeeShopApi.Services.Implements
 
             // Fetch the daily revenue from the database
             var dailyRevenue = await context.Orders
-                .Where(o => startDate.Date <= o.OrderDate.Value.Date && o.OrderDate.Value.Date <= endDate.Date)
+                .Where(o => startDate.Date <= o.OrderDate.Value.Date && o.OrderDate.Value.Date <= endDate.Date && o.UserId == userId)
                 .GroupBy(o => o.OrderDate.Value.Date)
                 .Select(group => new
                 {
@@ -92,14 +92,14 @@ namespace CoffeeShopApi.Services.Implements
         //    return monthlyRevenueByYear;
         //}
 
-        public async Task<IEnumerable<object>> GetMonthlyRevenueByYearAsync(int year)
+        public async Task<IEnumerable<object>> GetMonthlyRevenueByYearAsync(int year, string userId)
         {
             // Generate all months for the specified year
             var allMonths = Enumerable.Range(1, 12).Select(month => new { Year = year, Month = month }).ToList();
 
             // Fetch the monthly revenue from the database
             var monthlyRevenueByYear = await context.Orders
-                .Where(o => o.OrderDate.Value.Year == year)
+                .Where(o => o.OrderDate.Value.Year == year && o.UserId == userId)
                 .GroupBy(o => new { o.OrderDate.Value.Year, o.OrderDate.Value.Month })
                 .Select(group => new
                 {
