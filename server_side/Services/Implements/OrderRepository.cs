@@ -4,7 +4,9 @@ using CoffeeShopApi.Models.DAL;
 using CoffeeShopApi.Models.DomainModels;
 using CoffeeShopApi.PostModels;
 using CoffeeShopApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Options;
 
@@ -58,7 +60,9 @@ namespace CoffeeShopApi.Repositories.Implements
         public async Task<OrderDTO> GetOrderByIdAsync(string id)
         {
             var orders = await context.Orders.Include(o => o.User)
-                .Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Drink)
+                .FirstOrDefaultAsync(o => o.Id == id);
 
             var orderToReturn = mapper.Map<OrderDTO>(orders);
 
@@ -68,7 +72,9 @@ namespace CoffeeShopApi.Repositories.Implements
         public async Task<OrderDTO> GetOrdersByUserIdAsync(string userId)
         {
             var orders = await context.Orders.Include(o => o.User)
-                .Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.UserId == userId);
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Drink)
+                .FirstOrDefaultAsync(o => o.UserId == userId);
 
             var orderToReturn = mapper.Map<OrderDTO>(orders);
 
@@ -90,42 +96,95 @@ namespace CoffeeShopApi.Repositories.Implements
             return false;
         }
 
+
         public async Task<OrderDTO> AddNewOrderAsync(OrderModelDTO newOrderDT0)
         {
-            var check = await context.Users
-                .FirstOrDefaultAsync(u => u.Id == newOrderDT0.UserId);
-            if(check == null)
+            using (var transaction = await context.Database.BeginTransactionAsync())
             {
-                return null;
-            }
-
-            string newOrderId = Guid.NewGuid().ToString();//tự động tạo 1 mã order mới 
-            Order newOrder = new Order
-            {
-                Id = newOrderId,
-                UserId = newOrderDT0.UserId,
-                OrderDate = DateTime.Now,
-                Total = newOrderDT0.Total,
-                OrderItems = newOrderDT0.OrderItems.Select(o => new OrderItem
+                try
                 {
-                    OrderId = newOrderId,
-                    DrinkId = o.DrinkId,
-                    Quantity = o.Quantity,
-                    Note = o.Note
-                }).ToList(),
-            };
+                    //kiểm tra user có tồn tại không
+                    var check = await context.Users
+                        .FirstOrDefaultAsync(u => u.Id == newOrderDT0.UserId);
+                    if (check == null)
+                    {
+                        return null;
+                    }
 
-            context.Orders.Add(newOrder);
 
-            int result = await context.SaveChangesAsync();
+                    //kiểm tra có đủ có nguyên liệu không
+                    foreach (var drink in newOrderDT0.OrderItems)
+                    {
+                        //từ drinkId lấy list ingredientId và số lượng ingredient của đồ uống đó
+                        var ingredientInDrink = await context
+                            .IngredientsInDrinks
+                            .Where(i => i.DrinkId == drink.DrinkId).ToListAsync();
 
-            if (result > 0)
-            {
-                return mapper.Map<OrderDTO>(newOrder);
+
+                        //duyệt tất cả ingredient trong 1 drink
+                        foreach(var ingredient in ingredientInDrink)
+                        {
+                            double ingredientQuantity = ingredient.Quantity;
+
+                            // trừ ingredient trong kho
+                            var remainedIngredient = await context
+                                .Ingredients
+                                .FirstOrDefaultAsync(i => i.Id == ingredient.IngredientId);
+
+                            remainedIngredient.Amount = remainedIngredient.Amount - (ingredientQuantity * (double)drink.Quantity);
+
+                            if (remainedIngredient.Amount < 0)
+                            {
+                                await transaction.RollbackAsync();
+                                return null;
+                            }
+
+                            context.Ingredients.Update(remainedIngredient);
+                        }
+                    }
+
+                    //nếu số lượng ingredient vần đủ thì bắt đầu tạo order
+                    string newOrderId = Guid.NewGuid().ToString(); // tự động tạo 1 mã order mới 
+                    Order newOrder = new Order
+                    {
+                        Id = newOrderId,
+                        UserId = newOrderDT0.UserId,
+                        OrderDate = DateTime.Now,
+                        Total = newOrderDT0.Total,
+                        OrderItems = newOrderDT0.OrderItems.Select(o => new OrderItem
+                        {
+                            OrderId = newOrderId,
+                            DrinkId = o.DrinkId,
+                            Quantity = o.Quantity,
+                            Note = o.Note
+                        }).ToList(),
+                    };
+
+                    
+
+                    context.Orders.Add(newOrder);
+
+                    int result = await context.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        await transaction.CommitAsync();
+                        return mapper.Map<OrderDTO>(newOrder);
+                    }
+                    else
+                    {
+                        await transaction.RollbackAsync();
+                        return null;
+                    }
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
             }
-
-            return null;
         }
+
 
 
         public async Task<OrderDTO> UpdateOrderAsync(OrderDTO orderChanges)
@@ -133,7 +192,44 @@ namespace CoffeeShopApi.Repositories.Implements
             return new OrderDTO { Id = orderChanges.Id };
         }
 
+        public async Task<IEnumerable<object>> GetOrdersByShopIdAsync(string shopId)
+        {
+            var shop = await context
+                .Shops
+                .Include(s => s.Owner)
+                .ThenInclude(o => o.Orders)
+                .ThenInclude(o => o.OrderItems)
+                .ThenInclude(oi => oi.Drink)
+                .FirstOrDefaultAsync(s => s.Id == shopId);
+
+            if (shop == null)
+            {
+                return null;
+            }
+
+            var ordersOfShop = shop.Owner.Orders.Select(o => new
+            {
+                OrderId = o.Id,
+                Total = o.Total,
+                OrderDate = o.OrderDate,
+                Items = o.OrderItems.Select(oi => new
+                {
+                    ItemId = oi.Id,
+                    Quanity = oi.Quantity,
+                    Note = oi.Note,
+                    Drink = new
+                    {
+                        DrinkId = oi.Drink.Id,
+                        Name = oi.Drink.Name,
+                        Price = oi.Drink.Price
+                    }
+                })
+            });
 
 
+            return ordersOfShop;
+
+
+        }
     }
 }

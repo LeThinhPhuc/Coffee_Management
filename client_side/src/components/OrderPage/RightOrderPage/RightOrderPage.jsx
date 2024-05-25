@@ -1,104 +1,98 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderItem from "./OrderItem/OrderItem";
-import '../../../App.css'
-import {Textarea, Input} from '@material-tailwind/react'
+import '../../../App.css';
+import { Textarea, Input } from '@material-tailwind/react';
 import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from "../../../redux/Action/orderAction";
 import { selectVouchers } from "../../../redux/Reducer/voucherSlice";
+import { orderError } from "../../../redux/Reducer/orderSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const RightOrderPage = () => {
-    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected, setVoucherValue } = useContext(MenuContext)
+    const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected, setVoucherValue } = useContext(MenuContext);
     const [checkModal, setCheckModal] = useState(false);
-    const [checkOrderFinal, setCheckOrderFinal] = useState(false)
-    const [changeCnt, setChangeCnt] = useState(0)
+    const [checkOrderFinal, setCheckOrderFinal] = useState(false);
+    const [changeCnt, setChangeCnt] = useState(0);
     const [note, setNote] = useState("");
     const dispatch = useDispatch();
-    const vouchers = useSelector(selectVouchers)
-
+    const vouchers = useSelector(selectVouchers);
+    const orderFail = useSelector(orderError);
 
     const handleModal = () => {
         setCheckModal(!checkModal);
-        
-    }
+    };
 
-    const handleCloseModal = () =>{
-        setCheckOrderFinal(!checkOrderFinal)
-        setVoucherValue()
-
-        clearSelected()
-    }
-
-
+    const handleCloseModal = () => {
+        setCheckOrderFinal(!checkOrderFinal);
+        setVoucherValue();
+        clearSelected();
+    };
 
     const handleModelOrder = () => {
-       if(selectedDrink.length>0){
-        console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() })
-        // console.log("storage: ", JSON.parse(localStorage.getItem("user")).user.idToUpdate)
-        const data ={userId:JSON.parse(localStorage.getItem("user")).user.idToUpdate,total:total()-discount(),orderItems:selectedDrink}
-        dispatch(addOrder(data))
-        
-        setCheckOrderFinal(!checkOrderFinal)
-        console.log("thong tin order: ",data)
-
-       }else{
-        alert("Vui long chon mon !")
-       }
-    }
+        if (selectedDrink.length > 0) {
+            console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() });
+            const data = {
+                userId: JSON.parse(localStorage.getItem("user")).user.idToUpdate,
+                total: total() - discount(),
+                orderItems: selectedDrink
+            };
+            dispatch(addOrder(data));
+            toast.error('Ingredient not enough', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            console.log("Order info: ", data);
+        } else {
+            alert("Please select a drink!");
+        }
+    };
 
     const handleChose = (tmp) => {
-        setCheckModal(tmp)
-    }
+        setCheckModal(tmp);
+    };
 
     useEffect(() => {
         total();
-        discount()
-    }, [changeCnt])
+        discount();
+    }, [changeCnt]);
+
     const total = () => {
         let sum = 0;
-
         if (selectedDrink) {
             for (let i = 0; i < selectedDrink.length; i++) {
-                sum += (selectedDrink[i].price * selectedDrink[i].quantity)
+                sum += (selectedDrink[i].price * selectedDrink[i].quantity);
             }
         }
         return sum;
-    }
+    };
 
-    const writeNote =(e)=>{
-        console.log(e.target.value)
+    const writeNote = (e) => {
+        console.log(e.target.value);
         setNote(e.target.value);
-    }
+    };
+
     const discount = () => {
         let to = total();
         if (voucherValue) {
             return to * voucherValue.discountPercent / 100;
-
         } else {
             return 0;
         }
-
-    }
-    let arrVoucher = [
-        {
-            id: 1,
-            image: "",
-            discount: 20,
-            title: "Quoc khanh VN"
-        },
-        {
-            id: 2,
-            image: "",
-            discount: 30,
-            title: "Sinh nhat Thinh Phuc"
-        }
-    ]
-
+    };
     return (
         <div>
-            <div className="font-bold text-[#6f4436]  flex items-center justify-center textright textlg">{JSON.parse(localStorage.getItem("user"))?.shop?.name} Coffee</div>
+            <ToastContainer />
+            <div className="font-bold text-[#6f4436]  flex items-center justify-center textright textlg">{JSON.parse(localStorage.getItem("user"))?.shops[0]?.name} Coffee</div>
             <div className="p-2 pt-0 font-bold text-[#be9b7b]  textright textlg">Order</div>
 
             {
