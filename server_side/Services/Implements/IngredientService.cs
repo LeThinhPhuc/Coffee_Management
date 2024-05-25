@@ -20,33 +20,30 @@
         // sai lầm cần rút kinh nghiệm: Phải bind relationship Ingredient -> Shop or User
         public async Task<List<IngredientViewModel>> GetAllByUserIdAsync(string userId)
         {
-            // var ingredients = await Task.FromResult(_context.Ingredients
-            //         // No relationship with Shop or Owner, damn!!!, 5-tables query !
-            //         .Include(i => i.IngredientInDrinks)
-            //             .ThenInclude(iid => iid.Drink)
-            //                 .ThenInclude(d => d.DrinkType)
-            //                     .ThenInclude(dt => dt.Shop)
-            //                         .ThenInclude(s => s.Owner)
-            //         .Where(i => i....)
-            //         .AsEnumerable());
+            // var ingredients = await _context.Ingredients
+            //     // Include IngredientInDrinks relationship
+            //     .Include(i => i.IngredientInDrinks)
+            //         // Include Drink relationship
+            //         .ThenInclude(iid => iid.Drink)
+            //             // Include DrinkType relationship
+            //             .ThenInclude(d => d.DrinkType)
+            //                 // Include Shop relationship
+            //                 .ThenInclude(dt => dt.Shop)
+            //                     // Include Owner relationship
+            //                     .ThenInclude(s => s.Owner)
+            //     // Filter by userId
+            //     .Where(i => i.IngredientInDrinks.Any(iid => iid.Drink.DrinkType.Shop.Owner.Id == userId))
+            //     .ToListAsync();
 
+
+            // after added column ShopId to dbo.Ingredients
             var ingredients = await _context.Ingredients
-                // Include IngredientInDrinks relationship
-                .Include(i => i.IngredientInDrinks)
-                    // Include Drink relationship
-                    .ThenInclude(iid => iid.Drink)
-                        // Include DrinkType relationship
-                        .ThenInclude(d => d.DrinkType)
-                            // Include Shop relationship
-                            .ThenInclude(dt => dt.Shop)
-                                // Include Owner relationship
-                                .ThenInclude(s => s.Owner)
-                // Convert to IEnumerable for further filtering
-                // .AsEnumerable()
-                // .ToListAsync()
-                // Filter by userId
-                .Where(i => i.IngredientInDrinks.Any(iid => iid.Drink.DrinkType.Shop.Owner.Id == userId))
+                .Include(i => i.Shop)
+                    .ThenInclude(s => s.Owner)
+                // Filter by userId (Ingredient->Shop->User)
+                .Where(i => i.Shop.Owner.Id == userId)
                 .ToListAsync();
+
 
             // string southEastAsiaZoneId = "SE Asia Standard Time";
 
@@ -90,25 +87,25 @@
             return mappedIngredientVm;
         }
 
-       public async Task<Ingredient> CreateAsync(CreateUpdateIngredientModel model)
+       public async Task<Ingredient> CreateAsync(CreateUpdateIngredientModel model, string userId)
        {
             // Nhóm đã thống nhất không handle upload & save file ảnh trên server !!!
-            // // Save the image file and get the image URL or file path
+            // Save the image file and get the image URL or file path
             // string imageUrl = await SaveImageAsync(imageFile);
 
-            // // Set the Image property of the ingredient
-            // ingredient.Image = imageUrl;
-
-            // _context.Ingredients.Add(ingredient);
-            // await _context.SaveChangesAsync();
-            // return ingredient;
+            // Ingredient has relationship with Shop, not Owner, and Owner now still able to have multiple Shops.
+            // Get his first Shop 
+            var firstShopOfUser = await _context.Shops
+                    .Where(s => s.OwnerId == userId)
+                    .FirstOrDefaultAsync();
 
             var ingre = new Ingredient
             {
                 Name = model.Name,
                 Amount = model.Amount,
                 ExpiryDate = model.ExpiryDate,
-                Image = model.ImagePath
+                Image = model.ImagePath,
+                ShopId = firstShopOfUser.Id
             };
 
             _context.Ingredients.Add(ingre);
