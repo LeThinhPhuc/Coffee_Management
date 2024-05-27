@@ -7,11 +7,13 @@ import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrder } from "../../../redux/Action/orderAction";
+import { addOrder, fetchOrders } from "../../../redux/Action/orderAction";
 import { selectVouchers } from "../../../redux/Reducer/voucherSlice";
 import { orderError } from "../../../redux/Reducer/orderSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchIngredients } from "../../../redux/Action/ingredientAction";
+import orderService from "../../../services/orderService";
 
 const RightOrderPage = () => {
     const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected, setVoucherValue } = useContext(MenuContext);
@@ -33,7 +35,7 @@ const RightOrderPage = () => {
         clearSelected();
     };
 
-    const handleModelOrder = () => {
+    const handleModelOrder = async () => {
         if (selectedDrink.length > 0) {
             console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() });
             const data = {
@@ -41,17 +43,26 @@ const RightOrderPage = () => {
                 total: total() - discount(),
                 orderItems: selectedDrink
             };
-            dispatch(addOrder(data));
-            toast.error('Ingredient not enough', {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            console.log("Order info: ", data);
+            // dispatch(addOrder(data));
+
+            try {
+                const res = await orderService.postOrder(data);
+                console.log("loi",res?.message)
+                 dispatch(fetchIngredients())
+                 dispatch(fetchOrders())
+                 setCheckOrderFinal(!checkOrderFinal)
+            } catch (error) {
+                toast.error('Ingredient not enough', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                console.error('Error placing order:', error);
+            }
         } else {
             alert("Please select a drink!");
         }
