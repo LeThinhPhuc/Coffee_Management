@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import '../../../../App.css'
 import { MenuContext } from "../../../../context/MenuContext";
+import { formatCurrency } from "../../../../utils/utils";
 const CardItem = ({ items }) => {
     const [checkTheme, setCheckTheme] = useState(false);
     const { addSelectedDrink, deleteOutSelected, selectedDrink } = useContext(MenuContext);
@@ -36,7 +37,7 @@ const CardItem = ({ items }) => {
                 {items.name}
             </div>
             <div className={`absolute bottom-1 left-0 w-full text-[vw] text-center text-[#3c2f2f] textbase ${checkTheme ? '' : 'font-semibold'} ${checkTheme ? 'text-white' : ''}`}>
-                {items.price} VND
+                {formatCurrency(items.price)}
             </div>
         </div>
     </div>

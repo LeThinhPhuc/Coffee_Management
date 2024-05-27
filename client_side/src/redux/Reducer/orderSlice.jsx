@@ -33,5 +33,5 @@ export const {
     fetchOrderSuccess
 } = orderSlice.actions;
 export const selectOrders = state => state.order.orders;
-export const orderError = state => state.error;
+export const orderError = state => state.order.error;
 export default orderSlice.reducer;

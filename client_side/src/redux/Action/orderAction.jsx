@@ -1,36 +1,18 @@
+import { useContext } from "react";
 import orderService from "../../services/orderService";
 import { addOrderFailure, addOrderSuccess, fetchOrderSuccess } from "../Reducer/orderSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 export const addOrder = (OrderData) => {
     return async (dispatch) => {
         try {
             console.log('order data: ', OrderData);
             const res = await orderService.postOrder(OrderData);
-            // toast.success('Order placed successfully!', {
-            //     position: "top-left",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // });
             dispatch(fetchOrders());
         } catch (error) {
             dispatch(addOrderFailure(error.message))
 
             console.error('Error placing order:', error);
-            // toast.error('Ingredient not enough', {
-            //     position: "top-left",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // });
         }
     };
 };

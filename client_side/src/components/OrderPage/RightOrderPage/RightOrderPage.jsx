@@ -7,11 +7,14 @@ import { MenuContext } from "../../../context/MenuContext";
 import CardVoucher from "./CardVoucher/CardVoucher";
 import BillItem from "./BillItem/BillItem";
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrder } from "../../../redux/Action/orderAction";
+import { addOrder, fetchOrders } from "../../../redux/Action/orderAction";
 import { selectVouchers } from "../../../redux/Reducer/voucherSlice";
 import { orderError } from "../../../redux/Reducer/orderSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchIngredients } from "../../../redux/Action/ingredientAction";
+import orderService from "../../../services/orderService";
+import { formatCurrency } from "../../../utils/utils";
 
 const RightOrderPage = () => {
     const { selectedDrink, addSelectedDrink, checkModalVoucher, setCheckModalVoucher, voucherValue, clearSelected, setVoucherValue } = useContext(MenuContext);
@@ -22,6 +25,7 @@ const RightOrderPage = () => {
     const dispatch = useDispatch();
     const vouchers = useSelector(selectVouchers);
     const orderFail = useSelector(orderError);
+    const store = JSON.parse(localStorage.getItem("user")).shops[0]
 
     const handleModal = () => {
         setCheckModal(!checkModal);
@@ -33,7 +37,7 @@ const RightOrderPage = () => {
         clearSelected();
     };
 
-    const handleModelOrder = () => {
+    const handleModelOrder = async () => {
         if (selectedDrink.length > 0) {
             console.log("bill order: ", { selectedDrink: selectedDrink, total: total() - discount() });
             const data = {
@@ -41,17 +45,26 @@ const RightOrderPage = () => {
                 total: total() - discount(),
                 orderItems: selectedDrink
             };
-            dispatch(addOrder(data));
-            toast.error('Ingredient not enough', {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            console.log("Order info: ", data);
+            // dispatch(addOrder(data));
+
+            try {
+                const res = await orderService.postOrder(data);
+                console.log("loi", res?.message)
+                dispatch(fetchIngredients())
+                dispatch(fetchOrders())
+                setCheckOrderFinal(!checkOrderFinal)
+            } catch (error) {
+                toast.error('Ingredient not enough', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                console.error('Error placing order:', error);
+            }
         } else {
             alert("Please select a drink!");
         }
@@ -89,6 +102,7 @@ const RightOrderPage = () => {
             return 0;
         }
     };
+    var today = new Date();
     return (
         <div>
             <ToastContainer />
@@ -100,44 +114,38 @@ const RightOrderPage = () => {
                     return <OrderItem key={item?.id} changeCnt={changeCnt} setChangeCnt={setChangeCnt} items={item}></OrderItem>
                 })
             }
-            
 
 
-            <div className="flex justify-center items-center">
-                <div onClick={handleModal} className="flex justify-center items-center margin-[0 auto] cursor-pointer p-5 border-2 mx-2 text-[vw] max-w-[300px] min-w-[100px] textbase rounded-md ">% Apply Discount Voucher</div>
 
-            </div>
-            {
-                voucherValue ? <CardVoucher val={voucherValue} /> : ""
-            }
-
-
-            <div className="flex items-center justify-center">
-                <div className="w-[25vw]">
-                    <div className="text-[vw]">Payment Summary</div>
-                    <div className="flex justify-between text-[vw]">
-                        <div>
-                            <div>Price</div>
-                            <div>Discount</div>
-                        </div>
-                        <div className="flex flex-col items-end">
-                            <div>{total()}$</div>
-                            <div>{discount()}$</div>
-                        </div>
-
-                    </div>
-                    <hr className="border-[1.2px] border-black my-5" />
-                    <div className="flex justify-between text-[vw]">
-                        <div>
-                            <div>Total payment</div>
-                        </div>
-                        <div className="flex flex-col items-end">
-                            <div>{total() - discount()}$</div>
-                        </div>
-
-                    </div>
+            <div className="flex flex-col items-center space-y-8">
+                <div onClick={handleModal} className="flex justify-center items-center cursor-pointer p-4 border-2 border-[#be9b7b] text-[#be9b7b] hover:bg-[#be9b7b] hover:text-white transition duration-300 mx-auto text-lg max-w-xs min-w-[100px] rounded-md">
+                    % Apply Discount Voucher
                 </div>
 
+                {voucherValue ? <CardVoucher val={voucherValue} /> : null}
+
+                <div className="flex items-center justify-center w-full">
+                    <div className="w-[90%] max-w-lg bg-white p-6 rounded-lg shadow-md">
+                        <div className="text-2xl font-semibold mb-4 text-center">Payment Summary</div>
+                        <div className="flex justify-between text-lg mb-2">
+                            <div>
+                                <div className="mb-1">Price</div>
+                                <div>Discount</div>
+                            </div>
+                            <div className="flex flex-col items-end">
+                                <div className="mb-1">{formatCurrency(total())}</div>
+                                <div>{formatCurrency(discount())}</div>
+                            </div>
+                        </div>
+                        <hr className="border-gray-300 my-4" />
+                        <div className="flex justify-between text-lg font-semibold">
+                            <div>Total payment</div>
+                            <div className="flex items-end">
+                                <div>{formatCurrency(total() - discount())}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div onClick={handleModelOrder} className="flex justify-center items-center pt-5">
@@ -149,11 +157,12 @@ const RightOrderPage = () => {
                     <div className="fixed inset-0 z-[999] grid place-items-center bg-black bg-opacity-60 opacity-100 backdrop-blur-sm">
                         <div className="relative m-4 w-1/4 min-w-[25%] max-w-[25%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl">
                             <div className="flex items-center justify-between p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900">
-                                <div>
-                                    <h1 className="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                                        BILL
-                                    </h1>
-                                </div>
+                                    <div className="flex flex-col items-center text-center">
+                                        <div className="font-bold text-[#6f4436] textxl">
+                                            {store?.name} Coffee
+                                        </div>
+                                      
+                                    </div>
                                 <button onClick={handleCloseModal} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                                     <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
@@ -173,10 +182,6 @@ const RightOrderPage = () => {
                                             return <BillItem items={item}></BillItem>
                                         })
                                     }
-                                    {/* <p
-                                        class="block py-3 font-sans text-base antialiased font-semibold leading-relaxed uppercase text-blue-gray-900 opacity-70">
-                                        Popular
-                                    </p> */}
 
                                     <div className="flex justify-between pr-2 pl-2 pb-3">
                                         <div className="flex items-center justify-center">
@@ -186,8 +191,7 @@ const RightOrderPage = () => {
                                         </div>
 
                                         <div className="flex items-center ">
-                                            <div className="p-2">{total()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
-                                            {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
+                                            <div className="p-2">{formatCurrency(total())}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
                                         </div>
                                     </div>
 
@@ -199,8 +203,7 @@ const RightOrderPage = () => {
                                         </div>
 
                                         <div className="flex items-center ">
-                                            <div className="p-2">{discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
-                                            {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
+                                            <div className="p-2">{formatCurrency(discount())}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
                                         </div>
                                     </div>
                                     <div className="flex justify-between pr-2 pl-2 pb-3">
@@ -211,10 +214,14 @@ const RightOrderPage = () => {
                                         </div>
 
                                         <div className="flex items-center ">
-                                            <div className="p-2">{total() - discount()}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
+                                            <div className="p-2">{formatCurrency(total() - discount())}</div> {/* Sử dụng cnt để hiển thị giá trị soluong */}
                                             {/* <button onClick={()=>{deleteOutSelected(items)}} className="font-bold text-red-500 pl-2 text-[2vw]">x</button> */}
                                         </div>
                                     </div>
+                                    <p className="text-sm text-gray-500">
+                                            Address: {store?.address}
+                                        </p>
+                                        <p className="text-sm text-gray-500">Bill created at: {today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear() + " at " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()}</p>
                                 </div>
 
                             </div>
@@ -231,10 +238,10 @@ const RightOrderPage = () => {
                         <div className="flex items-center justify-between p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900">
                             <div>
                                 <h5 className="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                                    Connect a Wallet
+                                    Choose a Voucher
                                 </h5>
                                 <p className="block font-sans text-base antialiased font-light leading-relaxed text-gray-700">
-                                    Choose which card you want to connect
+                                    Choose which Voucher you want to discount
                                 </p>
                             </div>
                             <button onClick={handleModal} className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">

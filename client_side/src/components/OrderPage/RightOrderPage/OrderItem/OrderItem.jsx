@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { MenuContext } from "../../../../context/MenuContext";
 import { Input } from "@material-tailwind/react";
+import { formatCurrency } from "../../../../utils/utils";
 
 const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
     const { deleteOutSelectedOnOrder , selectedDrink} = useContext(MenuContext);
@@ -38,7 +39,7 @@ const OrderItem = ({ items, setChangeCnt, changeCnt }) => {
                 <img className="w-[4vw] h-[5vw] rounded-lg" src={items?.imagePath} alt="Coffee" />
                 <div className="pl-2">
                     <div className="font-bold text-[#6f4436]">{items.name}</div>
-                    <div>{items.price * cnt} VND</div>
+                    <div>{formatCurrency(items.price * cnt)}</div>
                     <input
     onChange={(e) => handleChange(e)}
     placeholder="Note here !"
