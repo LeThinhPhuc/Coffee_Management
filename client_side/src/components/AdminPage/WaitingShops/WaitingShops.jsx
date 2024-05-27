@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import "./WaitingShops.css"
 
 const WaitingShops = () => {
+    const user = localStorage.getItem("user");
+    const parsedUser = JSON.parse(user);
     const dispatch = useDispatch();
     const shops = useSelector(selectShops);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,7 +44,7 @@ const WaitingShops = () => {
         <div>
             {shops?.filter((item) => item.isApproved == false)?.map((item) => {
                 return (
-                    <div key={item?.id} className="cursor-pointer outline-cyan-500 outline-1 bg-[white] outline flex p-6 drop-shadow-[0px_8px_30px_#DEE6F1] border-t first:border-b-[#C5CEE0] last:border-b hover:border-transparent hover:border-0 hover:rounded-2xl hover:shadow-[0px_8px_30px_#DEE6F1] transition-all duration-200">
+                    <div key={item?.id} className="mt-3 cursor-pointer outline-cyan-500 outline-1 bg-[white] outline flex p-6 drop-shadow-[0px_8px_30px_#DEE6F1] border-t first:border-b-[#C5CEE0] last:border-b hover:border-transparent hover:border-0 hover:rounded-2xl hover:shadow-[0px_8px_30px_#DEE6F1] transition-all duration-200">
                         <div className="w-full flex flex-row justify-between items-center">
                             <div className="w-4/5">
                                 <div className="text-lg leading-5 md:leading-6 md:text-xl font-semibold mb-2">
@@ -64,6 +66,10 @@ const WaitingShops = () => {
                     </div>
                 );
             })}
+            {(shops && shops.filter((item) => !item.isApproved).length === 0) && (
+                <div className='pt-5 pl-10 font-bold text-lg text-rose-700'>There are currently no stores pending approval !</div>
+            )}
+
 
             <Modal
                 isOpen={isModalOpen}

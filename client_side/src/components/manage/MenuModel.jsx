@@ -54,7 +54,7 @@ const MenuModel = (props) => {
 
     //* from drink select ingredients
     const ingredients = useSelector(selectIngredients); //* data từ db
-    const [ingreSelected, setIngreSelected] = useState(ingredients[0].id || ""); //* ingre select ở form
+    const [ingreSelected, setIngreSelected] = useState(ingredients[0]?.id || ""); //* ingre select ở form
     const [ingreAmount, setIngreAmount] = useState(1); //* số lượng cho ingre đó
     const [ingreArray, setIngreArray] = useState([]); //* array để lưu vào db
     useEffect(() => {
