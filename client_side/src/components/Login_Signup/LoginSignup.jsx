@@ -185,8 +185,8 @@ const LoginSignup = () => {
                 </div>
                 {action === "Sign Up" ? null : (
                     <div className="forgot_password">
-                        Forgot Password?
-                        <span onClick={() => toast.info('Feature not implemented yet.')}>Click here</span>
+                        {/* Forgot Password?
+                        <span onClick={() => toast.info('Feature not implemented yet.')}>Click here</span> */}
                         <button
                             className="btn_login"
                             onClick={doLogin}
